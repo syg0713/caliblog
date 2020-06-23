@@ -1,6 +1,7 @@
 import React from 'react';
 import AppLayout from "../components/AppLayout";
-import './index.scss';
+import './signup/index.scss';
+import './post/index.scss';
 
 const CaliBlog = ({ Component, store, pageProps }) => {
     console.log(Component +'1');
