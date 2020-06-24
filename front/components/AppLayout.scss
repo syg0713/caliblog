@@ -1,4 +1,25 @@
 
-.wrapper{
+.nav{
     display: flex;
+    .home{
+        a{
+            font : 500 17px/17px 'Noto Sans KR', sans-serif;
+            color:#000;
+        }
+    }
+    .profile{
+        a{
+            font : 500 17px/17px 'Noto Sans KR', sans-serif;
+            color:#000;
+        }
+    }
+}
+.content{
+    display: flex;
+    .private{
+        justify-content: space-between;
+    }
+    .render{
+        justify-content: space-between;
+    }
 }

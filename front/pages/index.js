@@ -4,8 +4,7 @@ import Link from "next/link";
 const Home = () => {
     return (
         <>
-            <Link href="/post/post"><a>post</a></Link>
-            <Link href="/signup/signup"><a>signup</a></Link>
+            홈
         </>
     );
 };

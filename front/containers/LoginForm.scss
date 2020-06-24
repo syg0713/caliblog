@@ -1,0 +1,11 @@
+.private{
+    form{
+        input{
+            display: block;
+        }
+        .identity, .password{
+            font : 400 15px/15px 'Noto Sans KR', sans-serif;
+            color:#000;
+        }
+    }
+}
