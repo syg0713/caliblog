@@ -4,19 +4,18 @@ import PropTypes from "prop-types";
 import withRedux from 'next-redux-wrapper';
 import { Provider } from "react-redux";
 import { createStore, compose, applyMiddleware } from 'redux';
+import createSagaMiddleware from "redux-saga";
 import reducer from "../reducers";
+import rootSaga from "../sagas";
 import Helmet from "react-helmet";
-import './signup/index.scss';
-import './post/index.scss';
-import './index.scss';
-
+import './common.scss';
 
 const CaliBlog = ({ Component, store }) => {
-    console.log(Component +'1');
+    // console.log(Component +'1');
     return (
         <Provider store={store}>
             <Helmet
-                title="Cali blog"
+                title="CaliBlog"
                 htmlAttributes={{ lang: "ko" }}
                 meta={[
                     {
@@ -33,15 +32,15 @@ const CaliBlog = ({ Component, store }) => {
                     },
                     {
                     name: "description",
-                    content: "Cali blog",
+                    content: "CaliBlog",
                     },
                     {
                     name: "og:title",
-                    content: "Cali blog",
+                    content: "CaliBlog",
                     },
                     {
                     name: "og:description",
-                    content: "Cali blog",
+                    content: "CaliBlog",
                     },
                     {
                     property: "og:type",
@@ -60,7 +59,7 @@ const CaliBlog = ({ Component, store }) => {
                     {
                         rel: "stylesheet",
                         href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-                    }
+                    },
                 ]}
             />
             <AppLayout>
@@ -75,8 +74,10 @@ CaliBlog.propTypes = {
     store: PropTypes.object.isRequired,
   };
 
+// 미들웨어를 달아줘야 브라우저에서 리덕스 상태를 확인 가능하다
 export default withRedux(( initialState, options ) => {
-    const middlewares = [];
+    const sagaMiddleware = createSagaMiddleware(); // 사가 미들웨어 아래 미들웨어에 넣어주기.
+    const middlewares = [sagaMiddleware];
     const enhancer =
     process.env.NODE_ENV === "production"
       ? compose(applyMiddleware(...middlewares))
@@ -88,6 +89,7 @@ export default withRedux(( initialState, options ) => {
           : (f) => f
       );
     const store = createStore(reducer, initialState, enhancer);
+    store.sagaTask = sagaMiddleware.run(rootSaga); // 리덕스를 사가태스크로 연결하여 사가미들웨어로 사가를 실행.
     return store;
 })(CaliBlog);
 

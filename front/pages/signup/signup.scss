@@ -1,0 +1,17 @@
+.signup{
+    form{
+        padding:0.5rem;
+        .custom-input{
+            margin: 5px 0 10px;
+            width:75%;
+            display:block;
+        }
+        .custom-button{
+        }
+        .term{
+            margin:10px 0;
+        }
+    }
+    @media (min-width: 768px){
+    }
+}

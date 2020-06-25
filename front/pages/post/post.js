@@ -1,5 +1,6 @@
 import React from 'react';
-// import './index.scss';
+import './post/post.scss';
+
 
 const Post = () => {
     return (

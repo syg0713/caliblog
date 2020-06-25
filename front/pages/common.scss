@@ -1,0 +1,59 @@
+/*Common_CSS*/
+*{
+    margin: 0; padding: 0;
+}
+a{
+    text-decoration: none; letter-spacing: 0em;
+}
+ul,ol{
+    list-style: none;
+}
+.custom-button{
+    font: 400 16px/16px 'Noto Sans KR', sans-serif;
+    width:98px;
+    height: 32px;
+    outline: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #1890ff;
+    touch-action: manipulation;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    white-space: nowrap;
+    transition: all 0.2s;
+    cursor: pointer;
+    -webkit-appearance: button;
+    vertical-align: middle;
+    &:hover{
+        background: #188fffc2;
+    }
+}
+.custom-input{
+    font: 400 16px/16px 'Noto Sans KR', sans-serif;
+    text-indent: 10px;
+    height: 32px;
+    outline: 0;
+    border:1px solid #ccc;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    box-sizing: border-box;
+    white-space: nowrap;
+    vertical-align: middle;
+    transition: all 0.2s;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+}
+.navigation{
+}
+.private-menu{
+    width:100%;
+    @media (min-width: 768px){
+        width:25%;
+    }
+}
+.main{
+    @media (min-width: 768px){
+        width:85%;
+    }
+}

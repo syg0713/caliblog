@@ -1,17 +1,53 @@
-
-.nav{
+// 헤더(네비게이션)
+.navigation{
     display: flex;
-    .home,.profile{
+    justify-content: space-around;
+    border-bottom: 1px solid #ccc;
+    @media (min-width: 768px){
+        justify-content: unset;
+    }
+    // 홈버튼 및 프로필 버튼 CSS
+    .home,
+    .profile{
+        padding: 0.5rem 1rem;
+        white-space: nowrap;
         a{
-            font : 500 17px/17px 'Noto Sans KR', sans-serif;
-            color:#000;
+            font : 400 16px/16px 'Noto Sans KR', sans-serif;
+            color:rgb(19, 19, 19);
+            vertical-align: middle;
+        }
+    }
+    .home{
+        padding-right:0;
+    }
+    // 검색창 버튼 CSS
+    .search{
+        padding: 0.5rem 0;
+        white-space: nowrap;
+        .custom-input{
+            border-radius: 4px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            font : 400 10px/10px 'Noto Sans KR', sans-serif;
+            width:50%;
+        }
+        .custom-button{
+            padding:0.5rem 1.5rem;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            width:initial;
+        }
+        @media (min-width: 768px){
+            .custom-input{
+                width:100%;
+            }
         }
     }
 }
+// 섹션(컨텐츠)
 .content{
-    display: flex;
-    .private{
-    }
-    .render{
+    display: block;
+    @media (min-width: 768px){
+        display: flex;
     }
 }

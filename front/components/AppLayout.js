@@ -10,24 +10,24 @@ const AppLayout = ({ children }) => {
   const [ me, setMe ] = useState('');
   return (
     <>
-      <div className="nav">
+      <header className="navigation" role="header">
         <div className="home"><Link href="/"><a>HOME</a></Link></div>
         <div className="profile"><Link href="/profile/profile"><a>프로필</a></Link></div>
         <div className="search">
-          <input type="text" placeholder="검색어를 입력해주세요."/>
-          <button>검색</button>
+          <input type="text" placeholder="검색어를 입력해주세요." className="custom-input"/>
+          <button className="custom-button">검색</button>
         </div>
-      </div>
-      <div className="content">
-        <div className="private">
+      </header>
+      <section className="content">
+        <div className="private-menu">
           {me
           ? <UserProfile />
           : <LoginForm />}
         </div>
-        <div className="render">
+        <div className="main" role="main">
           {children}
         </div>
-      </div>
+      </section>
     </>
   );
 };
