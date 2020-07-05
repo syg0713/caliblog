@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { SIGN_UP_REQUEST } from '../../reducers/user';
 import './signup.scss';
 
 // 커스텀 훅
@@ -15,9 +17,10 @@ const Signup = () => {
     const [ password, onChangePassword ] = useInput('');
     const [ passwordCheck, onChangePasswordCheck ] = useInput('');
     const [ term, onChangeTerm ] = useInput('');
+    const dispatch = useDispatch();
+    // const { isSigningUp } = useSelector( state => state.user );
 
     // 커스텀 훅으로 코드 줄임
-
     // const [ id, setId ] = useState('');
     // const [ password, setPassword ] = useState('');
     // const [ passwordCheck, setPasswordCheck ] = useState('');
@@ -25,7 +28,6 @@ const Signup = () => {
     // const onChangeId = e => {
     //     setId(e.target.value);
     // };
-
     // const onChangePassword = e => {
     //     setPassword(e.target.value);
     // };
@@ -36,24 +38,27 @@ const Signup = () => {
     //     setTerm(e.target.value);
     // };
 
-    const onSubmit = (e) => {
+    const onSubmit = useCallback((e) => {
         e.preventDefault();
+        dispatch({
+            type: SIGN_UP_REQUEST,
+        })
+        // console.log({
+        //     id,
+        //     password,
+        //     passwordCheck,
+        //     term,
+        // });
+    })
+
+    useEffect(() => {
         console.log({
             id,
             password,
             passwordCheck,
             term,
         });
-    }
-
-    // useEffect(() => {
-    //     console.log({
-    //         id,
-    //         password,
-    //         passwordCheck,
-    //         term,
-    //     });
-    //   }, [id,password,passwordCheck,term]);
+      }, [id,password,passwordCheck,term]);
 
 
 

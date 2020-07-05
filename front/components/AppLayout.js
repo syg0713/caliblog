@@ -4,10 +4,11 @@ import './AppLayout.scss';
 import UserProfile from '../containers/UserProfile';
 import LoginForm from '../containers/LoginForm';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 
 const AppLayout = ({ children }) => {
-  const [ me, setMe ] = useState('');
+  const { me } = useSelector( state => state.user );
   return (
     <>
       <header className="navigation" role="header">

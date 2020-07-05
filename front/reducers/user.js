@@ -11,14 +11,53 @@ export const initialState = {
   userInfo: null, // 남의 정보
 };
 
+const dummy = {
+    nickname: "admin",
+}
+
+export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'; // 액션의 이름
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'; // 액션의 이름
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE'; // 액션의 이름
 
+export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
+export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
 export default ( state = initialState, action ) => {
+    console.log(action.data);
     return produce( state, (draft ) => {
         switch ( action.type ) {
+            // immer 안쓸때
+            // case SIGN_IN_REQUEST: {
+            //     return {
+            //         ...state,
+            //         isSignedUp: false,
+            //         isSigningUp: true,
+            //         signUpErrorReason: '',
+            //     };
+            // }
+            case SIGN_UP_REQUEST: {
+                draft.isSigningUp = true;
+                draft.isSignedUp = false;
+                draft.signUpErrorReason = '';
+                break;
+            }
+            case SIGN_UP_SUCCESS: {
+                draft.isSigningUp = false;
+                draft.isSignedUp = true;
+                break;
+            }
+            case SIGN_UP_FAILURE: {
+                draft.isLoggingIn = false;
+                draft.isSignedUp = false;
+                draft.signUpErrorReason = action.reason;
+                draft.me = null;
+                break;
+            }
             case LOG_IN_REQUEST: {
                 draft.isLoggingIn = true;
                 draft.logInErrorReason = '';
@@ -26,8 +65,8 @@ export default ( state = initialState, action ) => {
             }
             case LOG_IN_SUCCESS: {
                 draft.isLoggingIn = false;
-                draft.logInErrorReason = '';
-                draft.me = action.data;
+                // draft.me = action.data;
+                draft.me = dummy;
                 break;
             }
             case LOG_IN_FAILURE: {
@@ -36,7 +75,15 @@ export default ( state = initialState, action ) => {
                 draft.me = null;
                 break;
             }
-            
+            case LOG_OUT_REQUEST: {
+                draft.isLoggingOut = true;
+                break;
+            }
+            case LOG_OUT_SUCCESS: {
+                draft.isLoggingOut = false;
+                draft.me = null;
+                break;
+            }
             default: {
                 break;
             }
