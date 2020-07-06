@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from 'next/link';
 import { LOG_IN_REQUEST } from '../reducers/user';
 import './LoginForm.scss';
-import { useInput } from "../pages/signup/signup";
+import { useInput } from "../pages/signup";
 
 
 const LoginForm = () => {
@@ -35,7 +35,7 @@ const LoginForm = () => {
             </div>
             <div className="buttons">
                 <button type="submit" className="custom-button">로그인</button>
-                <Link href="/signup/signup"><a><button className="custom-button">회원가입</button></a></Link>
+                <Link href="/signup"><a><button className="custom-button">회원가입</button></a></Link>
             </div>
         </form>
     );

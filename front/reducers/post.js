@@ -7,7 +7,8 @@ export const initialState = {
             id: 1,
             name: '서영규',
         },
-        content: '디폴트 게시글',
+        title: '더미 제목',
+        content: '더미 내용',
         img: 'https://images.immediate.co.uk/production/volatile/sites/3/2019/06/ST3-Production-Still-1-f51cc28.jpg?webp=true&quality=90&resize=620%2C413',
     }],
     // mainPosts: [],
@@ -35,7 +36,8 @@ const dummyPost = {
       id: 1,
       name: '서영규',
     },
-    content: '더미 데이터.',
+    title: '더미 제목',
+    content: '더미 내용',
 }
 
 

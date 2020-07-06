@@ -15,6 +15,9 @@ const PostCard = ({ post }) => {
                 <img src={ post.img } alt=""/>
             </div>
             <div>
+                { post.title }
+            </div>
+            <div>
                 { post.content }
             </div>
         </div>

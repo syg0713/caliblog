@@ -14,11 +14,13 @@ import {
 
 
 function signUpAPI(signUpData) {
-    return axios.post("/signup");
+    return axios.post("http://localhost:8080/api/user/", signUpData);
 }
 function* signUp(action) {
+    console.log(action)
     try {
-        yield delay(2000);
+        yield call(signUpAPI, action.data);
+        console.log('test');
         yield put({
             type: SIGN_UP_SUCCESS,
         });
@@ -26,7 +28,8 @@ function* signUp(action) {
         console.error(e);
         yield put({
             type: SIGN_UP_FAILURE,
-            reason: e.response && e.response.data,
+            // reason: e.response && e.response.data,
+            error: e,
         });
     }
 }

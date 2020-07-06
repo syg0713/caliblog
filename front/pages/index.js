@@ -26,7 +26,7 @@ const Home = () => {
     // },[postAdded])
     return (
         <>
-            <button type="button" onClick={onTogglePost}>글 쓰기</button>
+            <button type="button" onClick={onTogglePost} className="custom-button">글 쓰기</button>
             {/* { me && postFormOpened && (
                 <PostForm />
             )} */}

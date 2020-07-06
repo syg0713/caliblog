@@ -13,7 +13,7 @@ const AppLayout = ({ children }) => {
     <>
       <header className="navigation" role="header">
         <div className="home"><Link href="/"><a>HOME</a></Link></div>
-        <div className="profile"><Link href="/profile/profile"><a>프로필</a></Link></div>
+        <div className="profile"><Link href="/profile"><a>프로필</a></Link></div>
         <div className="search">
           <input type="text" placeholder="검색어를 입력해주세요." className="custom-input"/>
           <button className="custom-button">검색</button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { SIGN_UP_REQUEST } from '../../reducers/user';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 import './signup.scss';
 
 // 커스텀 훅
@@ -13,10 +13,13 @@ export const useInput = (initValue = null) => {
 };
 
 const Signup = () => {
+    const [passwordCheck, setPasswordCheck] = useState("");
+    const [term, setTerm] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [termError, setTermError] = useState(false);
+
     const [ id, onChangeId ] = useInput('');
     const [ password, onChangePassword ] = useInput('');
-    const [ passwordCheck, onChangePasswordCheck ] = useInput('');
-    const [ term, onChangeTerm ] = useInput('');
     const dispatch = useDispatch();
     // const { isSigningUp } = useSelector( state => state.user );
 
@@ -40,25 +43,38 @@ const Signup = () => {
 
     const onSubmit = useCallback((e) => {
         e.preventDefault();
-        dispatch({
+        if ( password !== passwordCheck ) {
+            return setPasswordError(true);
+        }
+        if ( !term ) {
+            return setTermError(true);
+        }
+        return dispatch({
             type: SIGN_UP_REQUEST,
+            data: {
+                userId: id,
+                password
+            }
         })
-        // console.log({
-        //     id,
-        //     password,
-        //     passwordCheck,
-        //     term,
-        // });
-    })
+    },[ id, password, passwordCheck, term ])
 
-    useEffect(() => {
-        console.log({
-            id,
-            password,
-            passwordCheck,
-            term,
-        });
-      }, [id,password,passwordCheck,term]);
+    const onChangePasswordCheck = useCallback((e) => {
+        setPasswordError(e.target.value !== password);
+        setPasswordCheck(e.target.value);
+    },[password]);
+
+    const onChangeTerm = useCallback((e) => {
+        setTermError(false);
+        setTerm(e.target.checked);
+    },[])
+    // useEffect(() => {
+    //     console.log({
+    //         userId,
+    //         password,
+    //         passwordCheck,
+    //         term,
+    //     });
+    //   }, [id,password,passwordCheck,term]);
 
 
 
@@ -74,11 +90,19 @@ const Signup = () => {
             <div>비밀번호 확인
                 <input type="password" value={passwordCheck} required onChange={onChangePasswordCheck} className="custom-input"/>
             </div>
+            {passwordError && (
+                    <div>비밀번호가 일치하지 않습니다.</div>
+                // <SignupError>비밀번호가 일치하지 않습니다.</SignupError>
+            )}
             <div className="term">
                 <label htmlFor="term__check">
                     <input type="checkbox" name="" value={term} required onChange={onChangeTerm} id="term__check"></input>
                     약관에 동의합니다.
                 </label>
+                {termError && 
+                    <div>약관에 동의하셔야 합니다.</div>
+                    // <SignupError>약관에 동의하셔야 합니다.</SignupError>
+                }
             </div>
             <button type="submit" className="custom-button">가입하기</button>
         </form>
