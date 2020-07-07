@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import Router from 'next/router';
+import './UserProfile.scss';
 
 const UserProfile = () => {
     const { me } = useSelector( state => state.user );
@@ -13,10 +14,10 @@ const UserProfile = () => {
         Router.push('/');
     })
     return (
-        <>
+        <div className="wrap">
          <div className="identification">{ me.userId }</div>
-         <div className="logOut"><button onClick={onLogOut}>로그아웃</button></div>
-        </>
+         <div className="logOut"><button onClick={onLogOut} className="custom-button">로그아웃</button></div>
+        </div>
     );
 };
 

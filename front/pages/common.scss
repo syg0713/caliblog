@@ -53,6 +53,10 @@ ul,ol{
     }
 }
 .main{
+    border-left: 1px solid #ccc;
+    padding: 20px;
+}
+.main{
     @media (min-width: 768px){
         width:85%;
     }

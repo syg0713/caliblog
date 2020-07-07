@@ -16,7 +16,7 @@ const Home = () => {
         if( !me ) {
             alert('로그인이 필요합니다.');
         } else {
-            Router.push('/pages/PostForm');
+            Router.push('/PostForm');
         }
     })
     // useEffect(() => {
