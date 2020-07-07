@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { SIGN_UP_REQUEST } from '../reducers/user';
+import { SIGN_UP_REQUEST, SIGN_UP_DONE } from '../reducers/user';
+import Router from "next/router";
 import './signup.scss';
+import { object } from 'prop-types';
 
 // 커스텀 훅
 export const useInput = (initValue = null) => {
@@ -21,6 +23,7 @@ const Signup = () => {
     const [ id, onChangeId ] = useInput('');
     const [ password, onChangePassword ] = useInput('');
     const dispatch = useDispatch();
+    const { signUpErrorReason, isSignedUp } = useSelector( state => state.user );
     // const { isSigningUp } = useSelector( state => state.user );
 
     // 커스텀 훅으로 코드 줄임
@@ -43,13 +46,15 @@ const Signup = () => {
 
     const onSubmit = useCallback((e) => {
         e.preventDefault();
+        // 패스워드 & 약관 체크
         if ( password !== passwordCheck ) {
             return setPasswordError(true);
         }
         if ( !term ) {
             return setTermError(true);
         }
-        return dispatch({
+        // 회원 가입 요청
+        dispatch({
             type: SIGN_UP_REQUEST,
             data: {
                 userId: id,
@@ -67,14 +72,21 @@ const Signup = () => {
         setTermError(false);
         setTerm(e.target.checked);
     },[])
-    // useEffect(() => {
-    //     console.log({
-    //         userId,
-    //         password,
-    //         passwordCheck,
-    //         term,
-    //     });
-    //   }, [id,password,passwordCheck,term]);
+    useEffect(() => {
+        if (signUpErrorReason.response) {
+            alert('이미 사용중인 아이디입니다.');
+            dispatch({
+                type: SIGN_UP_DONE,
+            })
+        }
+        if( isSignedUp ) {
+            alert("회원가입 했으니 메인페이지로 이동합니다.");
+            Router.push("/");
+            dispatch({
+                type: SIGN_UP_DONE,
+            })
+        }
+    }, [ signUpErrorReason, isSignedUp ]);
 
 
 

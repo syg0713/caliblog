@@ -14,7 +14,7 @@ const UserProfile = () => {
     })
     return (
         <>
-         <div className="identification">{ me.nickname }</div>
+         <div className="identification">{ me.userId }</div>
          <div className="logOut"><button onClick={onLogOut}>로그아웃</button></div>
         </>
     );

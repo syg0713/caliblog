@@ -12,15 +12,14 @@ import {
     LOG_OUT_FAILURE,
 } from "../reducers/user";
 
+axios.defaults.baseURL = 'http://localhost:8080/api';
 
 function signUpAPI(signUpData) {
-    return axios.post("http://localhost:8080/api/user/", signUpData);
+    return axios.post("/user/", signUpData);
 }
 function* signUp(action) {
-    console.log(action)
     try {
         yield call(signUpAPI, action.data);
-        console.log('test');
         yield put({
             type: SIGN_UP_SUCCESS,
         });
@@ -37,19 +36,20 @@ function* watchSignUp() {
     yield takeEvery(SIGN_UP_REQUEST, signUp);
 }
 function logInAPI(loginData) {
-    return axios.post("/login");
-    //     return axios.post("/user/login", loginData, {
-    //         withCredentials: true,
-    //     });
+    // return axios.post("/login");
+    return axios.post("/user/login/", loginData);
+    // return axios.post("/user/login/", loginData, {
+    //     withCredentials: true,
+    // });
 }
 function* logIn(action) {
     try {
-        // const result = yield call(logInAPI, action.data);
-        // yield delay(3000);
+        console.log(action.data);
+        const result = yield call(logInAPI, action.data);
         yield put({
             // put은 dispatch와 동일
             type: LOG_IN_SUCCESS,
-            // data: result.data,
+            data: result.data,
         });
     } catch (e) {
         // LoginAPI 실패

@@ -27,6 +27,8 @@ export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 
+export const SIGN_UP_DONE = 'SIGN_UP_DONE';
+
 export default ( state = initialState, action ) => {
     console.log(action.data);
     return produce( state, (draft ) => {
@@ -40,6 +42,12 @@ export default ( state = initialState, action ) => {
             //         signUpErrorReason: '',
             //     };
             // }
+            case SIGN_UP_DONE: {
+                draft.isSigningUp = false;
+                draft.isSignedUp = false;
+                draft.signUpErrorReason = '';
+                break;
+            }
             case SIGN_UP_REQUEST: {
                 draft.isSigningUp = true;
                 draft.isSignedUp = false;
@@ -54,7 +62,7 @@ export default ( state = initialState, action ) => {
             case SIGN_UP_FAILURE: {
                 draft.isLoggingIn = false;
                 draft.isSignedUp = false;
-                draft.signUpErrorReason = action.reason;
+                draft.signUpErrorReason = action.error;
                 draft.me = null;
                 break;
             }
@@ -65,8 +73,8 @@ export default ( state = initialState, action ) => {
             }
             case LOG_IN_SUCCESS: {
                 draft.isLoggingIn = false;
-                // draft.me = action.data;
-                draft.me = dummy;
+                draft.me = action.data;
+                // draft.me = dummy;
                 break;
             }
             case LOG_IN_FAILURE: {
