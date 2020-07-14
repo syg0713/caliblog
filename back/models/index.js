@@ -11,10 +11,9 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
-
 // 인덱스js에 모델(테이블) 연결.
-db.Image = require('./image')(sequelize, Sequelize);
-db.Hashtag = require('./hashtag')(sequelize, Sequelize);
+// db.Image = require('./image')(sequelize, Sequelize);
+// db.Hashtag = require('./hashtag')(sequelize, Sequelize);
 db.Post = require('./post')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 

@@ -21,7 +21,10 @@ passportConfig();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(expressSession({
   resave: false,
@@ -31,6 +34,7 @@ app.use(expressSession({
     httpOnly: true,
     secure: false, // https를 쓸 때 true
   },
+  name: 'caliblog',
 }));
 app.use(passport.initialize());
 app.use(passport.session());

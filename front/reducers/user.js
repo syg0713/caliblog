@@ -11,9 +11,6 @@ export const initialState = {
   userInfo: null, // 남의 정보
 };
 
-const dummy = {
-    nickname: "admin",
-}
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';

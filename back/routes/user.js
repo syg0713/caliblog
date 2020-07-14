@@ -1,15 +1,22 @@
 const express = require('express');
-const db = require('../models');
-const router = express.Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-router.get('/', ( req, res ) => {
+const db = require('../models');
+const { isLoggedIn } = require('./middleware');
 
-});
+const router = express.Router();
 // router. = epxress = app
 // post, get, patch, put, delete = HTTP API
 // ('/', = REST API
 // , async ( req, res, next ) => {.. = 컨트롤러
+router.get('/', isLoggedIn, (req, res) => { // /api/user/
+  if (!req.user) {
+    return res.status(401).send('로그인이 필요합니다.');
+  }
+  const user = Object.assign({}, req.user.toJSON());
+  delete user.password;
+  return res.json(user);
+});
 router.post('/', async ( req, res, next ) => { // POST /api/user 회원가입
   try {
     const exUser = await db.User.findOne({
@@ -33,41 +40,46 @@ router.post('/', async ( req, res, next ) => { // POST /api/user 회원가입
     return next(e);
   }
 });
-router.post('/login/', ( req, res, next ) => { // POST /api/user/login
-  console.log('이거다');
-
+router.post('/login', (req, res, next) => { // POST /api/user/login
   passport.authenticate('local', (err, user, info) => {
-    console.log( err, user, info );
-    if ( err ) {
+    if (err) {
       console.error(err);
       return next(err);
     }
-    if ( info ) {
+    if (info) {
       return res.status(401).send(info.reason);
     }
     return req.login(user, async (loginErr) => {
-      // try {
-        if ( loginErr ) {
+      try {
+        if (loginErr) {
           return next(loginErr);
         }
         console.log('login success', req.user);
-        const filteredUser = Object.assign({}, user.toJSON());
-        delete filteredUser.password;
-        return res.json(filteredUser);
-        // const fullUser = await db.User.findOne({
-        //   where: { id: user.id },
-        //   include: [{
-        //     model: db.Post,
-        //     as: 'Posts',
-        //     attributes: ['id'],
-        //   }],
-        //   attributes: ['id','userId'],
-        // });
-        // console.log(fullUser);
-        // return res.json(fullUser);
-      // } catch (e) {
-      //   next(e);
-      // }
+        // const filteredUser = Object.assign({}, user.toJSON());
+        // delete filteredUser.password;
+        // return res.json(filteredUser);
+        const fullUser = await db.User.findOne({
+          where: { id: user.id },
+          // include: [{
+          //   model: db.Post,
+          //   as: 'Posts',
+          //   attributes: ['id'],
+          // }, {
+          //   model: db.User,
+          //   as: 'Followings',
+          //   attributes: ['id'],
+          // }, {
+          //   model: db.User,
+          //   as: 'Followers',
+          //   attributes: ['id'],
+          // }],
+          // attributes: ['id', 'nickname', 'userId'],
+        });
+        console.log(fullUser);
+        return res.json(fullUser);
+      } catch (e) {
+        next(e);
+      }
     });
   })(req, res, next);
 });

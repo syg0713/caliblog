@@ -37,10 +37,12 @@ function* watchSignUp() {
 }
 function logInAPI(loginData) {
     // return axios.post("/login");
-    return axios.post("/user/login/", loginData);
-    // return axios.post("/user/login/", loginData, {
-    //     withCredentials: true,
-    // });
+    // return axios.post("/user/login/", loginData);
+    // 서버와 도메인이 다르면 프론트에서 쿠키를 받을수 없다.(cors 문제)
+    // 그래서 프론트(axios)에서 withCredentials를 설정하고 백엔드에서 cors 부분도 설정해준다.
+    return axios.post("/user/login/", loginData, {
+        withCredentials: true,
+    });
 }
 function* logIn(action) {
     try {
