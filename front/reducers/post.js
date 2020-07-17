@@ -15,6 +15,8 @@ export const initialState = {
     addPostErrorReason: '',
     isAddingPost: false,
     postAdded: false,
+    isLoadingPost: false,
+    postLoaded: false,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -24,6 +26,10 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
 export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+
+export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
+export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
+export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
 
 export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
 export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
@@ -61,6 +67,24 @@ export default ( state = initialState, action ) => {
                 draft.isAddingPost = true;
                 draft.addingPostErrorReason = '';
                 draft.postAdded = false;
+                break;
+            }
+            case LOAD_POST_REQUEST: {
+                draft.isLoadingPost = true;
+                draft.postLoaded = false;
+                draft.addingPostErrorReason = '';
+                break;
+            }
+            case LOAD_POST_SUCCESS: {
+                draft.isLoadingPost = false;
+                draft.postLoaded = true;
+                // draft.mainPosts = [dummyPost, ...state.mainPosts]
+                break;
+            }
+            case LOAD_POST_FAILURE: {
+                draft.isLoadingPost = true;
+                draft.postLoaded = false;
+                draft.addingPostErrorReason = '';
                 break;
             }
             default: {

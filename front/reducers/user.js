@@ -27,7 +27,7 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 export const SIGN_UP_DONE = 'SIGN_UP_DONE';
 
 export default ( state = initialState, action ) => {
-    console.log(action.data);
+    // console.log(action.data);
     return produce( state, (draft ) => {
         switch ( action.type ) {
             // immer 안쓸때
