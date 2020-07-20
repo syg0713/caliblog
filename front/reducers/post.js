@@ -1,17 +1,17 @@
 import produce from 'immer';
 
 export const initialState = {
-    mainPosts: [{
-        id: 1,
-        User: {
-            id: 1,
-            name: '서영규',
-        },
-        title: '더미 제목',
-        content: '더미 내용',
-        img: 'https://images.immediate.co.uk/production/volatile/sites/3/2019/06/ST3-Production-Still-1-f51cc28.jpg?webp=true&quality=90&resize=620%2C413',
-    }],
-    // mainPosts: [],
+    // mainPosts: [{
+    //     id: 1,
+    //     User: {
+    //         id: 1,
+    //         name: '서영규',
+    //     },
+    //     title: '더미 제목',
+    //     content: '더미 내용',
+    //     img: 'https://images.immediate.co.uk/production/volatile/sites/3/2019/06/ST3-Production-Still-1-f51cc28.jpg?webp=true&quality=90&resize=620%2C413',
+    // }],
+    mainPosts: [],
     addPostErrorReason: '',
     isAddingPost: false,
     postAdded: false,
@@ -59,7 +59,7 @@ export default ( state = initialState, action ) => {
             case ADD_POST_SUCCESS: {
                 draft.isAddingPost = false;
                 // draft.mainPosts.unshift(dummyPost);
-                draft.mainPosts = [dummyPost, ...state.mainPosts]
+                draft.mainPosts = [action.data, ...state.mainPosts]
                 draft.postAdded = true;
                 break;
             }

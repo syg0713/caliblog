@@ -28,7 +28,7 @@ const PostForm = () => {
         const formData = new FormData();
         formData.append('content', title);
         formData.append('content', content);
-        console.log(title, content, formData);
+        // console.log(title, content, formData);
         dispatch({
             type: ADD_POST_REQUEST,
             data: formData,

@@ -10,18 +10,17 @@ import {
 } from '../reducers/post';
 
 function addPostAPI(postData) {
-    return axios.post('/post', postData, {
-        withCredentials: true,
-    })
+    return axios.post('/post', postData)
 }
 
 function* addPost(action) {
     try {
-        // const result = yield call(addPostAPI, action.data);
+        const result = yield call(addPostAPI, action.data);
+        console.log(result);
         // throw (new Error("Something went wrong"));
         yield put({
             type: ADD_POST_SUCCESS,
-            // data: result.data,
+            data: result.data,
         })
     } catch (e) {
         yield put({

@@ -45,6 +45,6 @@ app.use('/api/post', postAPIRouter);
 app.use('/api/posts', postsAPIRouter);
 
 // 서버 실행
-app.listen(8080, () => {
+app.listen(3065, () => {
   console.log('server is running on localhost:8080]')
 });

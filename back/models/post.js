@@ -13,4 +13,5 @@ module.exports = ( sequelize, DataTypes ) => {
     db.Post.hasMany(db.Image); // 이미지 올리기
     db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag'});
   }
+  return Post;
 }

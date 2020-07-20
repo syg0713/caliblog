@@ -12,7 +12,7 @@ import {
     LOG_OUT_FAILURE,
 } from "../reducers/user";
 
-axios.defaults.baseURL = 'http://localhost:8080/api';
+axios.defaults.baseURL = 'http://localhost:3065/api';
 
 function signUpAPI(signUpData) {
     return axios.post("/user/", signUpData);
