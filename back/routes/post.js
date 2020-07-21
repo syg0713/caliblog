@@ -35,7 +35,8 @@ router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
     }
     const newPost = await db.Post.create({
       title: req.body.title, 
-      content: req.body.content, 
+      content: req.body.content,
+      UserId: req.user.id,
     });
     // 사용자 찾기
     const fullPost = await db.Post.findOne({
