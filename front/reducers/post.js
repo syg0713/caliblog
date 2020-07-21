@@ -12,6 +12,7 @@ export const initialState = {
     //     img: 'https://images.immediate.co.uk/production/volatile/sites/3/2019/06/ST3-Production-Still-1-f51cc28.jpg?webp=true&quality=90&resize=620%2C413',
     // }],
     mainPosts: [],
+    imagePaths: [],
     addPostErrorReason: '',
     isAddingPost: false,
     postAdded: false,
@@ -35,21 +36,28 @@ export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
 export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
 export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE';
 
+export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
+export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
+export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
-const dummyPost = {
-    id: 2,
-    User: {
-      id: 1,
-      name: '서영규',
-    },
-    title: '더미 제목',
-    content: '더미 내용',
-}
 
 
 export default ( state = initialState, action ) => {
     return produce ( state, (draft) => {
         switch (action.type) {
+
+            case UPLOAD_IMAGES_REQUEST: {
+                break;
+            }
+            case UPLOAD_IMAGES_SUCCESS: {
+                action.data.forEach((p) => {
+                draft.imagePaths.push(p);
+                });
+                break;
+            }
+            case UPLOAD_IMAGES_FAILURE: {
+                break;
+            }
             case ADD_POST_REQUEST: {
                 draft.isAddingPost = true;
                 draft.addingPostErrorReason = '';

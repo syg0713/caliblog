@@ -8,7 +8,7 @@ const PostForm = () => {
     const dispatch = useDispatch();
     const [ title, setTitle ] = useState('');
     const [ content, setContent ] = useState('');
-    const { postAdded } = useSelector(state => state.post);
+    const { imagePaths, postAdded } = useSelector(state => state.post);
     
     useEffect(() => {
         if (postAdded) {
@@ -26,9 +26,12 @@ const PostForm = () => {
             return alert('게시글을 작성하세요.');
         }
         const formData = new FormData();
-        formData.append('content', title);
+        imagePaths.forEach((i) => {
+            formData.append('image', i);
+        });
+        formData.append('title', title);
         formData.append('content', content);
-        // console.log(title, content, formData);
+        console.log(title, content, formData);
         dispatch({
             type: ADD_POST_REQUEST,
             data: formData,

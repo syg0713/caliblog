@@ -15,7 +15,7 @@ module.exports = ( sequelize, DataTypes ) => { // 모델은 테이블
   });
 
   User.associate = ( db ) => {
-    db.User.hasMany(db.Post);
+    db.User.hasMany(db.Post, { as: 'Posts' });
   };
 
   return User;
