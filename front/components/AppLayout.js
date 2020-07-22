@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import './AppLayout.scss';
 import UserProfile from '../containers/UserProfile';
 import LoginForm from '../containers/LoginForm';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOAD_USER_REQUEST } from '../reducers/user';
 
 
 const AppLayout = ({ children }) => {
   const { me } = useSelector( state => state.user );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!me) {
+      dispatch({
+        type: LOAD_USER_REQUEST,
+      })
+    }
+  })
   return (
     <>
       <header className="navigation" role="header">

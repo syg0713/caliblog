@@ -4,21 +4,22 @@ import {
     ADD_POST_REQUEST,
     ADD_POST_SUCCESS,
     ADD_POST_FAILURE,
-    LOAD_POST_REQUEST,
-    LOAD_POST_SUCCESS,
-    LOAD_POST_FAILURE,
+    LOAD_MAIN_POSTS_REQUEST,
+    LOAD_MAIN_POSTS_SUCCESS,
+    LOAD_MAIN_POSTS_FAILURE,
     UPLOAD_IMAGES_FAILURE,
     UPLOAD_IMAGES_REQUEST,
-    UPLOAD_IMAGES_SUCCESS
+    UPLOAD_IMAGES_SUCCESS,
 } from '../reducers/post';
 
 function addPostAPI(postData) {
     console.log(postData+'사가 포스트데이터');
-    return axios.post('/post', postData)
+    return axios.post('/post', postData, {
+        withCredentials: true,
+    })
 }
 function* addPost(action) {
     try {
-        console.log(action+'사가 리절트');
         const result = yield call(addPostAPI, action.data);
         console.log(result);
         // throw (new Error("Something went wrong"));
@@ -60,30 +61,34 @@ function* uploadImages(action) {
 function* watchUploadImages() {
     yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 }
-
-function loadPostAPI(postData) {
-    return axios.post('/post', postData, {
-        withCredentials: true,
-    })
+function loadMainPostsAPI(lastId = 0, limit = 10) {
+    return axios.get(`/posts?lastId=${lastId}&limit=${limit}`);
 }
-function* loadPost(action) {
+
+function* loadMainPosts(action) {
     try {
+        const result = yield call(loadMainPostsAPI, action.lastId);
+        console.log(result,'last id');
         yield put({
-            type: LOAD_POST_SUCCESS,
-        })
+        type: LOAD_MAIN_POSTS_SUCCESS,
+        data: result.data,
+        });
     } catch (e) {
         yield put({
-            type: LOAD_POST_FAILURE,
-            error: e,
+        type: LOAD_MAIN_POSTS_FAILURE,
+        error: e,
         });
     }
 }
-function* watchLoadPost() {
-    yield takeLatest(LOAD_POST_REQUEST, loadPost);
+
+function* watchLoadMainPosts() {
+    yield throttle(2000, LOAD_MAIN_POSTS_REQUEST, loadMainPosts);
 }
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
-        fork(watchLoadPost),
+        // fork(watchLoadPost),
+        fork(watchUploadImages),
+        fork(watchLoadMainPosts),
     ]);
 }

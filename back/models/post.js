@@ -17,7 +17,6 @@ module.exports = ( sequelize, DataTypes ) => {
   Post.associate = (db) => {
     db.Post.belongsTo(db.User); // 글쓰기
     db.Post.hasMany(db.Image); // 이미지 올리기
-    // db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag'});
   };
   return Post;
 };

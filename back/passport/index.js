@@ -12,6 +12,11 @@ module.exports = () => {
     try {
       const user = await db.User.findOne({
         where: { id },
+        include: [{
+          model: db.Post,
+          as: 'Posts',
+          attributes: ['id'],
+        }],
       });
       return done( null, user ); // req.user
     } catch (e) {

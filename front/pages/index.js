@@ -4,7 +4,7 @@ import PostForm from './PostForm';
 import PostCard from '../containers/PostCard';
 import Title from '../components/Title';
 import Router from 'next/router';
-import { LOAD_POST_REQUEST } from '../reducers/post';
+import { LOAD_POST_REQUEST, LOAD_MAIN_POSTS_SUCCESS, LOAD_MAIN_POSTS_REQUEST } from '../reducers/post';
 
 const Home = () => {
     const { me } = useSelector( state => state.user );
@@ -19,6 +19,11 @@ const Home = () => {
             Router.push('/PostForm');
         }
     })
+    useEffect(() => {
+        dispatch({
+            type: LOAD_MAIN_POSTS_REQUEST,
+        })
+    },[])
     // useEffect(() => {
     //     if ( postAdded ) {
     //         setPostFormOpened(false);
@@ -31,21 +36,15 @@ const Home = () => {
             Router.push('/PostForm');
         }
     })
-    // const loadContent = () => {
-    //  dispatch({
-    //    type: LOAD_POST_REQUEST,
-    //  })
-    // }
+
     return (
         <>
             <button type="button" onClick={onTogglePost} className="custom-button">글 쓰기</button>
-            {/* <div onClick={loadContent}> */}
-                {mainPosts.map((c) => {
-                    return (
-                        <Title key={c.id} post={c}/>
-                    );
-                })}
-            {/* </div> */}
+            {mainPosts.map((c) => {
+                return (
+                    <Title key={c.id} post={c}/>
+                );
+            })}
         </>
     );
 };

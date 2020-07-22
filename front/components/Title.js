@@ -8,19 +8,10 @@ const Title = ({ post }) => {
       <div>
         <Link
           href={{ pathname: '/bodyrender' }}
-          key={post}
+          key={post.id}
         >
           <a>{post.title}</a>
         </Link>
-        {/* {post.map((v)   => {
-            <Link
-              href={{ pathname: '/bodyrender', query: { tag: v.slice(1) } }}
-              as={`/bodyrender/${v.slice(1)}`}
-              key={v}
-            >
-              <a>{v.title}</a>
-            </Link>
-        })} */}
       </div>
     </>
   );

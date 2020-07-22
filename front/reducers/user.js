@@ -8,7 +8,6 @@ export const initialState = {
   isSigningUp: false, // 회원가입 시도중
   signUpErrorReason: '', // 회원가입 실패 사유
   me: null, // 내 정보
-  userInfo: null, // 남의 정보
 };
 
 
@@ -23,6 +22,10 @@ export const LOG_IN_FAILURE = 'LOG_IN_FAILURE'; // 액션의 이름
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
+
+export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
 export const SIGN_UP_DONE = 'SIGN_UP_DONE';
 
@@ -87,6 +90,16 @@ export default ( state = initialState, action ) => {
             case LOG_OUT_SUCCESS: {
                 draft.isLoggingOut = false;
                 draft.me = null;
+                break;
+            }
+            case LOAD_USER_REQUEST: {
+                break;
+            }
+            case LOAD_USER_SUCCESS: {
+                draft.me = action.data;
+                break;
+            }
+            case LOAD_USER_FAILURE: {
                 break;
             }
             default: {

@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const path = require('path');
 
 const db = require('../models');
 const { isLoggedIn } = require('./middleware');
@@ -22,32 +23,40 @@ const upload = multer({
 
 router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
   try {
-    if (req.body.image) { // 이미지 주소를 여러개 올리면 image: [주소1, 주소2]
-      if (Array.isArray(req.body.image)) {
-        const images = await Promise.all(req.body.image.map((image) => {
-          return db.Image.create({ src: image });
-        }));
-        await newPost.addImages(images);
-      } else { // 이미지를 하나만 올리면 image: 주소1
-        const image = await db.Image.create({ src: req.body.image });
-        await newPost.addImage(image);
-      }
-    }
     const newPost = await db.Post.create({
       title: req.body.title, 
       content: req.body.content,
       UserId: req.user.id,
     });
+    // if (req.body.image) { // 이미지 주소를 여러개 올리면 image: [주소1, 주소2]
+    //   if (Array.isArray(req.body.image)) {
+    //     const images = await Promise.all(req.body.image.map((image) => {
+    //       return db.Image.create({ src: image });
+    //     }));
+    //     await newPost.addImages(images);
+    //   } else { // 이미지를 하나만 올리면 image: 주소1
+    //     const image = await db.Image.create({ src: req.body.image });
+    //     await newPost.addImage(image);
+    //   }
+    // }
+
     // 사용자 찾기
     const fullPost = await db.Post.findOne({
       where: { id: newPost.id },
       include: [{
         model: db.User,
         attributes: ['id'],
-      },{
-        model: db.Image,
-      },],
+      }],
     });
+    // const fullPost = await db.Post.findOne({
+    //   where: { id: newPost.id },
+    //   include: [{
+    //     model: db.User,
+    //     attributes: ['id'],
+    //   }, {
+    //     model: db.Image,
+    //   }],
+    // });
     res.json(fullPost);
   } catch (e) {
     console.error(e);
@@ -55,9 +64,10 @@ router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
   }
 });
 
-router.post('/images', ( req, res ) => {
-
-});
+// router.post('/images', upload.array('image'), (req, res) => {
+//   console.log(req.files);
+//   res.json(req.files.map(v => v.filename));
+// });
 
 
 module.exports = router;

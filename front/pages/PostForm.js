@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_POST_REQUEST } from '../reducers/post';
+import { ADD_POST_REQUEST, UPLOAD_IMAGES_REQUEST  } from '../reducers/post';
 import Router from 'next/router';
 import './PostForm.scss';
 
@@ -9,7 +9,8 @@ const PostForm = () => {
     const [ title, setTitle ] = useState('');
     const [ content, setContent ] = useState('');
     const { imagePaths, postAdded } = useSelector(state => state.post);
-    
+    const imageInput = useRef();
+
     useEffect(() => {
         if (postAdded) {
             setTitle('');
@@ -46,13 +47,48 @@ const PostForm = () => {
         setContent(e.target.value);
     }, []);
 
+    const onChangeImages = useCallback((e) => {
+        console.log(e.target.files);
+        const imageFormData = new FormData();
+        [].forEach.call(e.target.files, (f) => {
+            imageFormData.append('image', f);
+        });
+        dispatch({
+            type: UPLOAD_IMAGES_REQUEST,
+            data: imageFormData,
+        });
+    }, []);
+    const onClickImageUpload = useCallback(() => {
+        imageInput.current.click();
+    }, [imageInput.current]);
+
+    const onRemoveImage = useCallback(index => () => {
+        dispatch({
+            type: REMOVE_IMAGE,
+            index,
+        });
+    }, []);
 
     return (
         <>
             <form action="" onSubmit={onSubmit}>
                 <textarea type="text" placeholder="제목" cols="93" rows="1" value={title} onChange={onChangeTitle}/>
                 <textarea type="text" name="content" title="내용 입력" cols="93" rows="28" value={content} onChange={onChangeContent}/>
-                <button type="submit">제출하기</button>
+                <div>
+                    <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages} />
+                    <div className="custom-button" onClick={onClickImageUpload}>이미지 업로드</div>
+                    <button type="submit">제출하기</button>
+                </div>
+                <div>
+                    {imagePaths.map(( v, i ) => (
+                        <div key={v}>
+                            <img src={v} alt={v} />
+                            <div>
+                                <div className="custom-button" onClick={onRemoveImage(i)}>제거</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </form>
         </>
     );
