@@ -29,6 +29,10 @@ app.prepare().then(() => {
     }
   }));
 
+  server.get('/bodyrender/:id', ( req, res ) => {
+    return app.render( req, res, '/bodyrender', { id: req.params.id });
+  });
+
   server.get('*', ( req, res ) => {
     return handle( req, res );
   });

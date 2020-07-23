@@ -3,22 +3,23 @@ import { useSelector } from 'react-redux';
 // import { mainPosts } from '../reducers/post';
 
 const PostCard = ({ post }) => {
+    const { singlePost } = useSelector(state => state.post);
     useEffect(() => {
-        console.log(post);
+        // console.log(post);
     },[])
     return (
         <div>
             <div>
-                { post.User.name }
+                { singlePost.UserId }
             </div>
             <div>
-                <img src={ post.img } alt=""/>
+                <img src={ singlePost.img } alt=""/>
             </div>
             <div>
-                { post.title }
+                { singlePost.title }
             </div>
             <div>
-                { post.content }
+                { singlePost.content }
             </div>
         </div>
     );

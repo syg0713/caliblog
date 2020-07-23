@@ -64,6 +64,21 @@ router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
   }
 });
 
+router.get('/:id', async ( req, res, next ) => {
+  try{
+    const post = await db.Post.findOne({
+      where: { id: req.params.id },
+      include: [{
+        model: db.User,
+        attributes: ['id'],
+      }],
+    });
+    res.json(post);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
 // router.post('/images', upload.array('image'), (req, res) => {
 //   console.log(req.files);
 //   res.json(req.files.map(v => v.filename));

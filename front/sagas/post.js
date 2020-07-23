@@ -7,6 +7,9 @@ import {
     LOAD_MAIN_POSTS_REQUEST,
     LOAD_MAIN_POSTS_SUCCESS,
     LOAD_MAIN_POSTS_FAILURE,
+    LOAD_SINGLE_POST_REQUEST,
+    LOAD_SINGLE_POST_SUCCESS,
+    LOAD_SINGLE_POST_FAILURE,
     UPLOAD_IMAGES_FAILURE,
     UPLOAD_IMAGES_REQUEST,
     UPLOAD_IMAGES_SUCCESS,
@@ -64,11 +67,10 @@ function* watchUploadImages() {
 function loadMainPostsAPI(lastId = 0, limit = 10) {
     return axios.get(`/posts?lastId=${lastId}&limit=${limit}`);
 }
-
 function* loadMainPosts(action) {
     try {
         const result = yield call(loadMainPostsAPI, action.lastId);
-        console.log(result,'last id');
+        // console.log(result,'last id');
         yield put({
         type: LOAD_MAIN_POSTS_SUCCESS,
         data: result.data,
@@ -80,15 +82,36 @@ function* loadMainPosts(action) {
         });
     }
 }
-
 function* watchLoadMainPosts() {
     yield throttle(2000, LOAD_MAIN_POSTS_REQUEST, loadMainPosts);
+}
+function loadSinglePostAPI(postId) {
+    return axios.get(`/post/${postId}`);
+}
+function* loadSinglePost(action) {
+    try {
+        console.log(action);
+        const result = yield call(loadSinglePostAPI, action.data);
+        yield put({
+        type: LOAD_SINGLE_POST_SUCCESS,
+        data: result.data,
+        });
+    } catch (e) {
+        yield put({
+        type: LOAD_SINGLE_POST_FAILURE,
+        error: e,
+        });
+    }
+}
+function* watchLoadSinglePost() {
+    yield throttle(2000, LOAD_SINGLE_POST_REQUEST, loadSinglePost);
 }
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
-        // fork(watchLoadPost),
         fork(watchUploadImages),
         fork(watchLoadMainPosts),
+        fork(watchLoadSinglePost),
+        // fork(watchLoadPost),
     ]);
 }

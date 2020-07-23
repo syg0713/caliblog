@@ -18,6 +18,7 @@ export const initialState = {
     postAdded: false,
     isLoadingPost: false,
     postLoaded: false,
+    singlePost: null,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -31,6 +32,10 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
 export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
 export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE';
+
+export const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST';
+export const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
+export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
 
 export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
 export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
@@ -90,6 +95,16 @@ export default ( state = initialState, action ) => {
                 break;
             }
             case LOAD_MAIN_POSTS_FAILURE: {
+                break;
+            }
+            case LOAD_SINGLE_POST_REQUEST: {
+                break;
+            }
+            case LOAD_SINGLE_POST_SUCCESS: {
+                draft.singlePost = action.data;
+                break;
+            }
+            case LOAD_SINGLE_POST_FAILURE: {
                 break;
             }
             default: {
