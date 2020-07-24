@@ -71,7 +71,7 @@ const PostForm = () => {
 
     return (
         <>
-            <form action="" onSubmit={onSubmit}>
+            <form action="" onSubmit={onSubmit} class="postForm__container">
                 <textarea type="text" placeholder="제목" cols="93" rows="1" value={title} onChange={onChangeTitle}/>
                 <div>
                     <textarea type="text" name="content" title="내용 입력" cols="93" rows="28" value={content} onChange={onChangeContent}/>

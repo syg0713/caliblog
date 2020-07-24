@@ -44,20 +44,4 @@ ul,ol{
     touch-action: manipulation;
     -webkit-appearance: none;
 }
-.navigation{
-}
-.private-menu{
-    width:100%;
-    @media (min-width: 768px){
-        width:25%;
-    }
-}
-.main{
-    border-left: 1px solid #ccc;
-    padding: 20px;
-}
-.main{
-    @media (min-width: 768px){
-        width:85%;
-    }
-}
+

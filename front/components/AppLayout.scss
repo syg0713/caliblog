@@ -2,7 +2,7 @@
 .navigation{
     display: flex;
     justify-content: space-around;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #000;
     @media (min-width: 768px){
         justify-content: unset;
     }
@@ -47,7 +47,26 @@
 // 섹션(컨텐츠)
 .content{
     display: block;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    .privateMenu{
+        width:100%;
+        @media (min-width: 768px){
+            width:25%;
+        }
+    }
+    .main{
+        padding: 1rem;
+        @media (min-width: 768px){
+            width:85%;
+        }
+    }
     @media (min-width: 768px){
         display: flex;
+        height: 800px;
+        .main{
+            border-left: 1px solid #ccc;
+        }
     }
 }

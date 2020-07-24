@@ -14,7 +14,7 @@ const UserProfile = () => {
         Router.push('/');
     })
     return (
-        <div className="wrap">
+        <div className="userProfile__container">
          <div className="identification">{ me.userId }</div>
          <div className="logOut"><button onClick={onLogOut} className="custom-button">로그아웃</button></div>
         </div>

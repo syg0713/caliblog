@@ -1,43 +1,40 @@
-.private-menu{
-    form{
-        padding:0.5rem;
-        input{
-            display: block;
-            margin: 5px 0 0 0;
-            width: 100%;
+.loginForm__container{
+    padding:1rem;
+    input{
+        display: block;
+        margin: 5px 0 0 0;
+        width: 100%;
+    }
+    .identity, 
+    .password{
+        font : 400 15px/15px 'Noto Sans KR', sans-serif;
+        color:#000;
+        margin: 10px 0;
+        width:100%;
+    }
+    .buttons{
+        width:100%;
+        text-align: center;
+        .custom-button{
+            width:45%;
+            padding: 0;
         }
-        .identity, 
-        .password{
-            font : 400 15px/15px 'Noto Sans KR', sans-serif;
-            color:#000;
-            margin: 10px 0;
-            width:100%;
-        }
-        .buttons{
-            width:100%;
-            text-align: center;
+        >a{
             .custom-button{
-                width:45%;
-                padding: 0;
-            }
-            >a{
-                .custom-button{
-                    background:#fff;
-                    border: 1px solid #ccc;
-                    margin:0 0 0 10px;
-                    color:#000;
-                }
+                background:#fff;
+                border: 1px solid #ccc;
+                margin:0 0 0 10px;
+                color:#000;
             }
         }
     }
-    @media (min-width: 768px){
-        width:25%;
-        form{
-            .buttons{
-                display:block;
-                justify-content: unset;
-                .custom-button{
-                }
+}
+@media (min-width: 768px){
+    .loginForm__container{
+        .buttons{
+            display:block;
+            justify-content: unset;
+            .custom-button{
             }
         }
     }

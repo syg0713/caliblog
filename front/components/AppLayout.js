@@ -29,7 +29,7 @@ const AppLayout = ({ children }) => {
         </div>
       </header>
       <section className="content">
-        <div className="private-menu">
+        <div className="privateMenu">
           {me
           ? <UserProfile />
           : <LoginForm />}

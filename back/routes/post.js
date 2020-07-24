@@ -70,7 +70,7 @@ router.get('/:id', async ( req, res, next ) => {
       where: { id: req.params.id },
       include: [{
         model: db.User,
-        attributes: ['id'],
+        attributes: ['id','userId'],
       }],
     });
     res.json(post);

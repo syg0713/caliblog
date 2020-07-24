@@ -91,7 +91,7 @@ const Signup = () => {
 
 
     return <>
-    <div className="signup">
+    <div className="signup__container">
         <form onSubmit={onSubmit}>
             <div>아이디
                 <input type="text" value={id} required onChange={onChangeId} className="custom-input"/>

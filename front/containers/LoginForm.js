@@ -24,7 +24,7 @@ const LoginForm = () => {
 
 
     return (
-        <form onSubmit={onSubmitForm}>
+        <form onSubmit={onSubmitForm} className="loginForm__container">
             <div className="identity">
                 아이디
                 <input type="text" value={id} onChange={onChangeId} required className="custom-input"/>
