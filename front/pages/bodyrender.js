@@ -7,11 +7,11 @@ import { LOAD_SINGLE_POST_REQUEST } from '../reducers/post';
 const BodyRender = ({ id }) => {
   // const dispatch = useDispatch();
   const { singlePost } = useSelector(state => state.post);
-  // console.log(singlePost)
+  // console.log(id);
   return (
     <div>
       {singlePost ?
-        <PostCard key={id} /> :
+        <PostCard key={id} post={id} /> :
         ''}
     </div>
   );
@@ -28,7 +28,7 @@ BodyRender.getInitialProps = async ( context ) => {
 };
 
 BodyRender.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default BodyRender;

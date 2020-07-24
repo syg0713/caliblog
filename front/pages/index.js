@@ -17,7 +17,6 @@ const Home = ({ id }) => {
             Router.push('/PostForm');
         }
     })
-    console.log(mainPosts);
     // useEffect(() => {
     //     dispatch({
     //         type: LOAD_MAIN_POSTS_REQUEST,

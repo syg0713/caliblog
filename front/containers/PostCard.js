@@ -4,7 +4,7 @@ import { LOAD_MAIN_POSTS_REQUEST, REMOVE_POST_REQUEST } from '../reducers/post';
 
 const PostCard = ({ post }) => {
     const { singlePost } = useSelector(state => state.post);
-    console.log(post);
+    // console.log(post);
     // const id = useSelector((state) => state.user.me && state.user.me.id);
     const dispatch = useDispatch();
     useEffect(() => {
