@@ -73,7 +73,9 @@ const PostForm = () => {
         <>
             <form action="" onSubmit={onSubmit}>
                 <textarea type="text" placeholder="제목" cols="93" rows="1" value={title} onChange={onChangeTitle}/>
-                <textarea type="text" name="content" title="내용 입력" cols="93" rows="28" value={content} onChange={onChangeContent}/>
+                <div>
+                    <textarea type="text" name="content" title="내용 입력" cols="93" rows="28" value={content} onChange={onChangeContent}/>
+                </div>
                 <div>
                     <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages} />
                     <div className="custom-button" onClick={onClickImageUpload}>이미지 업로드</div>

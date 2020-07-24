@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 const PostCard = ({ post }) => {
     const { singlePost } = useSelector(state => state.post);
     useEffect(() => {
-        // console.log(post);
+        console.log(singlePost);
     },[])
     return (
         <div>
             <div>
-                { singlePost.UserId }
+                { singlePost.UserId}
             </div>
             <div>
                 <img src={ singlePost.img } alt=""/>

@@ -5,12 +5,14 @@ import PostCard from '../containers/PostCard';
 import { LOAD_SINGLE_POST_REQUEST } from '../reducers/post';
 
 const BodyRender = ({ id }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { singlePost } = useSelector(state => state.post);
-  console.log(singlePost)
+  // console.log(singlePost)
   return (
     <div>
-        <PostCard key={id} />
+      {singlePost ?
+        <PostCard key={id} /> :
+        ''}
     </div>
   );
 };

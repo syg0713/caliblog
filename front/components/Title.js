@@ -13,6 +13,7 @@ const Title = ({ post, id }) => {
               // , query: { tag: v.slice(1) }
               as={`/bodyrender/${post.id}`}
               key={post.id}
+              prefetch
             >
               <a>{post.title}</a>
             </Link>
