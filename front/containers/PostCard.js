@@ -1,39 +1,83 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { LOAD_MAIN_POSTS_REQUEST, REMOVE_POST_REQUEST } from '../reducers/post';
+import { REMOVE_POST_REQUEST, POST_DELETE_DONE } from '../reducers/post';
+import PropTypes from 'prop-types';
+import Router from 'next/router';
+import './PostCard.scss';
+import '../common.scss';
 
-const PostCard = ({ post }) => {
-    const { singlePost } = useSelector(state => state.post);
-    // console.log(post);
-    // const id = useSelector((state) => state.user.me && state.user.me.id);
+const PostCard = ({ postId }) => {
+    const { singlePost, postDeleted } = useSelector(state => state.post);
+    const { me } = useSelector( state => state.user);
     const dispatch = useDispatch();
-    useEffect(() => {
-        // console.log(singlePost.User.userId);
-    },[]);
-    const onRemovePost =  useCallback((userId) => () => {
-        console.log(userId);
-        dispatch({
-            type: REMOVE_POST_REQUEST,
-            data: userId,
-        })
-    },[])
+    console.log(postId.id);
+    const menuRef = useRef();
+    const deleteRef = useRef();
+    const modifyRef = useRef();
+    // console.log(postId,me.id);
+    useEffect(() =>{
+        if( postDeleted ) {
+            Router.push('/');
+            dispatch({
+                type: POST_DELETE_DONE,
+            })
+        }
+    },[ postDeleted ])
+
+    const showMenu = useCallback(() => {
+        if ( me.id === singlePost.User.id) {
+            const activated = menuRef.current.classList.contains('active');
+            if ( !activated ) {
+                menuRef.current.classList.add('active');
+            } else {
+                menuRef.current.classList.remove('active');
+            } 
+        } else {
+            menuRef.current.classList.remove('active');
+        }
+    },[ me.id, singlePost.User.id ])
+    const deleteConfirm = useCallback(() => {
+        if (confirm("정말 삭제하시겠습니까??") == true){ //확인
+            dispatch({
+                type: REMOVE_POST_REQUEST,
+                data: postId,
+            })
+        }else{ //취소
+            return false;
+        }
+    },[ postId.id ])
+
     return (
-        <div>
-            <div onClick={onRemovePost(post)}>삭제</div>
-            <div>
-                { singlePost.User.userId}
+            <div className="postCard__container">
+                <section className="head">
+                    <div className="head__headLine">
+                        { singlePost.title }
+                    </div>
+                    <button className="head__menu custom-button" ref={menuRef} onClick={showMenu}>
+                            ...
+                            <div>
+                                <div className="remove" ref={deleteRef} onClick={deleteConfirm}>삭제</div>
+                                <div className="cancel" ref={modifyRef}>수정</div>
+                            </div>
+                    </button>
+                </section>
+
+                <div>
+                    { singlePost.User.userId}
+                </div>
+                <div>
+                    <img src={ singlePost.img } alt=""/>
+                </div>
+                <div>
+                    { singlePost.content }
+                </div>
             </div>
-            <div>
-                <img src={ singlePost.img } alt=""/>
-            </div>
-            <div>
-                { singlePost.title }
-            </div>
-            <div>
-                { singlePost.content }
-            </div>
-        </div>
+
     );
+};
+
+PostCard.propTypes = {
+    postId: PropTypes.number.isRequired,
 };
 
 export default PostCard;

@@ -1,7 +1,7 @@
 // 헤더(네비게이션)
 .navigation{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     border-bottom: 1px solid #000;
     @media (min-width: 768px){
         justify-content: unset;
@@ -9,16 +9,14 @@
     // 홈버튼 및 프로필 버튼 CSS
     .home,
     .profile{
-        padding: 0.5rem 1rem;
         white-space: nowrap;
         a{
+            display: inline-block;
+            padding: 1rem 1rem;
             font : 400 16px/16px 'Noto Sans KR', sans-serif;
             color:rgb(19, 19, 19);
             vertical-align: middle;
         }
-    }
-    .home{
-        padding-right:0;
     }
     // 검색창 버튼 CSS
     .search{

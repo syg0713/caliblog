@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import PostCard from '../containers/PostCard';
 import { LOAD_SINGLE_POST_REQUEST } from '../reducers/post';
 
-const BodyRender = ({ id }) => {
+const BodyRender = ({ postId }) => {
   // const dispatch = useDispatch();
   const { singlePost } = useSelector(state => state.post);
-  // console.log(id);
   return (
     <div>
       {singlePost ?
-        <PostCard key={id} post={id} /> :
+        <PostCard key={postId} postId={postId} /> :
         ''}
     </div>
   );
@@ -22,13 +21,13 @@ const BodyRender = ({ id }) => {
 BodyRender.getInitialProps = async ( context ) => {
   context.store.dispatch({
     type: LOAD_SINGLE_POST_REQUEST,
-    data: context.query.id,
+    data: context.query.postId,
   });
-  return { id: parseInt( context.query.id, 10)};
+  return { postId: parseInt( context.query.postId, 10)};
 };
 
 BodyRender.propTypes = {
-  id: PropTypes.number.isRequired,
+  postId: PropTypes.number.isRequired,
 };
 
 export default BodyRender;

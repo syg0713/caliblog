@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
-import { LOAD_POST_REQUEST, LOAD_MAIN_POSTS_REQUEST } from '../reducers/post';
 import './Title.scss';
+import PropTypes from 'prop-types';
+
 
 const Title = ({ post }) => {
   // console.log(post);
@@ -10,17 +11,27 @@ const Title = ({ post }) => {
     <>
         <div className="title__container">
             <Link
-              href={{ pathname: '/bodyrender', query: { id: post.id }}}
+              href={{ pathname: '/bodyrender', query: { postId: post.id }}}
               // , query: { tag: v.slice(1) }
               as={`/bodyrender/${post.id}`}
               key={post.id}
               prefetch
             >
-              <a>{post.title}</a>
+              <a className="link__item">
+                {post.title}
+              </a>
             </Link>
+            <span>
+              <em>{post.User.userId}</em>
+              <em>{post.createdAt.slice(0,10)} {post.createdAt.slice(11,19)}</em> 
+            </span>
         </div>
     </>
   );
 };
+
+Title.propTypes = {
+  post: PropTypes.object.isRequired,
+}
 
 export default Title;

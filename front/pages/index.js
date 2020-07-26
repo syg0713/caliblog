@@ -4,12 +4,10 @@ import Title from '../components/Title';
 import Router from 'next/router';
 import { LOAD_POST_REQUEST, LOAD_MAIN_POSTS_REQUEST } from '../reducers/post';
 
-const Home = ({ id }) => {
+const Home = () => {
     const { me } = useSelector( state => state.user );
-    const { mainPosts, postAdded, postLoaded, isLoadingPost } = useSelector( state => state.post );
-    // const [ postFormOpened, setPostFormOpened] = useState(false);
+    const { mainPosts } = useSelector( state => state.post );
     const dispatch = useDispatch();
-    
     const onTogglePost = useCallback(() => {
         if( !me ) {
             alert('로그인이 필요합니다.');
@@ -38,9 +36,9 @@ const Home = ({ id }) => {
     return (
         <>
             <button type="button" onClick={onTogglePost} className="custom-button">글 쓰기</button>
-            {mainPosts.map((c) => {
+            {mainPosts.map((item) => {
                 return (
-                    <Title key={c.id} post={c} id={id}/>
+                    <Title key={item.id} post={item}/>
                 );
             })}
         </>

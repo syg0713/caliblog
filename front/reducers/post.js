@@ -12,13 +12,14 @@ export const initialState = {
     //     img: 'https://images.immediate.co.uk/production/volatile/sites/3/2019/06/ST3-Production-Still-1-f51cc28.jpg?webp=true&quality=90&resize=620%2C413',
     // }],
     mainPosts: [],
+    singlePost: null,
+    postDeleted: false,
     imagePaths: [],
     addPostErrorReason: '',
     isAddingPost: false,
     postAdded: false,
     isLoadingPost: false,
     postLoaded: false,
-    singlePost: null,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -40,7 +41,9 @@ export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
 export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
 export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
+
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
+export const POST_DELETE_DONE = 'POST_DELETE_DONE';
 
 
 export default ( state = initialState, action ) => {
@@ -84,6 +87,7 @@ export default ( state = initialState, action ) => {
             }
             case LOAD_MAIN_POSTS_REQUEST: {
                 draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
+                draft.postAdded = false;
                 // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
                 break;
             }
@@ -105,6 +109,22 @@ export default ( state = initialState, action ) => {
                 break;
             }
             case LOAD_SINGLE_POST_FAILURE: {
+                break;
+            }
+            case REMOVE_POST_REQUEST: {
+                break;
+            }
+            case REMOVE_POST_SUCCESS: {
+                const index = draft.mainPosts.findIndex(v => v.id === action.data);
+                draft.mainPosts.splice(index, 1);
+                draft.postDeleted = true;
+                break;
+            }
+            case REMOVE_POST_FAILURE: {
+                break;
+            }
+            case POST_DELETE_DONE: {
+                draft.postDeleted = false;
                 break;
             }
             default: {

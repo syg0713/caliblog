@@ -9,7 +9,7 @@ import createSagaMiddleware from "redux-saga";
 import reducer from "../reducers";
 import rootSaga from "../sagas";
 import Helmet from "react-helmet";
-import './common.scss';
+import '../common.scss';
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import axios from 'axios';
 

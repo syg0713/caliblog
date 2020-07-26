@@ -1,0 +1,39 @@
+.postCard__container{
+    .head{
+        display: flex;
+        .head__headLine{
+            width: 80%;
+            font: 700 35px/35px 'Noto Sans KR', sans-serif;
+        }
+        .head__menu{
+            position: relative;
+            &.active{
+                >div{
+                    display: block;
+                }
+            }
+            >div{
+                display: none;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                display: none;
+                z-index: 2;
+                &.active{
+                    display: block;
+                }
+                >div{
+                    display: inline-block;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    color: #000;
+                    background: #fff;
+                    &:first-of-type{
+                        margin: 0 10px 0 0;
+                        color: #ff0000;
+                    }
+                }
+            }
+        }        
+    }
+}

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_POST_REQUEST, UPLOAD_IMAGES_REQUEST  } from '../reducers/post';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import './PostForm.scss';
 
@@ -12,11 +13,12 @@ const PostForm = () => {
     const imageInput = useRef();
 
     useEffect(() => {
-        if (postAdded) {
+        if ( postAdded ) {
+            Router.push('/');
             setTitle('');
             setContent('');
         }
-    }, [postAdded]);
+    }, [ postAdded ]);
 
     const onSubmit = useCallback((e) => {
         e.preventDefault();
@@ -37,7 +39,6 @@ const PostForm = () => {
             type: ADD_POST_REQUEST,
             data: formData,
         })
-        Router.push('/');
     }, [ title, content ]);
 
     const onChangeTitle = useCallback((e) => {
@@ -71,7 +72,7 @@ const PostForm = () => {
 
     return (
         <>
-            <form action="" onSubmit={onSubmit} class="postForm__container">
+            <form action="" onSubmit={onSubmit} className="postForm__container">
                 <textarea type="text" placeholder="제목" cols="93" rows="1" value={title} onChange={onChangeTitle}/>
                 <div>
                     <textarea type="text" name="content" title="내용 입력" cols="93" rows="28" value={content} onChange={onChangeContent}/>
@@ -95,5 +96,9 @@ const PostForm = () => {
         </>
     );
 };
+
+PostForm.propTypes = {
+    
+}
 
 export default PostForm;

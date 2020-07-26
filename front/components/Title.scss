@@ -4,4 +4,12 @@
   &:nth-of-type(1){
     // border-top: 1px solid #ccc;
   }
+  .link__item{
+    display: inline-block;
+    width: 70%;
+  }
+  >span{
+    display: inline-block;
+    width: 30%;
+  }
 }

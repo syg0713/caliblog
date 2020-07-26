@@ -4,6 +4,9 @@ import {
     ADD_POST_REQUEST,
     ADD_POST_SUCCESS,
     ADD_POST_FAILURE,
+    REMOVE_POST_REQUEST,
+    REMOVE_POST_SUCCESS,
+    REMOVE_POST_FAILURE,
     LOAD_MAIN_POSTS_REQUEST,
     LOAD_MAIN_POSTS_SUCCESS,
     LOAD_MAIN_POSTS_FAILURE,
@@ -40,7 +43,6 @@ function* addPost(action) {
 function* watchAddPost() {
     yield takeLatest(ADD_POST_REQUEST, addPost);
 }
-
 function uploadImagesAPI(formData) {
     return axios.post('/post/images', formData, {
         withCredentials: true,
@@ -90,7 +92,7 @@ function loadSinglePostAPI(postId) {
 }
 function* loadSinglePost(action) {
     try {
-        console.log(action);
+        // console.log(action);
         const result = yield call(loadSinglePostAPI, action.data);
         yield put({
         type: LOAD_SINGLE_POST_SUCCESS,
@@ -106,12 +108,36 @@ function* loadSinglePost(action) {
 function* watchLoadSinglePost() {
     yield throttle(2000, LOAD_SINGLE_POST_REQUEST, loadSinglePost);
 }
+function removePostAPI(postId) {
+    return axios.delete(`/post/${postId}`, {
+      withCredentials: true,
+    });
+}
+function* removePost(action) {
+    try {
+        const result = yield call(removePostAPI, action.data);
+        yield put({
+        type: REMOVE_POST_SUCCESS,
+        data: result.data,
+        });
+    } catch (e) {
+        console.error(e);
+        yield put({
+        type: REMOVE_POST_FAILURE,
+        error: e,
+        });
+    }
+}
+function* watchRemovePost() {
+    yield takeLatest(REMOVE_POST_REQUEST, removePost);
+}
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
         fork(watchUploadImages),
         fork(watchLoadMainPosts),
         fork(watchLoadSinglePost),
+        fork(watchRemovePost),
         // fork(watchLoadPost),
     ]);
 }
