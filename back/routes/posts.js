@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => { // GET /api/posts
     const posts = await db.Post.findAll({
       include: [{
         model: db.User,
-        attributes: ['id'],
+        attributes: ['id','userId'],
       }],
       order: [['createdAt', 'DESC']], // DESC는 내림차순, ASC는 오름차순
       limit: parseInt(req.query.limit, 10),

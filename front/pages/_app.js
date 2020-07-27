@@ -9,9 +9,13 @@ import createSagaMiddleware from "redux-saga";
 import reducer from "../reducers";
 import rootSaga from "../sagas";
 import Helmet from "react-helmet";
-import '../common.scss';
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import axios from 'axios';
+import '../common.scss';
+import '../containers/PostCard.scss';
+import '../containers/LoginForm.scss';
+import '../containers/UserProfile.scss';
+
 
 const CaliBlog = ({ Component, store, pageProps }) => {
     // console.log(Component +'1');

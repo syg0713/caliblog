@@ -15,23 +15,7 @@ const Home = () => {
             Router.push('/PostForm');
         }
     })
-    // useEffect(() => {
-    //     dispatch({
-    //         type: LOAD_MAIN_POSTS_REQUEST,
-    //     })
-    // },[])
-    // useEffect(() => {
-    //     if ( postAdded ) {
-    //         setPostFormOpened(false);
-    //     }
-    // },[postAdded])
-    const onLoadedPost = useCallback(() => {
-        if( !me ) {
-            alert('로그인이 필요합니다.');
-        } else {
-            Router.push('/PostForm');
-        }
-    })
+
 
     return (
         <>

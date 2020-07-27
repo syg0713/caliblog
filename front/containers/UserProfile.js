@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { LOG_OUT_REQUEST } from '../reducers/user';
 import Router from 'next/router';
-import './UserProfile.scss';
+// import './UserProfile.scss';
 
 const UserProfile = () => {
     const { me } = useSelector( state => state.user );

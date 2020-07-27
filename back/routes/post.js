@@ -45,7 +45,7 @@ router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
       where: { id: newPost.id },
       include: [{
         model: db.User,
-        attributes: ['id'],
+        attributes: ['id','userId'],
       }],
     });
     // const fullPost = await db.Post.findOne({

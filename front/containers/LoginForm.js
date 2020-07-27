@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Link from 'next/link';
 import { LOG_IN_REQUEST } from '../reducers/user';
-import './LoginForm.scss';
 import { useInput } from "../pages/signup";
+// import './LoginForm.scss';
 
 
 const LoginForm = () => {

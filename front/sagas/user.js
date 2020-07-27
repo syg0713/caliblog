@@ -48,7 +48,7 @@ function logInAPI(loginData) {
 }
 function* logIn(action) {
     try {
-        console.log(action.data);
+        // console.log(action.data);
         const result = yield call(logInAPI, action.data);
         yield put({
             // put은 dispatch와 동일

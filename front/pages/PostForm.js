@@ -79,7 +79,7 @@ const PostForm = () => {
                 </div>
                 <div>
                     <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages} />
-                    <div className="custom-button" onClick={onClickImageUpload}>이미지 업로드</div>
+                    <button className="custom-button" onClick={onClickImageUpload}>이미지 업로드</button>
                     <button type="submit">제출하기</button>
                 </div>
                 <div>

@@ -1,8 +1,12 @@
 .title__container{
   border-bottom: 1px solid #ccc;
-  padding: 10px 0;
+  padding: 10px;
   &:nth-of-type(1){
     // border-top: 1px solid #ccc;
+  }
+  a, em{
+    font: 400 14px/14px 'Noto Sans KR';
+    color: #000;
   }
   .link__item{
     display: inline-block;
@@ -11,5 +15,10 @@
   >span{
     display: inline-block;
     width: 30%;
+    text-align: center;
+    em{
+      display: inline-block;
+      width: 50%;
+    }
   }
 }

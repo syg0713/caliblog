@@ -3,18 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { REMOVE_POST_REQUEST, POST_DELETE_DONE } from '../reducers/post';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import './PostCard.scss';
-import '../common.scss';
+// import './PostCard.scss';
 
 const PostCard = ({ postId }) => {
     const { singlePost, postDeleted } = useSelector(state => state.post);
     const { me } = useSelector( state => state.user);
     const dispatch = useDispatch();
-    console.log(postId.id);
+
     const menuRef = useRef();
     const deleteRef = useRef();
     const modifyRef = useRef();
-    // console.log(postId,me.id);
     useEffect(() =>{
         if( postDeleted ) {
             Router.push('/');
@@ -63,7 +61,7 @@ const PostCard = ({ postId }) => {
                 </section>
 
                 <div>
-                    { singlePost.User.userId}
+                    { singlePost.User.userId }
                 </div>
                 <div>
                     <img src={ singlePost.img } alt=""/>
