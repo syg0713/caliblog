@@ -16,6 +16,9 @@ import {
     UPLOAD_IMAGES_FAILURE,
     UPLOAD_IMAGES_REQUEST,
     UPLOAD_IMAGES_SUCCESS,
+    LOAD_MAIN_POSTS_ALL_REQUEST,
+    LOAD_MAIN_POSTS_ALL_SUCCESS,
+    LOAD_MAIN_POSTS_ALL_FAILURE,
 } from '../reducers/post';
 
 function addPostAPI(postData) {
@@ -131,6 +134,27 @@ function* removePost(action) {
 function* watchRemovePost() {
     yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
+function loadMainPostsAllAPI(limit = 10) {
+    return axios.get(`/posts?limit=${limit}`);
+}
+function* loadMainPostsAll(action) {
+    try {
+        const result = yield call(loadMainPostsAllAPI, action.lastId);
+        yield put({
+        type: LOAD_MAIN_POSTS_ALL_SUCCESS,
+        data: result.data,
+        });
+    } catch (e) {
+        yield put({
+        type: LOAD_MAIN_POSTS_ALL_FAILURE,
+        error: e,
+        });
+    }
+}
+function* watchLoadMainPostsAll() {
+    yield throttle(2000, LOAD_MAIN_POSTS_ALL_REQUEST, loadMainPostsAll);
+    // yield throttle(2000, LOAD_MAIN_POSTS_All_REQUEST, loadMainPostsAll);
+}
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
@@ -138,6 +162,6 @@ export default function* postSaga() {
         fork(watchLoadMainPosts),
         fork(watchLoadSinglePost),
         fork(watchRemovePost),
-        // fork(watchLoadPost),
+        fork(watchLoadMainPostsAll)
     ]);
 }

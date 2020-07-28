@@ -12,6 +12,7 @@ export const initialState = {
     //     img: 'https://images.immediate.co.uk/production/volatile/sites/3/2019/06/ST3-Production-Still-1-f51cc28.jpg?webp=true&quality=90&resize=620%2C413',
     // }],
     mainPosts: [],
+    mainPostsAll: [],
     singlePost: null,
     postDeleted: false,
     imagePaths: [],
@@ -20,6 +21,10 @@ export const initialState = {
     postAdded: false,
     isLoadingPost: false,
     postLoaded: false,
+    // pagination
+    start: 0,
+    end: 10,
+    current: 1,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -34,6 +39,10 @@ export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
 export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
 export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE';
 
+export const LOAD_MAIN_POSTS_ALL_REQUEST = 'LOAD_MAIN_POSTS_ALL_REQUEST';
+export const LOAD_MAIN_POSTS_ALL_SUCCESS = 'LOAD_MAIN_POSTS_ALL_SUCCESS';
+export const LOAD_MAIN_POSTS_ALL_FAILURE = 'LOAD_MAIN_POSTS_ALL_FAILURE';
+
 export const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST';
 export const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
 export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
@@ -44,6 +53,9 @@ export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 export const POST_DELETE_DONE = 'POST_DELETE_DONE';
+
+export const UPDATE_CURRENT_PAGE = 'UPDATE_CURRENT_PAGE';
+export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE';
 
 
 export default ( state = initialState, action ) => {
@@ -92,9 +104,10 @@ export default ( state = initialState, action ) => {
                 break;
             }
             case LOAD_MAIN_POSTS_SUCCESS: {
-                action.data.forEach((d) => {
-                    draft.mainPosts.push(d);
-                });
+                // action.data.forEach((d) => {
+                //     draft.mainPosts.push(d);
+                // });
+                draft.mainPosts = action.data.posts;
                 // draft.hasMorePost = action.data.length === 10;
                 break;
             }
@@ -125,6 +138,28 @@ export default ( state = initialState, action ) => {
             }
             case POST_DELETE_DONE: {
                 draft.postDeleted = false;
+                break;
+            }
+            case UPDATE_CURRENT_PAGE: {
+                draft.current = action.payload;
+                break;
+            }
+            case UPDATE_START_END_PAGE: {
+                draft.start = action.payload.start;
+                draft.end = action.payload.end;
+                break;
+            }
+            case LOAD_MAIN_POSTS_ALL_REQUEST: {
+                break;
+            }
+            case LOAD_MAIN_POSTS_ALL_SUCCESS: {
+                // action.data.forEach((d) => {
+                //     draft.mainPosts.push(d);
+                // });
+                draft.mainPostsAll = action.data.postsAll.length;
+                break;
+            }
+            case LOAD_MAIN_POSTS_ALL_FAILURE: {
                 break;
             }
             default: {
