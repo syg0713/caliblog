@@ -54,7 +54,9 @@ export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 export const POST_DELETE_DONE = 'POST_DELETE_DONE';
 
-export const UPDATE_CURRENT_PAGE = 'UPDATE_CURRENT_PAGE';
+export const UPDATE_CURRENT_PAGE_REQUEST = 'UPDATE_CURRENT_PAGE_REQUEST';
+export const UPDATE_CURRENT_PAGE_SUCCESS = 'UPDATE_CURRENT_PAGE_SUCCESS';
+export const UPDATE_CURRENT_PAGE_FAILURE = 'UPDATE_CURRENT_PAGE_FAILURE';
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE';
 
 
@@ -140,26 +142,30 @@ export default ( state = initialState, action ) => {
                 draft.postDeleted = false;
                 break;
             }
-            case UPDATE_CURRENT_PAGE: {
-                draft.current = action.payload;
-                break;
-            }
-            case UPDATE_START_END_PAGE: {
-                draft.start = action.payload.start;
-                draft.end = action.payload.end;
-                break;
-            }
             case LOAD_MAIN_POSTS_ALL_REQUEST: {
                 break;
             }
             case LOAD_MAIN_POSTS_ALL_SUCCESS: {
-                // action.data.forEach((d) => {
-                //     draft.mainPosts.push(d);
-                // });
                 draft.mainPostsAll = action.data.postsAll.length;
                 break;
             }
             case LOAD_MAIN_POSTS_ALL_FAILURE: {
+                break;
+            }
+            case UPDATE_CURRENT_PAGE_REQUEST: {
+                draft.current = action.payload;
+                break;
+            }
+            // case UPDATE_CURRENT_PAGE_SUCCESS: {
+            //     draft.current = action.payload;
+            //     break;
+            // }
+            // case UPDATE_CURRENT_PAGE_FAILURE: {
+            //     break;
+            // }
+            case UPDATE_START_END_PAGE: {
+                draft.start = action.payload.start;
+                draft.end = action.payload.end;
                 break;
             }
             default: {

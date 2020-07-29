@@ -21,6 +21,7 @@ router.get('/', async (req, res, next) => { // GET /api/posts
       }],
       order: [['createdAt', 'DESC']], // DESC는 내림차순, ASC는 오름차순
       limit: parseInt(req.query.limit, 10),
+      offset: parseInt(req.query.offset, 10)
     });
     const postsAll = await db.Post.findAll({
       include: [{

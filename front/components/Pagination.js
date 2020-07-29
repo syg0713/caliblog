@@ -5,7 +5,7 @@ import './Title.scss';
 import PropTypes from 'prop-types';
 import { 
   UPDATE_CURRENT_PAGE,
-  UPDATE_START_END_PAGE,
+  UPDATE_CURRENT_PAGE_REQUEST,
   LOAD_MAIN_POSTS_REQUEST
 } from '../reducers/post';
 
@@ -14,7 +14,7 @@ const Pagination = ({ val }) => {
 
   const updateCurrentPage = ( val ) => {
     dispatch({
-        type: UPDATE_CURRENT_PAGE,
+        type: UPDATE_CURRENT_PAGE_REQUEST,
         payload: val,
     })
   }
@@ -27,20 +27,20 @@ const Pagination = ({ val }) => {
 
   return (
     <>
-        <Link
+        {/* <Link
           href={{pathname: '/Pages', query: { goto: val }}}
           // href={{ pathname: '/bodyrender', query: { postId: post.id }}}
           as={`/Pages/${val}`}
           key={val}
           prefetch
-        >
+        > */}
           <li key={val} 
               onClick={() => {
                 updateCurrentPage(val);
               }}>
               {val}
           </li>
-        </Link>
+        {/* </Link> */}
     </>
   );
 };

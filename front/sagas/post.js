@@ -19,6 +19,9 @@ import {
     LOAD_MAIN_POSTS_ALL_REQUEST,
     LOAD_MAIN_POSTS_ALL_SUCCESS,
     LOAD_MAIN_POSTS_ALL_FAILURE,
+    // UPDATE_CURRENT_PAGE_REQUEST,
+    // UPDATE_CURRENT_PAGE_SUCCESS,
+    // UPDATE_CURRENT_PAGE_FAILURE,
 } from '../reducers/post';
 
 function addPostAPI(postData) {
@@ -69,12 +72,12 @@ function* uploadImages(action) {
 function* watchUploadImages() {
     yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 }
-function loadMainPostsAPI(lastId = 0, limit = 10) {
-    return axios.get(`/posts?lastId=${lastId}&limit=${limit}`);
+function loadMainPostsAPI(lastId = 0, limit = 10, offset = 0) {
+    return axios.get(`/posts?lastId=${lastId}&limit=${limit}&offset=${offset}`);
 }
 function* loadMainPosts(action) {
     try {
-        const result = yield call(loadMainPostsAPI, action.lastId);
+        const result = yield call(loadMainPostsAPI, action.lastId, action.offset);
         // console.log(result,'last id');
         yield put({
         type: LOAD_MAIN_POSTS_SUCCESS,
@@ -155,6 +158,26 @@ function* watchLoadMainPostsAll() {
     yield throttle(2000, LOAD_MAIN_POSTS_ALL_REQUEST, loadMainPostsAll);
     // yield throttle(2000, LOAD_MAIN_POSTS_All_REQUEST, loadMainPostsAll);
 }
+// function updateCurrentPageAPI(limit = 10) {
+//     return axios.get(`/posts?limit=${limit}`);
+// }
+// function* updateCurrentPage(action) {
+//     try {
+//         const result = yield call(updateCurrentPageAPI, action.data);
+//         yield put({
+//         type: UPDATE_CURRENT_PAGE_SUCCESS,
+//         data: result.data,
+//         });
+//     } catch (e) {
+//         yield put({
+//         type: UPDATE_CURRENT_PAGE_FAILURE,
+//         error: e,
+//         });
+//     }
+// }
+// function* watchUpdateCurrentPage() {
+//     yield throttle(2000, UPDATE_CURRENT_PAGE_REQUEST, updateCurrentPage);
+// }
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
@@ -162,6 +185,7 @@ export default function* postSaga() {
         fork(watchLoadMainPosts),
         fork(watchLoadSinglePost),
         fork(watchRemovePost),
-        fork(watchLoadMainPostsAll)
+        fork(watchLoadMainPostsAll),
+        // fork(watchUpdateCurrentPage)
     ]);
 }

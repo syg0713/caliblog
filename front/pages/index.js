@@ -10,7 +10,7 @@ import Pagination from '../components/Pagination';
 
 const Home = () => {
     const { me } = useSelector( state => state.user );
-    const { mainPosts, mainPostsAll, start, end } = useSelector( state => state.post );
+    const { mainPosts, mainPostsAll, start, end, current } = useSelector( state => state.post );
     const dispatch = useDispatch();
     const onTogglePost = useCallback(() => {
         if( !me ) {
@@ -19,7 +19,7 @@ const Home = () => {
             Router.push('/PostForm');
         }
     })
-    console.log(mainPosts)
+    // console.log(mainPosts)
 
     // useEffect(() => {
     // console.log(mainPosts.length);
@@ -27,12 +27,26 @@ const Home = () => {
 
     const per = 10;
     const dbPostsAll = mainPostsAll;
+    // console.log(dbPostsAll);
     const total = Math.ceil( dbPostsAll / per );
     const array = [];
     for ( let i=0; i<total; i++ ) {
         array.push( i+1);
     }
     const target = array.slice( start, end );
+    const countRef = useRef([]);
+
+    useEffect(() => {
+        if( current==2 ) {
+            const lastId = 9;
+            console.log(lastId);
+            dispatch({
+                type: LOAD_MAIN_POSTS_REQUEST,
+                offset: lastId,
+            })
+          countRef.current.push(lastId);
+        }
+    },[ current ])
     return (
         <>
             <button type="button" onClick={onTogglePost} className="custom-button">글 쓰기</button>
