@@ -27,26 +27,26 @@ const Home = () => {
 
     const per = 10;
     const dbPostsAll = mainPostsAll;
-    // console.log(dbPostsAll);
+    console.log(mainPostsAll);
     const total = Math.ceil( dbPostsAll / per );
     const array = [];
     for ( let i=0; i<total; i++ ) {
         array.push( i+1);
     }
     const target = array.slice( start, end );
-    const countRef = useRef([]);
-
-    useEffect(() => {
-        if( current==2 ) {
-            const lastId = 9;
-            console.log(lastId);
-            dispatch({
-                type: LOAD_MAIN_POSTS_REQUEST,
-                offset: lastId,
-            })
-          countRef.current.push(lastId);
-        }
-    },[ current ])
+    // useEffect(() => {
+    //     current
+    // },[current])
+    // useEffect(() => {
+    //     if( current ) {
+    //         const offset = current*per;
+    //         dispatch({
+    //             type: LOAD_MAIN_POSTS_REQUEST,
+    //             offset,
+    //         })
+    //       countRef.current.push(offset);
+    //     }
+    // },[ current ])
     return (
         <>
             <button type="button" onClick={onTogglePost} className="custom-button">글 쓰기</button>
@@ -66,8 +66,8 @@ Home.getInitialProps = async ( context ) => {
     context.store.dispatch({
       type: LOAD_MAIN_POSTS_REQUEST,
     });
-    context.store.dispatch({
-      type: LOAD_MAIN_POSTS_ALL_REQUEST,
-    });
+    // context.store.dispatch({
+    //   type: LOAD_MAIN_POSTS_ALL_REQUEST,
+    // });
 };
 export default Home;

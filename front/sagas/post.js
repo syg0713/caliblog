@@ -19,9 +19,9 @@ import {
     LOAD_MAIN_POSTS_ALL_REQUEST,
     LOAD_MAIN_POSTS_ALL_SUCCESS,
     LOAD_MAIN_POSTS_ALL_FAILURE,
-    // UPDATE_CURRENT_PAGE_REQUEST,
-    // UPDATE_CURRENT_PAGE_SUCCESS,
-    // UPDATE_CURRENT_PAGE_FAILURE,
+    CURRENT_PAGE_NUMBER_REQUEST,
+    CURRENT_PAGE_NUMBER_SUCCESS,
+    CURRENT_PAGE_NUMBER_FAILURE,
 } from '../reducers/post';
 
 function addPostAPI(postData) {
@@ -77,8 +77,9 @@ function loadMainPostsAPI(lastId = 0, limit = 10, offset = 0) {
 }
 function* loadMainPosts(action) {
     try {
-        const result = yield call(loadMainPostsAPI, action.lastId, action.offset);
-        // console.log(result,'last id');
+        // console.log(action.offset);
+        const result = yield call(loadMainPostsAPI, action.lastId, action.limit, action.offset);
+        // console.log(result.data.postsAll.length,'last id');
         yield put({
         type: LOAD_MAIN_POSTS_SUCCESS,
         data: result.data,
@@ -138,7 +139,7 @@ function* watchRemovePost() {
     yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
 function loadMainPostsAllAPI(limit = 10) {
-    return axios.get(`/posts?limit=${limit}`);
+    return axios.get(`/posts?lastId=${lastId}`);
 }
 function* loadMainPostsAll(action) {
     try {
@@ -156,6 +157,27 @@ function* loadMainPostsAll(action) {
 }
 function* watchLoadMainPostsAll() {
     yield throttle(2000, LOAD_MAIN_POSTS_ALL_REQUEST, loadMainPostsAll);
+    // yield throttle(2000, LOAD_MAIN_POSTS_All_REQUEST, loadMainPostsAll);
+}
+function currentPageNumberAPI() {
+    return axios.get(`/posts?limit=${limit}`);
+}
+function* currentPageNumber(action) {
+    try {
+        // const result = yield call(currentPageNumberAPI, action.lastId);
+        yield put({
+        type: CURRENT_PAGE_NUMBER_SUCCESS,
+        // data: result.data,
+        });
+    } catch (e) {
+        yield put({
+        type: CURRENT_PAGE_NUMBER_FAILURE,
+        error: e,
+        });
+    }
+}
+function* watchCurrentPageNumber() {
+    yield throttle(2000, CURRENT_PAGE_NUMBER_REQUEST, currentPageNumber);
     // yield throttle(2000, LOAD_MAIN_POSTS_All_REQUEST, loadMainPostsAll);
 }
 // function updateCurrentPageAPI(limit = 10) {
@@ -186,6 +208,6 @@ export default function* postSaga() {
         fork(watchLoadSinglePost),
         fork(watchRemovePost),
         fork(watchLoadMainPostsAll),
-        // fork(watchUpdateCurrentPage)
+        fork(watchCurrentPageNumber)
     ]);
 }

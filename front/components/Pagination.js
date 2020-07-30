@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import './Title.scss';
 import PropTypes from 'prop-types';
 import { 
   UPDATE_CURRENT_PAGE,
-  UPDATE_CURRENT_PAGE_REQUEST,
+  CURRENT_PAGE_NUMBER_REQUEST,
   LOAD_MAIN_POSTS_REQUEST
 } from '../reducers/post';
 
 const Pagination = ({ val }) => {
   const dispatch = useDispatch();
+  const {  start, end, current, paging } = useSelector( state => state.post );
 
   const updateCurrentPage = ( val ) => {
     dispatch({
-        type: UPDATE_CURRENT_PAGE_REQUEST,
+        type: CURRENT_PAGE_NUMBER_REQUEST,
         payload: val,
     })
   }
@@ -24,6 +25,18 @@ const Pagination = ({ val }) => {
           payload: { start, end },
       })
   }
+  
+  const per = 10;
+
+  const pageGoTo = (() => {
+    // if ( paging == false ) {
+      const offset = (current-1)*per;
+      dispatch({
+          type: LOAD_MAIN_POSTS_REQUEST,
+          offset,
+      })
+    // }
+  })
 
   return (
     <>
@@ -37,6 +50,7 @@ const Pagination = ({ val }) => {
           <li key={val} 
               onClick={() => {
                 updateCurrentPage(val);
+                pageGoTo();
               }}>
               {val}
           </li>

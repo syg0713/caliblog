@@ -22,6 +22,7 @@ export const initialState = {
     isLoadingPost: false,
     postLoaded: false,
     // pagination
+    paging: false,
     start: 0,
     end: 10,
     current: 1,
@@ -54,9 +55,9 @@ export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 export const POST_DELETE_DONE = 'POST_DELETE_DONE';
 
-export const UPDATE_CURRENT_PAGE_REQUEST = 'UPDATE_CURRENT_PAGE_REQUEST';
-export const UPDATE_CURRENT_PAGE_SUCCESS = 'UPDATE_CURRENT_PAGE_SUCCESS';
-export const UPDATE_CURRENT_PAGE_FAILURE = 'UPDATE_CURRENT_PAGE_FAILURE';
+export const CURRENT_PAGE_NUMBER_REQUEST = 'CURRENT_PAGE_NUMBER_REQUEST';
+export const CURRENT_PAGE_NUMBER_SUCCESS = 'CURRENT_PAGE_NUMBER_SUCCESS';
+export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE';
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE';
 
 
@@ -110,6 +111,7 @@ export default ( state = initialState, action ) => {
                 //     draft.mainPosts.push(d);
                 // });
                 draft.mainPosts = action.data.posts;
+                draft.mainPostsAll = action.data.postsAll.length;
                 // draft.hasMorePost = action.data.length === 10;
                 break;
             }
@@ -143,6 +145,8 @@ export default ( state = initialState, action ) => {
                 break;
             }
             case LOAD_MAIN_POSTS_ALL_REQUEST: {
+                draft.mainPostsAll = !action.lastId ? [] : draft.mainPostsAll;
+                draft.postAdded = false;
                 break;
             }
             case LOAD_MAIN_POSTS_ALL_SUCCESS: {
@@ -152,17 +156,19 @@ export default ( state = initialState, action ) => {
             case LOAD_MAIN_POSTS_ALL_FAILURE: {
                 break;
             }
-            case UPDATE_CURRENT_PAGE_REQUEST: {
+            case CURRENT_PAGE_NUMBER_REQUEST: {
                 draft.current = action.payload;
+                draft.paging = true;
                 break;
             }
-            // case UPDATE_CURRENT_PAGE_SUCCESS: {
-            //     draft.current = action.payload;
-            //     break;
-            // }
-            // case UPDATE_CURRENT_PAGE_FAILURE: {
-            //     break;
-            // }
+            case CURRENT_PAGE_NUMBER_SUCCESS: {
+                // draft.current = action.payload;
+                draft.paging = false;
+                break;
+            }
+            case CURRENT_PAGE_NUMBER_FAILURE: {
+                break;
+            }
             case UPDATE_START_END_PAGE: {
                 draft.start = action.payload.start;
                 draft.end = action.payload.end;

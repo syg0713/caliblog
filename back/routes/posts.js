@@ -19,17 +19,15 @@ router.get('/', async (req, res, next) => { // GET /api/posts
         model: db.User,
         attributes: ['id','userId'],
       }],
-      order: [['createdAt', 'DESC']], // DESC는 내림차순, ASC는 오름차순
+      offset: parseInt(req.query.offset, 10),
       limit: parseInt(req.query.limit, 10),
-      offset: parseInt(req.query.offset, 10)
+      order: [['createdAt', 'DESC']], // DESC는 내림차순, ASC는 오름차순
     });
     const postsAll = await db.Post.findAll({
       include: [{
         model: db.User,
-        // attributes: ['id','userId'],
       }],
-      order: [['createdAt', 'DESC']], // DESC는 내림차순, ASC는 오름차순
-      // limit: parseInt(req.query.limit, 10),
+      order: [['createdAt', 'DESC']],
     });
     res.json({ posts, postsAll });
   } catch (e) {
