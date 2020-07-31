@@ -19,48 +19,29 @@ const Pagination = ({ val }) => {
         payload: val,
     })
   }
-  const updateStartEndPage = ( page ) => {
-      dispatch({
-          type: UPDATE_START_END_PAGE,
-          payload: { start, end },
-      })
-  }
+
   
-  const per = 10;
-
-  const pageGoTo = (() => {
-    // if ( paging == false ) {
-      const offset = (current-1)*per;
-      dispatch({
-          type: LOAD_MAIN_POSTS_REQUEST,
-          offset,
-      })
-    // }
-  })
-
   return (
     <>
-        {/* <Link
-          href={{pathname: '/Pages', query: { goto: val }}}
-          // href={{ pathname: '/bodyrender', query: { postId: post.id }}}
-          as={`/Pages/${val}`}
+        <Link
+          href={{pathname: '/Page', query: { goto: val }}}
+          as={`/Page/${val}`}
           key={val}
           prefetch
-        > */}
+        >
           <li key={val} 
               onClick={() => {
                 updateCurrentPage(val);
-                pageGoTo();
               }}>
               {val}
           </li>
-        {/* </Link> */}
+        </Link>
     </>
   );
 };
 
 Pagination.propTypes = {
-  post: PropTypes.object.isRequired,
+  val: PropTypes.number.isRequired,
 }
 
 export default Pagination;

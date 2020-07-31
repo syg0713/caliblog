@@ -13,6 +13,7 @@ const PostCard = ({ postId }) => {
     const menuRef = useRef();
     const deleteRef = useRef();
     const modifyRef = useRef();
+
     useEffect(() =>{
         if( postDeleted ) {
             Router.push('/');
@@ -22,7 +23,7 @@ const PostCard = ({ postId }) => {
         }
     },[ postDeleted ])
 
-    const showMenu = useCallback(() => {
+    const showMenu = useCallback(() => { // 메뉴창 토글
         if ( me.id === singlePost.User.id) {
             const activated = menuRef.current.classList.contains('active');
             if ( !activated ) {
@@ -34,8 +35,9 @@ const PostCard = ({ postId }) => {
             menuRef.current.classList.remove('active');
         }
     },[ me.id, singlePost.User.id ])
+
     const deleteConfirm = useCallback(() => {
-        if (confirm("정말 삭제하시겠습니까??") == true){ //확인
+        if (confirm("정말 삭제하시겠습니까??") == true){ // 삭제 확인
             dispatch({
                 type: REMOVE_POST_REQUEST,
                 data: postId,

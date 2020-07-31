@@ -25,7 +25,7 @@ export const initialState = {
     paging: false,
     start: 0,
     end: 10,
-    current: 1,
+    current: 1
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -39,10 +39,6 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
 export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
 export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE';
-
-export const LOAD_MAIN_POSTS_ALL_REQUEST = 'LOAD_MAIN_POSTS_ALL_REQUEST';
-export const LOAD_MAIN_POSTS_ALL_SUCCESS = 'LOAD_MAIN_POSTS_ALL_SUCCESS';
-export const LOAD_MAIN_POSTS_ALL_FAILURE = 'LOAD_MAIN_POSTS_ALL_FAILURE';
 
 export const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST';
 export const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
@@ -65,23 +61,7 @@ export default ( state = initialState, action ) => {
     return produce ( state, (draft) => {
         switch (action.type) {
 
-            case UPLOAD_IMAGES_REQUEST: {
-                break;
-            }
-            case UPLOAD_IMAGES_SUCCESS: {
-                action.data.forEach((p) => {
-                draft.imagePaths.push(p);
-                });
-                break;
-            }
-            case UPLOAD_IMAGES_FAILURE: {
-                break;
-            }
-            case REMOVE_IMAGE: {
-                const index = draft.imagePaths.findIndex((v, i) => i === action.index);
-                draft.imagePaths.splice(index, 1);
-                break;
-              }
+
             case ADD_POST_REQUEST: {
                 draft.isAddingPost = true;
                 draft.addingPostErrorReason = '';
@@ -100,34 +80,6 @@ export default ( state = initialState, action ) => {
                 draft.postAdded = false;
                 break;
             }
-            case LOAD_MAIN_POSTS_REQUEST: {
-                draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
-                draft.postAdded = false;
-                // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
-                break;
-            }
-            case LOAD_MAIN_POSTS_SUCCESS: {
-                // action.data.forEach((d) => {
-                //     draft.mainPosts.push(d);
-                // });
-                draft.mainPosts = action.data.posts;
-                draft.mainPostsAll = action.data.postsAll.length;
-                // draft.hasMorePost = action.data.length === 10;
-                break;
-            }
-            case LOAD_MAIN_POSTS_FAILURE: {
-                break;
-            }
-            case LOAD_SINGLE_POST_REQUEST: {
-                break;
-            }
-            case LOAD_SINGLE_POST_SUCCESS: {
-                draft.singlePost = action.data;
-                break;
-            }
-            case LOAD_SINGLE_POST_FAILURE: {
-                break;
-            }
             case REMOVE_POST_REQUEST: {
                 break;
             }
@@ -144,18 +96,34 @@ export default ( state = initialState, action ) => {
                 draft.postDeleted = false;
                 break;
             }
-            case LOAD_MAIN_POSTS_ALL_REQUEST: {
-                draft.mainPostsAll = !action.lastId ? [] : draft.mainPostsAll;
+            case LOAD_MAIN_POSTS_REQUEST: {
+                draft.mainPosts = [];
+                // draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
                 draft.postAdded = false;
                 break;
             }
-            case LOAD_MAIN_POSTS_ALL_SUCCESS: {
+            case LOAD_MAIN_POSTS_SUCCESS: {
+                // action.data.forEach((d) => {
+                //     draft.mainPosts.push(d);
+                // });
+                draft.mainPosts = action.data.posts;
                 draft.mainPostsAll = action.data.postsAll.length;
                 break;
             }
-            case LOAD_MAIN_POSTS_ALL_FAILURE: {
+            case LOAD_MAIN_POSTS_FAILURE: {
                 break;
             }
+            case LOAD_SINGLE_POST_REQUEST: {
+                break;
+            }
+            case LOAD_SINGLE_POST_SUCCESS: {
+                draft.singlePost = action.data;
+                break;
+            }
+            case LOAD_SINGLE_POST_FAILURE: {
+                break;
+            }
+
             case CURRENT_PAGE_NUMBER_REQUEST: {
                 draft.current = action.payload;
                 draft.paging = true;
@@ -167,6 +135,24 @@ export default ( state = initialState, action ) => {
                 break;
             }
             case CURRENT_PAGE_NUMBER_FAILURE: {
+                break;
+            }
+
+            case UPLOAD_IMAGES_REQUEST: {
+                break;
+            }
+            case UPLOAD_IMAGES_SUCCESS: {
+                action.data.forEach((p) => {
+                draft.imagePaths.push(p);
+                });
+                break;
+            }
+            case UPLOAD_IMAGES_FAILURE: {
+                break;
+            }
+            case REMOVE_IMAGE: {
+                const index = draft.imagePaths.findIndex((v, i) => i === action.index);
+                draft.imagePaths.splice(index, 1);
                 break;
             }
             case UPDATE_START_END_PAGE: {
