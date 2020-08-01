@@ -24,8 +24,9 @@ export const initialState = {
     // pagination
     paging: false,
     start: 0,
-    end: 10,
-    current: 1
+    end: 5,
+    current: 1,
+    getBegin: false,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -55,6 +56,7 @@ export const CURRENT_PAGE_NUMBER_REQUEST = 'CURRENT_PAGE_NUMBER_REQUEST';
 export const CURRENT_PAGE_NUMBER_SUCCESS = 'CURRENT_PAGE_NUMBER_SUCCESS';
 export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE';
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE';
+export const GO_TO_BEGIN = 'GO_TO_BEGIN';
 
 
 export default ( state = initialState, action ) => {
@@ -156,10 +158,19 @@ export default ( state = initialState, action ) => {
                 break;
             }
             case UPDATE_START_END_PAGE: {
-                draft.start = action.payload.start;
-                draft.end = action.payload.end;
-                break;
+                    draft.start = action.payload.start;
+                    draft.end = action.payload.end;
+                    draft.current = action.payload.start
+                    break;
             }
+            case GO_TO_BEGIN: {
+                draft.getBegin = true;
+                break;
+        }
+            // case UPDATE_LAST_PAGE: {
+            //     draft.current = action.payload.start;
+            //     break;
+            // }
             default: {
                 break;
             }

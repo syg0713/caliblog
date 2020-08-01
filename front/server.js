@@ -29,10 +29,12 @@ app.prepare().then(() => {
     }
   }));
 
-  server.get('/bodyrender/:id', ( req, res ) => {
-    return app.render( req, res, '/bodyrender', { id: req.params.id });
+  server.get('/bodyrender/:postId', ( req, res ) => {
+    return app.render( req, res, '/bodyrender', { postId: req.params.postId });
   });
-
+  server.get('/page/:goto', ( req, res ) => {
+    return app.render( req, res, '/page', { goto: req.params.goto });
+  });
   server.get('*', ( req, res ) => {
     return handle( req, res );
   });

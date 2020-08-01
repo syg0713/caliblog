@@ -20,11 +20,13 @@ const BodyRender = ({ postId }) => {
 
 // getInitialProps
 BodyRender.getInitialProps = async ( context ) => {
+  const { postId } = context.query;
+  // console.log('bodyrender getInitialProps', postId);
   context.store.dispatch({
     type: LOAD_SINGLE_POST_REQUEST,
-    data: context.query.postId,
+    data: postId,
   });
-  return { postId: parseInt( context.query.postId, 10)};
+  return { postId: parseInt( postId, 10)};
 };
 
 BodyRender.propTypes = {

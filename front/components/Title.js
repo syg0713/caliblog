@@ -12,7 +12,6 @@ const Title = ({ post }) => {
         <div className="title__container">
             <Link
               href={{ pathname: '/bodyrender', query: { postId: post.id }}}
-              // , query: { tag: v.slice(1) }
               as={`/bodyrender/${post.id}`}
               key={post.id}
               prefetch

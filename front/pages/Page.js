@@ -3,22 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Title from '../components/Title';
 import Pagination from '../components/Pagination';
-import { LOAD_MAIN_POSTS_REQUEST } from '../reducers/post';
+import { LOAD_MAIN_POSTS_REQUEST, UPDATE_START_END_PAGE } from '../reducers/post';
 
 const Page = ({ goto }) => {
   const dispatch = useDispatch();
-  const { mainPosts, mainPostsAll, start, end } = useSelector( state => state.post );
-
-
-  const per = 10;
-  const dbPostsAll = mainPostsAll;
-  console.log(mainPostsAll);
-  const total = Math.ceil( dbPostsAll / per );
-  const array = [];
-  for ( let i=0; i<total; i++ ) {
-      array.push( i+1);
-  }
-  const target = array.slice( start, end );
+  const { mainPosts, getBegin, mainPostsAll, start, end, current } = useSelector( state => state.post );
+  console.log(goto);
 
   useEffect(() => {
     const per = 10;
@@ -28,7 +18,8 @@ const Page = ({ goto }) => {
         offset,
     })
   },[goto])
-  
+
+
 
   return (
     <div>
@@ -37,10 +28,7 @@ const Page = ({ goto }) => {
                 <Title key={item.id} post={item}/>
             );
         })}
-        { target.map( val => (
-            <Pagination key={val} val={val} />
-        ))}
-
+        <Pagination />
     </div>
   );
 };
@@ -48,7 +36,8 @@ const Page = ({ goto }) => {
 
 // getInitialProps
 Page.getInitialProps = async ( context ) => {
-  return { goto: parseInt( context.query.goto, 10)};
+  const { goto } = context.query;
+  return { goto: parseInt( goto, 10)};
 };
 
 Page.propTypes = {
