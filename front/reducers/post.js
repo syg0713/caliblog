@@ -22,11 +22,9 @@ export const initialState = {
     isLoadingPost: false,
     postLoaded: false,
     // pagination
-    paging: false,
     start: 0,
     end: 5,
     current: 1,
-    getBegin: false,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -126,19 +124,7 @@ export default ( state = initialState, action ) => {
                 break;
             }
 
-            case CURRENT_PAGE_NUMBER_REQUEST: {
-                draft.current = action.payload;
-                draft.paging = true;
-                break;
-            }
-            case CURRENT_PAGE_NUMBER_SUCCESS: {
-                // draft.current = action.payload;
-                draft.paging = false;
-                break;
-            }
-            case CURRENT_PAGE_NUMBER_FAILURE: {
-                break;
-            }
+
 
             case UPLOAD_IMAGES_REQUEST: {
                 break;
@@ -160,17 +146,14 @@ export default ( state = initialState, action ) => {
             case UPDATE_START_END_PAGE: {
                     draft.start = action.payload.start;
                     draft.end = action.payload.end;
-                    draft.current = action.payload.start
+                    // draft.current = action.payload.start;
                     break;
             }
-            case GO_TO_BEGIN: {
-                draft.getBegin = true;
+            case CURRENT_PAGE_NUMBER_REQUEST: {
+                draft.current = action.payload;
+                // draft.paging = true;
                 break;
-        }
-            // case UPDATE_LAST_PAGE: {
-            //     draft.current = action.payload.start;
-            //     break;
-            // }
+            }
             default: {
                 break;
             }

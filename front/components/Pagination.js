@@ -1,77 +1,95 @@
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import './Title.scss';
 import './Pagination.scss';
-import PropTypes from 'prop-types';
 import { 
-  UPDATE_CURRENT_PAGE,
   CURRENT_PAGE_NUMBER_REQUEST,
-  LOAD_MAIN_POSTS_REQUEST, UPDATE_START_END_PAGE, 
+  UPDATE_START_END_PAGE, 
 } from '../reducers/post';
-
 
 const Pagination = ({ val }) => {
   const dispatch = useDispatch();
-  const {  mainPosts, mainPostsAll, start, end, current, paging } = useSelector( state => state.post );
+  const { mainPostsAll, start, end, current } = useSelector( state => state.post );
 
+  // 페이지네이션 도트 개수 설정
   const per = 10;
   const dbPostsAll = mainPostsAll;
   const total = Math.ceil( dbPostsAll / per );
   const array = [];
-  for ( let i=0; i<total; i++ ) {
-      array.push( i+1);
+  for ( let i=1; i < total+1; i++ ) {
+      array.push( i );
   }
   const target = array.slice( start, end );
   
+  // 현재 페이지 번호 업데이트
   const updateCurrentPage = ( val ) => {
     dispatch({
         type: CURRENT_PAGE_NUMBER_REQUEST,
         payload: val,
     })
   }
+
+  // 현재장의 처음페이지 번호와 마지막페이지 번호 업데이트
   const updateStartEndPage = ( start, end ) => {
     dispatch({
         type: UPDATE_START_END_PAGE,
         payload: { start, end },
     })
-}
+  }
+
+  // 처음페이지 & 마지막 페이지 버튼 클릭 방지
   useEffect(() => {
-    console.log(current);
-  },[current])
-  
+    // console.log(current,'현재페이지');
+    // console.log(total,'총게시물개수');
+    if( start == 0 ) { 
+      document.querySelector('.prev').style.display='none'
+    } else { 
+      document.querySelector('.prev').style.display='inline-block'
+    };
+    if( end > total ) { 
+      document.querySelector('.next').style.display='none'
+    };
+  },[ current, end, start, total ])
+
+  // PREV & NEXT 페이지 이동 쿼리값, 변수
+  const prevPageValue = start > 0 ? start : current;
+  const nextPageValue =  end < total ? end+1 : total;
+
   return (
     <>
-        {/* <Link
-          href={{pathname: '/page', query: { goto: start+1 }}}
-          as={`/page/${start+1}`}
-          key={start+1}
+        <Link
+          href={{pathname: '/page', query: { goto : prevPageValue } }}
+          as={`/page/${ prevPageValue }`}
+          key={ prevPageValue }
           prefetch
         >
-            <a> */}
+            <a className="prev">
               <button
                 onClick={() => {
-                  if ( start > 0 ) {
+                  if ( start > 1 ) {
                     const s = start - 5;
                     const e = end - 5;
-                    updateStartEndPage(s,e);
+                    updateStartEndPage( s, e );
                   }
+                  updateCurrentPage( prevPageValue );
                 }}
               >이전
               </button>
-            {/* </a>
-        </Link> */}
+            </a>
+        </Link>
 
         { target.map( val => (
           <Link
-            href={{pathname: '/page', query: { goto: val }}}
+            href={{ pathname: '/page', query: { goto: val } }}
             as={`/page/${val}`}
-            key={val}
+            key={ val }
             prefetch
           >
-            <li key={val} 
+            <li key={ val } 
               onClick={() => {
-                updateCurrentPage(val);
+                updateCurrentPage( val );
               }}
             >
               {val}
@@ -79,25 +97,27 @@ const Pagination = ({ val }) => {
           </Link>
         ))}
 
-        {/* <Link
-          href={{pathname: '/page', query: { goto: start+1 }}}
-          as={`/page/${start+1}`}
-          key={start+1}
+        <Link
+          href={{ pathname: '/page', query: { goto: nextPageValue } }}
+          as={`/page/${ nextPageValue }`}
+          key={ nextPageValue }
           prefetch
         >
-          <a> */}
+          <a className="next">
             <button
             onClick={() => {
-              if ( end < Math.ceil(dbPostsAll / 10) ) {
+              if ( end < total ) {
                 const s = start + 5;
                 const e = end + 5;
-                updateStartEndPage(s,e);
+                updateStartEndPage( s, e );
               }
+              updateCurrentPage( nextPageValue );
+
             }}
             >다음
             </button>
-          {/* </a>
-        </Link> */}
+          </a>
+        </Link>
     </>
   );
 };

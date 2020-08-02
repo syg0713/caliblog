@@ -13,9 +13,6 @@ import {
     LOAD_SINGLE_POST_REQUEST,
     LOAD_SINGLE_POST_SUCCESS,
     LOAD_SINGLE_POST_FAILURE,
-    CURRENT_PAGE_NUMBER_REQUEST,
-    CURRENT_PAGE_NUMBER_SUCCESS,
-    CURRENT_PAGE_NUMBER_FAILURE,
     UPLOAD_IMAGES_FAILURE,
     UPLOAD_IMAGES_REQUEST,
     UPLOAD_IMAGES_SUCCESS,
@@ -30,7 +27,7 @@ function addPostAPI(postData) {
 function* addPost(action) {
     try {
         const result = yield call(addPostAPI, action.data);
-        console.log(result);
+        // console.log(result);
         // throw (new Error("Something went wrong"));
         yield put({
             type: ADD_POST_SUCCESS,
@@ -74,7 +71,7 @@ function loadMainPostsAPI(lastId = 0, limit = 10, offset = 0) {
 }
 function* loadMainPosts(action) {
     try {
-        console.log(action.offset);
+        // console.log(action.offset);
         const result = yield call(loadMainPostsAPI, action.lastId, action.limit, action.offset);
         yield put({
         type: LOAD_MAIN_POSTS_SUCCESS,
@@ -111,28 +108,6 @@ function* watchLoadSinglePost() {
     yield throttle(2000, LOAD_SINGLE_POST_REQUEST, loadSinglePost);
 }
 
-function currentPageNumberAPI() {
-    return axios.get(`/posts?limit=${limit}`);
-}
-function* currentPageNumber(action) {
-    try {
-        // const result = yield call(currentPageNumberAPI, action.lastId);
-        yield put({
-        type: CURRENT_PAGE_NUMBER_SUCCESS,
-        // data: result.data,
-        });
-    } catch (e) {
-        yield put({
-        type: CURRENT_PAGE_NUMBER_FAILURE,
-        error: e,
-        });
-    }
-}
-function* watchCurrentPageNumber() {
-    yield throttle(2000, CURRENT_PAGE_NUMBER_REQUEST, currentPageNumber);
-    // yield throttle(2000, LOAD_MAIN_POSTS_All_REQUEST, loadMainPostsAll);
-}
-
 function uploadImagesAPI(formData) {
     return axios.post('/post/images', formData, {
         withCredentials: true,
@@ -163,7 +138,6 @@ export default function* postSaga() {
         fork(watchRemovePost),
         fork(watchLoadMainPosts),
         fork(watchLoadSinglePost),
-        fork(watchCurrentPageNumber),
         fork(watchUploadImages),
     ]);
 }

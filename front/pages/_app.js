@@ -85,7 +85,7 @@ CaliBlog.propTypes = {
 
 // getInitialProps
 CaliBlog.getInitialProps = async ( context ) => {
-    console.log(context);
+    // console.log(context);
     const { ctx, Component } = context;
     let pageProps = {};
     const state = ctx.store.getState();
