@@ -103,7 +103,7 @@ const Signup = () => {
                 <input type="password" value={passwordCheck} required onChange={onChangePasswordCheck} className="custom-input"/>
             </div>
             {passwordError && (
-                    <div>비밀번호가 일치하지 않습니다.</div>
+                    <div className="invalid">비밀번호가 일치하지 않습니다.</div>
                 // <SignupError>비밀번호가 일치하지 않습니다.</SignupError>
             )}
             <div className="term">

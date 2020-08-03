@@ -39,10 +39,32 @@ const Pagination = ({ val }) => {
     })
   }
 
+  // PREV & NEXT 페이지 이동 쿼리값, 변수
+  const prevPageValue = start > 0 ? start : current;
+  const nextPageValue =  end < total ? end+1 : total;
+
+  // 이전 버튼
+  const prevButton = useCallback(() => {
+      if ( start > 1 ) {
+        const s = start - 5;
+        const e = end - 5;
+        updateStartEndPage( s, e );
+      }
+      updateCurrentPage( prevPageValue );
+  },[ start, end]);
+
+  // 다음 버튼
+  const nextButton = useCallback(() => {
+      if ( end < total ) {
+        const s = start + 5;
+        const e = end + 5;
+        updateStartEndPage( s, e );
+      }
+      updateCurrentPage( nextPageValue );
+  },[ start, end, total ]);
+
   // 처음페이지 & 마지막 페이지 버튼 클릭 방지
   useEffect(() => {
-    // console.log(current,'현재페이지');
-    // console.log(total,'총게시물개수');
     if( start == 0 ) { 
       document.querySelector('.prev').style.display='none'
     } else { 
@@ -50,12 +72,25 @@ const Pagination = ({ val }) => {
     };
     if( end > total ) { 
       document.querySelector('.next').style.display='none'
+    } else {
+      document.querySelector('.next').style.display='inline-block'
     };
+    const pageUrl = document.location.href.split('page/')[1];
+    const parseUrl = parseInt(pageUrl,10)
+    const ceilUrl = Math.ceil(parseUrl);
+    console.log(ceilUrl);
+    // if ( pageUrl ) {
+    //   updateCurrentPage( parseUrl );
+    //   updateStartEndPage( parseUrl-5, parseUrl );
+    // }
+    // const dividePages = dbPostsAll / 5;
+    // const pageValue = dbPostsAll / dividePages;
+    // console.log(dividePages, pageValue);
+        // console.log(current,'현재페이지');
+    // console.log(total,'총게시물개수');
   },[ current, end, start, total ])
 
-  // PREV & NEXT 페이지 이동 쿼리값, 변수
-  const prevPageValue = start > 0 ? start : current;
-  const nextPageValue =  end < total ? end+1 : total;
+
 
   return (
     <>
@@ -67,14 +102,7 @@ const Pagination = ({ val }) => {
         >
             <a className="prev">
               <button
-                onClick={() => {
-                  if ( start > 1 ) {
-                    const s = start - 5;
-                    const e = end - 5;
-                    updateStartEndPage( s, e );
-                  }
-                  updateCurrentPage( prevPageValue );
-                }}
+                onClick={ prevButton }
               >이전
               </button>
             </a>
@@ -105,15 +133,7 @@ const Pagination = ({ val }) => {
         >
           <a className="next">
             <button
-            onClick={() => {
-              if ( end < total ) {
-                const s = start + 5;
-                const e = end + 5;
-                updateStartEndPage( s, e );
-              }
-              updateCurrentPage( nextPageValue );
-
-            }}
+            onClick={ nextButton }
             >다음
             </button>
           </a>

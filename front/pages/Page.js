@@ -19,7 +19,7 @@ const Page = ({ goto }) => {
         type: LOAD_MAIN_POSTS_REQUEST,
         offset,
     })
-  },[goto])
+  },[ goto ])
 
 
 

@@ -6,17 +6,22 @@ import PostButton from '../components/PostButton';
 import { LOAD_MAIN_POSTS_REQUEST } from '../reducers/post';
 
 const Home = () => {
-    // const { me } = useSelector( state => state.user );
-    const { mainPosts } = useSelector( state => state.post );
+    const { me } = useSelector( state => state.user );
+    const { mainPosts, singlePost } = useSelector( state => state.post );
     return (
         <>
-            <PostButton />
-            {mainPosts.map((item) => {
-                return (
-                    <Title key={item.id} post={item}/>
-                );
-            })}
-            <Pagination  />
+            {me ?
+                <div>
+                    <PostButton />
+                    {mainPosts.map((item) => {
+                        return (
+                            <Title key={item.id} post={item}/>
+                        );
+                    })}
+                    <Pagination  />
+                </div> :
+                <div>로그인이 필요 합니다.</div>
+            }
         </>
     );
 };
