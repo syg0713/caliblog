@@ -23,7 +23,7 @@ export const initialState = {
     postLoaded: false,
     // pagination
     start: 0,
-    end: 5,
+    end: 10,
     current: 1,
 }
 
@@ -50,7 +50,7 @@ export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 export const POST_DELETE_DONE = 'POST_DELETE_DONE';
 
-export const CURRENT_PAGE_NUMBER_REQUEST = 'CURRENT_PAGE_NUMBER_REQUEST';
+export const CURRENT_PAGE_NUMBER = 'CURRENT_PAGE_NUMBER';
 export const CURRENT_PAGE_NUMBER_SUCCESS = 'CURRENT_PAGE_NUMBER_SUCCESS';
 export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE';
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE';
@@ -125,7 +125,6 @@ export default ( state = initialState, action ) => {
             }
 
 
-
             case UPLOAD_IMAGES_REQUEST: {
                 break;
             }
@@ -144,14 +143,13 @@ export default ( state = initialState, action ) => {
                 break;
             }
             case UPDATE_START_END_PAGE: {
-                    draft.start = action.payload.start;
-                    draft.end = action.payload.end;
-                    // draft.current = action.payload.start;
-                    break;
+                draft.start = action.payload.start;
+                draft.end = action.payload.end;
+                // draft.current = action.payload.start;
+                break;
             }
-            case CURRENT_PAGE_NUMBER_REQUEST: {
+            case CURRENT_PAGE_NUMBER: {
                 draft.current = action.payload;
-                // draft.paging = true;
                 break;
             }
             default: {

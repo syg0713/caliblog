@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './Title.scss';
 import './Pagination.scss';
 import { 
-  CURRENT_PAGE_NUMBER_REQUEST,
+  CURRENT_PAGE_NUMBER,
   UPDATE_START_END_PAGE, 
 } from '../reducers/post';
 
@@ -26,7 +26,7 @@ const Pagination = ({ val }) => {
   // 현재 페이지 번호 업데이트
   const updateCurrentPage = ( val ) => {
     dispatch({
-        type: CURRENT_PAGE_NUMBER_REQUEST,
+        type: CURRENT_PAGE_NUMBER,
         payload: val,
     })
   }
@@ -46,49 +46,65 @@ const Pagination = ({ val }) => {
   // 이전 버튼
   const prevButton = useCallback(() => {
       if ( start > 1 ) {
-        const s = start - 5;
-        const e = end - 5;
+        const s = start - 10;
+        const e = end - 10;
         updateStartEndPage( s, e );
       }
       updateCurrentPage( prevPageValue );
+      return;
   },[ start, end]);
 
   // 다음 버튼
   const nextButton = useCallback(() => {
       if ( end < total ) {
-        const s = start + 5;
-        const e = end + 5;
+        const s = start + 10;
+        const e = end + 10;
         updateStartEndPage( s, e );
       }
       updateCurrentPage( nextPageValue );
+      return;
   },[ start, end, total ]);
 
-  // 처음페이지 & 마지막 페이지 버튼 클릭 방지
+
   useEffect(() => {
+
+    // URL 이동 시 커렌트 삽입 및 페이지네이션 변경
+    const url = document.location.href;
+    const pageUrl = document.location.href.split('page/')[1];
+    const getCurrent = parseInt(pageUrl,10);
+    const getStart = pageUrl ? parseInt(pageUrl[0]+'0',10) : 0;
+
+    if( pageUrl ) {
+      dispatch({
+        type: CURRENT_PAGE_NUMBER,
+        payload: getCurrent,
+      })
+    }
+
+    // document.querySelectorAll('li').classList.remove('active');
+    // if ( current > 10 ) {
+    //   document.querySelectorAll('li')[current-1].classList.add('active');
+    // } else {
+    //   document.querySelectorAll('li')[numbers].classList.add('active');
+    // }
+    
+    if( pageUrl ) {
+      getCurrent <= 10 ? updateStartEndPage( 0, 10 ) : updateStartEndPage( getStart, getStart+10 );
+      // getCurrent <= 10 ? updateStartEndPage( 0, 10 ) : updateStartEndPage( getStart, getStart+10 );
+    }
+
+    // 처음페이지 & 마지막 페이지 버튼 클릭 방지
     if( start == 0 ) { 
-      document.querySelector('.prev').style.display='none'
+      document.querySelector('.prev').style.display='none';
     } else { 
-      document.querySelector('.prev').style.display='inline-block'
+      document.querySelector('.prev').style.display='inline-block';
     };
     if( end > total ) { 
-      document.querySelector('.next').style.display='none'
+      document.querySelector('.next').style.display='none';
     } else {
-      document.querySelector('.next').style.display='inline-block'
+      document.querySelector('.next').style.display='inline-block';
     };
-    const pageUrl = document.location.href.split('page/')[1];
-    const parseUrl = parseInt(pageUrl,10)
-    const ceilUrl = Math.ceil(parseUrl);
-    console.log(ceilUrl);
-    // if ( pageUrl ) {
-    //   updateCurrentPage( parseUrl );
-    //   updateStartEndPage( parseUrl-5, parseUrl );
-    // }
-    // const dividePages = dbPostsAll / 5;
-    // const pageValue = dbPostsAll / dividePages;
-    // console.log(dividePages, pageValue);
-        // console.log(current,'현재페이지');
-    // console.log(total,'총게시물개수');
-  },[ current, end, start, total ])
+  },[ current, start, end ])
 
 
 
@@ -115,7 +131,8 @@ const Pagination = ({ val }) => {
             key={ val }
             prefetch
           >
-            <li key={ val } 
+            <li key={ val }
+              className={} 
               onClick={() => {
                 updateCurrentPage( val );
               }}
