@@ -23,7 +23,7 @@ const Pagination = ({ val }) => {
   }
   const target = array.slice( start, end );
   
-  // 현재 페이지 번호 업데이트
+  // 현재 페이지 current 업데이트
   const updateCurrentPage = ( val ) => {
     dispatch({
         type: CURRENT_PAGE_NUMBER,
@@ -31,7 +31,7 @@ const Pagination = ({ val }) => {
     })
   }
 
-  // 현재장의 처음페이지 번호와 마지막페이지 번호 업데이트
+  // 현재 장의 start와 end 번호 업데이트
   const updateStartEndPage = ( start, end ) => {
     dispatch({
         type: UPDATE_START_END_PAGE,
@@ -66,14 +66,16 @@ const Pagination = ({ val }) => {
   },[ start, end, total ]);
 
 
-  useEffect(() => {
-
-    // URL 이동 시 커렌트 삽입 및 페이지네이션 변경
+  
+  useEffect(() => { // URL 이동 시 커렌트 삽입 및 페이지네이션 변경
     const url = document.location.href;
     const pageUrl = document.location.href.split('page/')[1];
     const getCurrent = parseInt(pageUrl,10);
     const getStart = pageUrl ? parseInt(pageUrl[0]+'0',10) : 0;
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
 
+    // 페이지 창일때 쿼리값 커랜트로 받기
     if( pageUrl ) {
       dispatch({
         type: CURRENT_PAGE_NUMBER,
@@ -81,29 +83,24 @@ const Pagination = ({ val }) => {
       })
     }
 
-    // document.querySelectorAll('li').classList.remove('active');
-    // if ( current > 10 ) {
-    //   document.querySelectorAll('li')[current-1].classList.add('active');
-    // } else {
-    //   document.querySelectorAll('li')[numbers].classList.add('active');
-    // }
-    
+    //페이지 창일때 start, end 값 업데이트
     if( pageUrl ) {
-      getCurrent <= 10 ? updateStartEndPage( 0, 10 ) : updateStartEndPage( getStart, getStart+10 );
-      // getCurrent <= 10 ? updateStartEndPage( 0, 10 ) : updateStartEndPage( getStart, getStart+10 );
+      getCurrent <= 10 ?
+      updateStartEndPage( 0, 10 ) : 
+      updateStartEndPage( getStart, getStart+10 );
     }
 
     // 처음페이지 & 마지막 페이지 버튼 클릭 방지
     if( start == 0 ) { 
-      document.querySelector('.prev').style.display='none';
-    } else { 
-      document.querySelector('.prev').style.display='inline-block';
-    };
+      true ? 
+      prev.style.display='none' : 
+      prev.style.display='inline-block';
+    }
     if( end > total ) { 
-      document.querySelector('.next').style.display='none';
-    } else {
-      document.querySelector('.next').style.display='inline-block';
-    };
+      true ?
+      next.style.display='none' :
+      next.style.display='inline-block';
+    }
   },[ current, start, end ])
 
 
@@ -132,10 +129,13 @@ const Pagination = ({ val }) => {
             prefetch
           >
             <li key={ val }
-              className={} 
               onClick={() => {
                 updateCurrentPage( val );
               }}
+              className={ 
+                current === val ?
+                'active' : '' 
+              }
             >
               {val}
             </li>

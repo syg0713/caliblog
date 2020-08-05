@@ -40,10 +40,10 @@ const Page = ({ goto }) => {
 // getInitialProps
 Page.getInitialProps = async ( context ) => {
   const { goto } = context.query;
-  // context.store.dispatch({
-  //   type: LOAD_MAIN_POSTS_REQUEST,
-  //   offset: (goto-1)*10,
-  // });
+  context.store.dispatch({
+    type: LOAD_MAIN_POSTS_REQUEST,
+    offset: (goto-1)*10,
+  });
   return { goto: parseInt( goto, 10)};
 };
 
