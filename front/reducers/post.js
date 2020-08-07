@@ -125,6 +125,17 @@ export default ( state = initialState, action ) => {
             }
 
 
+            case UPDATE_START_END_PAGE: {
+                draft.start = action.payload.start;
+                draft.end = action.payload.end;
+                // draft.current = action.payload.start;
+                break;
+            }
+            case CURRENT_PAGE_NUMBER: {
+                draft.current = action.payload;
+                break;
+            }
+
             case UPLOAD_IMAGES_REQUEST: {
                 break;
             }
@@ -140,16 +151,6 @@ export default ( state = initialState, action ) => {
             case REMOVE_IMAGE: {
                 const index = draft.imagePaths.findIndex((v, i) => i === action.index);
                 draft.imagePaths.splice(index, 1);
-                break;
-            }
-            case UPDATE_START_END_PAGE: {
-                draft.start = action.payload.start;
-                draft.end = action.payload.end;
-                // draft.current = action.payload.start;
-                break;
-            }
-            case CURRENT_PAGE_NUMBER: {
-                draft.current = action.payload;
                 break;
             }
             default: {

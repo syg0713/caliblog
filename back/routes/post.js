@@ -92,10 +92,10 @@ router.delete('/:id', isLoggedIn, async (req, res, next) => {
     next(e);
   }
 });
-// router.post('/images', upload.array('image'), (req, res) => {
-//   console.log(req.files);
-//   res.json(req.files.map(v => v.filename));
-// });
+router.post('/images', upload.array('image'), (req, res) => {
+  console.log(req.files);
+  res.json(req.files.map(v => v.filename));
+});
 
 
 module.exports = router;
