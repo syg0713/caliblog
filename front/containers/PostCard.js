@@ -15,7 +15,7 @@ const PostCard = ({ postId }) => {
     const modifyRef = useRef();
 
     useEffect(() =>{
-        console.log(singlePost.Images);
+        console.log(singlePost.Images[0].src);
         if( postDeleted ) {
             Router.push('/');
             dispatch({
@@ -67,7 +67,7 @@ const PostCard = ({ postId }) => {
                     { singlePost.User.userId }
                 </div>
                 <div>
-                    <img src={ singlePost.Images[0] } alt=""/>
+                    <img src={ `http://localhost:3065/${singlePost.Images[0].src}` } alt=""/>
                 </div>
                 <div>
                     { singlePost.content }
