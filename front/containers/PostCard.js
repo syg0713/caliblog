@@ -15,13 +15,14 @@ const PostCard = ({ postId }) => {
     const modifyRef = useRef();
 
     useEffect(() =>{
+        console.log(singlePost.Images);
         if( postDeleted ) {
             Router.push('/');
             dispatch({
                 type: POST_DELETE_DONE,
             })
         }
-    },[ postDeleted ])
+    },[ postDeleted, singlePost ])
 
     const showMenu = useCallback(() => { // 메뉴창 토글
         if ( me.id === singlePost.User.id) {
@@ -46,18 +47,18 @@ const PostCard = ({ postId }) => {
             return false;
         }
     },[ postId.id ])
-
+    
     return (
             <div className="postCard__container">
                 <section className="head">
                     <div className="head__headLine">
                         { singlePost.title }
                     </div>
-                    <button className="head__menu custom-button" ref={menuRef} onClick={showMenu}>
+                    <button className="head__menu custom-button" ref={ menuRef } onClick={showMenu}>
                             ...
                             <div>
-                                <div className="remove" ref={deleteRef} onClick={deleteConfirm}>삭제</div>
-                                <div className="cancel" ref={modifyRef}>수정</div>
+                                <div className="remove" ref={ deleteRef } onClick={deleteConfirm}>삭제</div>
+                                <div className="cancel" ref={ modifyRef }>수정</div>
                             </div>
                     </button>
                 </section>
@@ -66,7 +67,7 @@ const PostCard = ({ postId }) => {
                     { singlePost.User.userId }
                 </div>
                 <div>
-                    <img src={ singlePost.img } alt=""/>
+                    <img src={ singlePost.Images[0] } alt=""/>
                 </div>
                 <div>
                     { singlePost.content }

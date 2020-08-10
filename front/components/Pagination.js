@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,7 +11,9 @@ import {
 
 const Pagination = ({ val }) => {
   const dispatch = useDispatch();
-  const { mainPostsAll, start, end, current } = useSelector( state => state.post );
+  const { mainPostsAll, start, end, current, isLoadingPost } = useSelector( state => state.post );
+  const prevRef = useRef();
+  const nextRef = useRef();
 
   // 페이지네이션 도트 개수 설정
   const per = 10;
@@ -72,8 +74,6 @@ const Pagination = ({ val }) => {
     const pageUrl = document.location.href.split('page/')[1];
     const getCurrent = parseInt(pageUrl,10);
     const getStart = pageUrl ? parseInt(pageUrl[0]+'0',10) : 0;
-    const prev = document.querySelector('.prev');
-    const next = document.querySelector('.next');
 
     // 페이지 창일때 쿼리값 커랜트로 받기
     if( pageUrl ) {
@@ -91,16 +91,17 @@ const Pagination = ({ val }) => {
     }
 
     // 처음페이지 & 마지막 페이지 버튼 클릭 방지
-    if( start == 0 ) { 
-      true ? 
-      prev.style.display='none' : 
-      prev.style.display='inline-block';
-    }
-    if( end > total ) { 
-      true ?
-      next.style.display='none' :
-      next.style.display='inline-block';
-    }
+    // if ( start == 0 ) { 
+    //   prevRef.current.style.display='none'
+    // } else {
+    //   prevRef.current.style.display='inline-block';
+    // }
+    // if ( end > total ) {
+    //   nextRef.current.style.display='none'
+    // } else {
+    //   nextRef.current.style.display='inline-block';
+    // }
+    
   },[ current, start, end ])
 
 
@@ -113,7 +114,13 @@ const Pagination = ({ val }) => {
           key={ prevPageValue }
           prefetch
         >
-            <a className="prev">
+            <a className={ 
+              start == 0 ?
+              'prev--none' :
+              'prev'
+              }
+              // ref={prevRef}
+              >
               <button
                 onClick={ prevButton }
               >이전
@@ -148,7 +155,14 @@ const Pagination = ({ val }) => {
           key={ nextPageValue }
           prefetch
         >
-          <a className="next">
+          <a className={ 
+            end > total ?
+            'next--none' :
+            'next'
+            }
+          isLoading={isLoadingPost}
+            // ref={nextRef}
+            >
             <button
             onClick={ nextButton }
             >다음
@@ -160,7 +174,7 @@ const Pagination = ({ val }) => {
 };
 
 Pagination.propTypes = {
-  val: PropTypes.number.isRequired,
+  // val: PropTypes.number.isRequired,
 }
 
 export default Pagination;

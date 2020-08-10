@@ -39,6 +39,7 @@ const Page = ({ goto }) => {
 
 // getInitialProps
 Page.getInitialProps = async ( context ) => {
+  console.log(context);
   const { goto } = context.query;
   context.store.dispatch({
     type: LOAD_MAIN_POSTS_REQUEST,

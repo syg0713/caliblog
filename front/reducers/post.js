@@ -98,6 +98,7 @@ export default ( state = initialState, action ) => {
             }
             case LOAD_MAIN_POSTS_REQUEST: {
                 draft.mainPosts = [];
+                draft.isLoadingPost = true;
                 // draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
                 draft.postAdded = false;
                 break;
@@ -106,6 +107,7 @@ export default ( state = initialState, action ) => {
                 // action.data.forEach((d) => {
                 //     draft.mainPosts.push(d);
                 // });
+                draft.isLoadingPost = false;
                 draft.mainPosts = action.data.posts;
                 draft.mainPostsAll = action.data.postsAll.length;
                 break;

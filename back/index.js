@@ -19,6 +19,7 @@ passportConfig();
 
 // 미들웨어
 app.use(morgan('dev'));
+app.use( '/', express.static('uploads')); // 프론트 서버 uploads 폴더의 파일들을 가져갈수있게 함
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({

@@ -73,23 +73,22 @@ const PostForm = () => {
 
     return (
         <>
-            <form action="" onSubmit={onSubmit} className="postForm__container">
+            <form action="" onSubmit={onSubmit} className="postForm__container" encType="multipart/form-data">
                 <textarea type="text" placeholder="제목" cols="93" rows="1.5" value={title} onChange={onChangeTitle}/>
                 <div>
-                    {/* <img src={img} alt=""/> */}
+                    <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages}/>
                     <button className="custom-button" onClick={onClickImageUpload}>이미지 업로드</button>
                 </div>
                 <div>
                     <textarea type="text" name="content" title="내용 입력" cols="93" rows="28" value={content} onChange={onChangeContent}/>
                 </div>
                 <div>
-                    <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages} />
                     <button type="submit" className="custom-button">제출하기</button>
                 </div>
                 <div>
                     {imagePaths.map(( v, i ) => (
                         <div key={v}>
-                            <img src={v} alt={v} />
+                            <img src={`http://localhost:3065/${v}`} style={{ width: '200px' }}alt={v} />
                             <div>
                                 <div className="custom-button" onClick={onRemoveImage(i)}>제거</div>
                             </div>
