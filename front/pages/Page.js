@@ -8,6 +8,7 @@ import { LOAD_MAIN_POSTS_REQUEST, UPDATE_START_END_PAGE } from '../reducers/post
 
 const Page = ({ goto }) => {
   const dispatch = useDispatch();
+  const { me } = useSelector( state => state.user );
   const { mainPosts } = useSelector( state => state.post );
   // console.log(goto);
 
@@ -25,13 +26,20 @@ const Page = ({ goto }) => {
 
   return (
     <div>
-        <PostButton />
-        {mainPosts.map((item) => {
-            return (
-                <Title key={item.id} post={item}/>
-            );
-        })}
-        <Pagination />
+        {
+          me ? 
+          <div>
+          <PostButton />
+          {mainPosts.map((item) => {
+              return (
+                  <Title key={item.id} post={item}/>
+              );
+          })}
+          <Pagination />
+          </div> :
+          <div>로그인이 필요 합니다.</div>
+        }
+
     </div>
   );
 };

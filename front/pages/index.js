@@ -3,7 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import Title from '../components/Title';
 import Pagination from '../components/Pagination';
 import PostButton from '../components/PostButton';
-import { LOAD_MAIN_POSTS_REQUEST, CURRENT_PAGE_NUMBER, UPDATE_START_END_PAGE } from '../reducers/post';
+import { 
+    LOAD_MAIN_POSTS_REQUEST,
+    CURRENT_PAGE_NUMBER,
+    UPDATE_START_END_PAGE,
+    POST_RESET_DONE 
+} from '../reducers/post';
 
 const Home = () => {
     const { me } = useSelector( state => state.user );
@@ -11,12 +16,17 @@ const Home = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // 홈 이동 시 페이지네이션 리셋.
         const start = 0;
         const end = 10;
         dispatch({
             type: UPDATE_START_END_PAGE,
             payload:  { start, end }
         });
+        // 홈 이동 시 이미지 리셋.
+        dispatch({
+            type: POST_RESET_DONE,
+        })
     },[])
 
     return (

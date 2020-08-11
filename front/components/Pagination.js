@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,9 +11,7 @@ import {
 
 const Pagination = ({ val }) => {
   const dispatch = useDispatch();
-  const { mainPostsAll, start, end, current, isLoadingPost } = useSelector( state => state.post );
-  const prevRef = useRef();
-  const nextRef = useRef();
+  const { mainPostsAll, start, end, current } = useSelector( state => state.post );
 
   // 페이지네이션 도트 개수 설정
   const per = 10;
@@ -118,12 +116,9 @@ const Pagination = ({ val }) => {
               start == 0 ?
               'prev--none' :
               'prev'
-              }
-              // ref={prevRef}
-              >
-              <button
-                onClick={ prevButton }
-              >이전
+              }>
+              <button onClick={ prevButton }>
+                이전
               </button>
             </a>
         </Link>
@@ -159,13 +154,9 @@ const Pagination = ({ val }) => {
             end > total ?
             'next--none' :
             'next'
-            }
-          isLoading={isLoadingPost}
-            // ref={nextRef}
-            >
-            <button
-            onClick={ nextButton }
-            >다음
+            }>
+            <button onClick={ nextButton }>
+            다음
             </button>
           </a>
         </Link>

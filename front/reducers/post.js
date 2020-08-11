@@ -19,8 +19,8 @@ export const initialState = {
     addPostErrorReason: '',
     isAddingPost: false,
     postAdded: false,
-    isLoadingPost: false,
     postLoaded: false,
+    
     // pagination
     start: 0,
     end: 10,
@@ -48,6 +48,7 @@ export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
+export const POST_RESET_DONE = 'POST_RESET_DONE';
 export const POST_DELETE_DONE = 'POST_DELETE_DONE';
 
 export const CURRENT_PAGE_NUMBER = 'CURRENT_PAGE_NUMBER';
@@ -92,13 +93,15 @@ export default ( state = initialState, action ) => {
             case REMOVE_POST_FAILURE: {
                 break;
             }
+            case POST_RESET_DONE: {
+                draft.imagePaths = [];
+            }
             case POST_DELETE_DONE: {
                 draft.postDeleted = false;
                 break;
             }
             case LOAD_MAIN_POSTS_REQUEST: {
                 draft.mainPosts = [];
-                draft.isLoadingPost = true;
                 // draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
                 draft.postAdded = false;
                 break;
@@ -107,7 +110,6 @@ export default ( state = initialState, action ) => {
                 // action.data.forEach((d) => {
                 //     draft.mainPosts.push(d);
                 // });
-                draft.isLoadingPost = false;
                 draft.mainPosts = action.data.posts;
                 draft.mainPostsAll = action.data.postsAll.length;
                 break;

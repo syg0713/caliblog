@@ -15,6 +15,7 @@ import '../common.scss';
 import '../containers/PostCard.scss';
 import '../containers/LoginForm.scss';
 import '../containers/UserProfile.scss';
+import './PostForm.scss';
 
 
 const CaliBlog = ({ Component, store, pageProps }) => {

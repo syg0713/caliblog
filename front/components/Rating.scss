@@ -1,0 +1,9 @@
+.frame{
+ border: 1px solid #000;
+ display: inline-block;
+ width: 30px;
+ height: 30px;
+ &.active{
+   background: yellow;
+ }
+}

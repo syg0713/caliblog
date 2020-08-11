@@ -3,3 +3,16 @@
         display: block;
     }
 }
+.imageUploadButton{
+    background: #fff;
+    border: 0;
+    margin: 5px 0 1px;
+    outline: none;
+    img{
+        width: 30px;
+        height: 30px;
+    }
+}
+.submitButton{
+    margin: 5px 0;
+}

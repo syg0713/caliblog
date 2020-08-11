@@ -11,13 +11,8 @@ import { LOAD_USER_REQUEST } from '../reducers/user';
 const AppLayout = ({ children }) => {
   const { me } = useSelector( state => state.user );
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (!me) {
-  //     dispatch({
-  //       type: LOAD_USER_REQUEST,
-  //     })
-  //   }
-  // })
+
+  const [ resultText, setResultText ] = useState("");
   return (
     <>
       <header className="navigation" role="header">
@@ -25,7 +20,14 @@ const AppLayout = ({ children }) => {
         <div className="profile"><Link href="/profile"><a>프로필</a></Link></div>
         <div className="search">
           <input type="text" placeholder="검색어를 입력해주세요." className="custom-input"/>
-          <button className="custom-button">검색</button>
+          <Link
+            href={{ pathname: '/result'}}
+            as={'/result'}
+          >
+            <a>
+              <button className="custom-button">검색</button>
+            </a>
+          </Link>
         </div>
       </header>
       <section className="content">

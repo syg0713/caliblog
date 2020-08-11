@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { SIGN_UP_REQUEST, SIGN_UP_DONE } from '../reducers/user';
 import Router from "next/router";
 import './signup.scss';
 import { object } from 'prop-types';
+import { SIGN_UP_REQUEST, SIGN_UP_DONE } from '../reducers/user';
 
 // 커스텀 훅
 export const useInput = (initValue = null) => {

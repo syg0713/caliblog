@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_POST_REQUEST, UPLOAD_IMAGES_REQUEST, REMOVE_IMAGE } from '../reducers/post';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import './PostForm.scss';
+// import './PostForm.scss';
+import { 
+    ADD_POST_REQUEST,
+    UPLOAD_IMAGES_REQUEST,
+    REMOVE_IMAGE,
+} from '../reducers/post';
 // import img from '../assets/imgUpload.png';
 
 const PostForm = () => {
@@ -15,6 +19,7 @@ const PostForm = () => {
 
     useEffect(() => {
         if ( postAdded ) {
+            // 포스트 작성 완료 시 홈 이동 및 제목/내용 리셋.
             Router.push('/');
             setTitle('');
             setContent('');
@@ -40,7 +45,7 @@ const PostForm = () => {
             type: ADD_POST_REQUEST,
             data: formData,
         })
-    }, [ title, content ]);
+    }, [ title, content, imagePaths ]);
 
     const onChangeTitle = useCallback((e) => {
         setTitle(e.target.value);
@@ -77,20 +82,20 @@ const PostForm = () => {
                 <textarea type="text" placeholder="제목" cols="93" rows="1.5" value={title} onChange={onChangeTitle}/>
                 <div>
                     <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages}/>
-                    <button className="custom-button" onClick={onClickImageUpload}>이미지 업로드</button>
+                    <button type="button" className="imageUploadButton" onClick={onClickImageUpload}><img src="https://cdn.onlinewebfonts.com/svg/img_192880.png" alt=""/></button>
                 </div>
                 <div>
                     <textarea type="text" name="content" title="내용 입력" cols="93" rows="28" value={content} onChange={onChangeContent}/>
                 </div>
                 <div>
-                    <button type="submit" className="custom-button">제출하기</button>
+                    <button type="submit" className="submitButton custom-button">제출하기</button>
                 </div>
                 <div>
                     {imagePaths.map(( v, i ) => (
                         <div key={v}>
-                            <img src={`http://localhost:3065/${v}`} style={{ width: '200px' }}alt={v} />
+                            <img src={`http://localhost:3065/${v}`} style={{ width: '200px' }} alt={v} />
                             <div>
-                                <div className="custom-button" onClick={onRemoveImage(i)}>제거</div>
+                                <button className="custom-button" onClick={onRemoveImage(i)}>제거</button>
                             </div>
                         </div>
                     ))}

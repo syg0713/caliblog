@@ -2,8 +2,7 @@ module.exports = ( sequelize, DataTypes ) => {
   const Image = sequelize.define('Image', {
     src: {
       type: DataTypes.STRING(200),
-      allowNull: true,
-      // allowNull: false,
+      allowNull: false,
     },
   }, {
     charset: 'utf8',

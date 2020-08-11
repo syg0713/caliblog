@@ -1,8 +1,9 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { REMOVE_POST_REQUEST, POST_DELETE_DONE } from '../reducers/post';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
+import { REMOVE_POST_REQUEST, POST_DELETE_DONE } from '../reducers/post';
+import Rating from '../components/Rating';
 // import './PostCard.scss';
 
 const PostCard = ({ postId }) => {
@@ -15,7 +16,7 @@ const PostCard = ({ postId }) => {
     const modifyRef = useRef();
 
     useEffect(() =>{
-        console.log(singlePost.Images[0].src);
+        // console.log(singlePost.Images[0].src);
         if( postDeleted ) {
             Router.push('/');
             dispatch({
@@ -47,6 +48,27 @@ const PostCard = ({ postId }) => {
             return false;
         }
     },[ postId.id ])
+
+    const dummy = [
+        {
+        image: 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg',
+        id: 1,
+        content: 'Lorem1',
+        rating: 4
+        },
+        // {
+        // image: 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg',
+        // id: 2,
+        // content: 'Lorem2',
+        // rating: 1
+        // },
+        // {
+        // image: 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg',
+        // id: 3,
+        // content: 'Lorem3',
+        // rating: 2
+        // },
+    ]
     
     return (
             <div className="postCard__container">
@@ -62,16 +84,26 @@ const PostCard = ({ postId }) => {
                             </div>
                     </button>
                 </section>
-
                 <div>
                     { singlePost.User.userId }
                 </div>
                 <div>
-                    <img src={ `http://localhost:3065/${singlePost.Images[0].src}` } alt=""/>
+                {singlePost.Images && singlePost.Images[0] && <img src={ `http://localhost:3065/${singlePost.Images[0].src}` } style={{ maxWidth: '800px' }} alt=""/>}
                 </div>
                 <div>
                     { singlePost.content }
                 </div>
+
+                {dummy.map((v) => {
+                    return(
+                        <div>
+                            <div><img src={v.image} alt=""/></div>
+                            <div>{v.id}</div>
+                            <div>{v.content}</div>
+                            <Rating star={v.rating} />
+                        </div>
+                    )
+                })}
             </div>
 
     );
