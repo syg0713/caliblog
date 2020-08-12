@@ -56,18 +56,6 @@ const PostCard = ({ postId }) => {
         content: 'Lorem1',
         rating: 4
         },
-        // {
-        // image: 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg',
-        // id: 2,
-        // content: 'Lorem2',
-        // rating: 1
-        // },
-        // {
-        // image: 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg',
-        // id: 3,
-        // content: 'Lorem3',
-        // rating: 2
-        // },
     ]
     
     return (

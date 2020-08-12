@@ -13,6 +13,9 @@ import {
     LOAD_SINGLE_POST_REQUEST,
     LOAD_SINGLE_POST_SUCCESS,
     LOAD_SINGLE_POST_FAILURE,
+    LOAD_SEARCH_POSTS_REQUEST,
+    LOAD_SEARCH_POSTS_SUCCESS,
+    LOAD_SEARCH_POSTS_FAILURE,
     UPLOAD_IMAGES_FAILURE,
     UPLOAD_IMAGES_REQUEST,
     UPLOAD_IMAGES_SUCCESS,
@@ -107,6 +110,28 @@ function* loadSinglePost(action) {
 function* watchLoadSinglePost() {
     yield throttle(2000, LOAD_SINGLE_POST_REQUEST, loadSinglePost);
 }
+function loadSearchPostsAPI(keyword, lastId) {
+    return axios.get(`/search/${encodeURIComponent(keyword)}?lastId=${lastId}`);
+}
+function* loadSearchPosts(action) {
+    try {
+        // console.log(action);
+        const result = yield call(loadSearchPostsAPI, action.data, action.lastId);
+        console.log(result);
+        yield put({
+        type: LOAD_SEARCH_POSTS_SUCCESS,
+        data: result.data,
+        });
+    } catch (e) {
+        yield put({
+        type: LOAD_SEARCH_POSTS_FAILURE,
+        error: e,
+        });
+    }
+}
+function* watchLoadSearchPost() {
+    yield throttle(2000, LOAD_SEARCH_POSTS_REQUEST, loadSearchPosts);
+}
 
 function uploadImagesAPI(formData) {
     return axios.post('/post/images', formData, {
@@ -138,6 +163,7 @@ export default function* postSaga() {
         fork(watchRemovePost),
         fork(watchLoadMainPosts),
         fork(watchLoadSinglePost),
+        fork(watchLoadSearchPost),
         fork(watchUploadImages),
     ]);
 }

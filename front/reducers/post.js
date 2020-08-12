@@ -39,6 +39,10 @@ export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
 export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
 export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE';
 
+export const LOAD_SEARCH_POSTS_REQUEST = 'LOAD_SEARCH_POSTS_REQUEST';
+export const LOAD_SEARCH_POSTS_SUCCESS = 'LOAD_SEARCH_POSTS_SUCCESS';
+export const LOAD_SEARCH_POSTS_FAILURE = 'LOAD_SEARCH_POSTS_FAILURE';
+
 export const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST';
 export const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
 export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
@@ -100,7 +104,7 @@ export default ( state = initialState, action ) => {
                 draft.postDeleted = false;
                 break;
             }
-            case LOAD_MAIN_POSTS_REQUEST: {
+            case LOAD_MAIN_POSTS_REQUEST:{
                 draft.mainPosts = [];
                 // draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
                 draft.postAdded = false;
@@ -114,7 +118,7 @@ export default ( state = initialState, action ) => {
                 draft.mainPostsAll = action.data.postsAll.length;
                 break;
             }
-            case LOAD_MAIN_POSTS_FAILURE: {
+            case LOAD_MAIN_POSTS_FAILURE:{
                 break;
             }
             case LOAD_SINGLE_POST_REQUEST: {
@@ -127,7 +131,16 @@ export default ( state = initialState, action ) => {
             case LOAD_SINGLE_POST_FAILURE: {
                 break;
             }
-
+            case LOAD_SEARCH_POSTS_REQUEST: {
+                break;
+            }
+            case LOAD_SEARCH_POSTS_SUCCESS: {
+                draft.mainPosts = action.data;
+                break;
+            }
+            case LOAD_SEARCH_POSTS_FAILURE: {
+                break;
+            }
 
             case UPDATE_START_END_PAGE: {
                 draft.start = action.payload.start;

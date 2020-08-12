@@ -13,14 +13,14 @@ const Page = ({ goto }) => {
   // console.log(goto);
 
   // offset(현제 페이지 * 10) 값 전송
-  useEffect(() => {
-    const per = 10;
-    const offset = (goto-1)*per;
-    dispatch({
-        type: LOAD_MAIN_POSTS_REQUEST,
-        offset,
-    })
-  },[ goto ])
+  // useEffect(() => {
+  //   const per = 10;
+  //   const offset = (goto-1)*per;
+  //   dispatch({
+  //       type: LOAD_MAIN_POSTS_REQUEST,
+  //       offset,
+  //   })
+  // },[ goto ])
 
 
 
