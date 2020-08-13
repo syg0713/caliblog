@@ -27,17 +27,17 @@ const Page = ({ goto }) => {
   return (
     <div>
         {
-          me ? 
-          <div>
-          <PostButton />
-          {mainPosts.map((item) => {
-              return (
-                  <Title key={item.id} post={item}/>
-              );
-          })}
-          <Pagination />
-          </div> :
-          <div>로그인이 필요 합니다.</div>
+          me
+          ? <div>
+              <PostButton />
+              {mainPosts.map((item) => {
+                  return (
+                      <Title key={item.id} post={item}/>
+                  );
+              })}
+              <Pagination />
+            </div>
+          : <div>로그인이 필요 합니다.</div>
         }
 
     </div>

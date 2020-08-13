@@ -31,8 +31,8 @@ const Home = () => {
 
     return (
         <>
-            {me ?
-                <div>
+            {me
+                ? <div>
                     <PostButton />
                     { mainPosts.map((item) => {
                         return (
@@ -40,8 +40,8 @@ const Home = () => {
                         );
                     }) }
                     <Pagination  />
-                </div> :
-                <div>로그인이 필요 합니다.</div>
+                </div>
+                : <div>로그인이 필요 합니다.</div>
             }
         </>
     );

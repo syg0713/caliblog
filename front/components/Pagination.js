@@ -113,10 +113,8 @@ const Pagination = ({ val }) => {
           prefetch
         >
             <a className={ 
-              start == 0 ?
-              'prev--none' :
-              'prev'
-              }>
+              start == 0 ? 'prev--none' : 'prev'
+            }>
               <button onClick={ prevButton }>
                 이전
               </button>
@@ -135,8 +133,7 @@ const Pagination = ({ val }) => {
                 updateCurrentPage( val );
               }}
               className={ 
-                current === val ?
-                'active' : '' 
+                current === val ? 'active' : '' 
               }
             >
               {val}
@@ -151,10 +148,8 @@ const Pagination = ({ val }) => {
           prefetch
         >
           <a className={ 
-            end > total ?
-            'next--none' :
-            'next'
-            }>
+            end > total ? 'next--none' : 'next'
+          }>
             <button onClick={ nextButton }>
             다음
             </button>
