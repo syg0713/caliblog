@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../models');
-
+const sequelize = require("sequelize");
+const Op = sequelize.Op;
 const router = express.Router();
 
 router.get('/:keyword', async (req, res, next) => {
@@ -14,8 +15,13 @@ router.get('/:keyword', async (req, res, next) => {
     //   };
     // }
     console.log(req.params.keyword,'12345678910');
+    let keyword = req.params.keyword;
     const posts = await db.Post.findAll({
-      where: { title: req.params.keyword },
+      where: { 
+        title: {
+          [Op.like] : "%"+keyword+"%"
+        }
+      },
       include: [{
         model: db.Search,
         // where: { name: decodeURIComponent(req.params.keyword) },

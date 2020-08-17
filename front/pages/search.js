@@ -5,22 +5,14 @@ import { LOAD_SEARCH_POSTS_REQUEST } from '../reducers/post';
 
 const Search = ({ keyword }) => {
   const { mainPosts } = useSelector( state => state.post );
-  // console.log(keyword);
-  // const reg = new RegExp(/\bkeyword\b/ig);
 
 
 
   return (
     <div>
       { mainPosts.map((item) => {
-            var title = item.title;
-            var regex = new RegExp(keyword);
-            var result = regex.test(title);
-            console.log(result);
             return (
-              result ? 
-                <Title key={item.id} post={item}/> :
-                ''
+                <Title key={item.id} post={item} keyword={keyword}/> 
             );
         }) }
     </div>

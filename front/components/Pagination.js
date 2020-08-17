@@ -148,7 +148,7 @@ const Pagination = ({ val }) => {
           prefetch
         >
           <a className={ 
-            end > total ? 'next--none' : 'next'
+            end+1 > total ? 'next--none' : 'next'
           }>
             <button onClick={ nextButton }>
             다음

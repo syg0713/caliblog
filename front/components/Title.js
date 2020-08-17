@@ -5,8 +5,10 @@ import './Title.scss';
 import PropTypes from 'prop-types';
 
 
-const Title = ({ post }) => {
+const Title = ({ post, keyword }) => {
   // console.log(post);
+  console.log(keyword,'키워드받음');
+
   return (
     <>
         <div className="title__container">
