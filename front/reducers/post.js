@@ -66,7 +66,6 @@ export default ( state = initialState, action ) => {
     return produce ( state, (draft) => {
         switch (action.type) {
 
-
             case ADD_POST_REQUEST: {
                 draft.isAddingPost = true;
                 draft.addingPostErrorReason = '';
@@ -106,14 +105,10 @@ export default ( state = initialState, action ) => {
             }
             case LOAD_MAIN_POSTS_REQUEST:{
                 draft.mainPosts = [];
-                // draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
                 draft.postAdded = false;
                 break;
             }
             case LOAD_MAIN_POSTS_SUCCESS: {
-                // action.data.forEach((d) => {
-                //     draft.mainPosts.push(d);
-                // });
                 draft.mainPosts = action.data.posts;
                 draft.mainPostsAll = action.data.postsAll.length;
                 break;
@@ -132,10 +127,15 @@ export default ( state = initialState, action ) => {
                 break;
             }
             case LOAD_SEARCH_POSTS_REQUEST: {
+                draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
+                draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
                 break;
             }
             case LOAD_SEARCH_POSTS_SUCCESS: {
-                draft.mainPosts = action.data;
+                action.data.forEach((d) => {
+                    draft.mainPosts.push(d);
+                });
+                draft.hasMorePost = action.data.length === 10;
                 break;
             }
             case LOAD_SEARCH_POSTS_FAILURE: {
@@ -152,13 +152,12 @@ export default ( state = initialState, action ) => {
                 draft.current = action.payload;
                 break;
             }
-
             case UPLOAD_IMAGES_REQUEST: {
                 break;
             }
             case UPLOAD_IMAGES_SUCCESS: {
                 action.data.forEach((p) => {
-                draft.imagePaths.push(p);
+                    draft.imagePaths.push(p);
                 });
                 break;
             }

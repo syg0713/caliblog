@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { useCallback, memo } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import './Title.scss';
 import PropTypes from 'prop-types';
 
 
-const Title = ({ post, keyword }) => {
-  // console.log(post);
-  console.log(keyword,'키워드받음');
+const Title = memo(({ post }) => {
+  const { me } = useSelector( state => state.user );
+  const preventingAccess = useCallback(() => {
+    alert('로그인이 필요합니다.');
+  },[])
 
   return (
     <>
         <div className="title__container">
-            <Link
-              href={{ pathname: '/bodyrender', query: { postId: post.id }}}
-              as={`/bodyrender/${post.id}`}
-              key={post.id}
-              prefetch
-            >
-              <a className="link__item">
-                {post.title}
+            { me ?
+                <Link
+                href={{ pathname: '/contentRender', query: { postId: post.id }}}
+                as={`/contentRender/${post.id}`}
+                key={post.id}
+                prefetch
+              >
+                <a className="link__item">
+                  {post.title}
+                </a>
+              </Link>
+              :
+              <a className="link__item" onClick={preventingAccess}>
+                {post.title} 
               </a>
-            </Link>
+           }
             <span>
               <em>{post.User.userId}</em>
               <em>{post.createdAt.slice(0,10)}</em> 
@@ -30,7 +38,7 @@ const Title = ({ post, keyword }) => {
         </div>
     </>
   );
-};
+});
 
 Title.propTypes = {
   post: PropTypes.object.isRequired,

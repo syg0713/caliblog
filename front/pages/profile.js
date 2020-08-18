@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const profile = () => {
+const Profile = () => {
     return (
         <>
             <div>
@@ -15,5 +16,12 @@ const profile = () => {
         </>
     );
 };
-
-export default profile;
+// getInitialProps
+Profile.getInitialProps = async ( context ) => {
+const { pathname } = context;
+return { pathname};
+};
+  
+Profile.propTypes = {
+};
+export default Profile;

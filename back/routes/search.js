@@ -6,22 +6,33 @@ const router = express.Router();
 
 router.get('/:keyword', async (req, res, next) => {
   try {
-    // let where = {};
-    // if (parseInt(req.query.lastId, 10)) {
-    //   where = {
-    //     id: {
-    //       [db.Sequelize.Op.lt]: parseInt(req.query.lastId, 10),
-    //     },
-    //   };
-    // }
-    console.log(req.params.keyword,'12345678910');
     let keyword = req.params.keyword;
-    const posts = await db.Post.findAll({
-      where: { 
+    let where = {};
+
+    if (parseInt(req.query.lastId, 10)) {
+      where = {
+        id: {
+          [db.Sequelize.Op.lt]: parseInt(req.query.lastId, 10),
+        },
         title: {
           [Op.like] : "%"+keyword+"%"
-        }
-      },
+        },
+      };
+    } else if( keyword ) {
+      where = {
+        title: {
+          [Op.like] : "%"+keyword+"%"
+        },
+      };
+    }
+
+    const posts = await db.Post.findAll({
+      where,
+      // where: { 
+      //   title: {
+      //     [Op.like] : "%"+keyword+"%"
+      //   },
+      // },
       include: [{
         model: db.Search,
         // where: { name: decodeURIComponent(req.params.keyword) },
@@ -33,6 +44,7 @@ router.get('/:keyword', async (req, res, next) => {
       },
     ],
       order: [['createdAt', 'DESC']],
+      limit: parseInt(req.query.limit, 10),
     });
     res.json(posts);
   } catch (e) {

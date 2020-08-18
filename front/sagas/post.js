@@ -22,7 +22,6 @@ import {
 } from '../reducers/post';
 
 function addPostAPI(postData) {
-    console.log(postData+'사가 포스트데이터');
     return axios.post('/post', postData, {
         withCredentials: true,
     })
@@ -30,7 +29,6 @@ function addPostAPI(postData) {
 function* addPost(action) {
     try {
         const result = yield call(addPostAPI, action.data);
-        // console.log(result);
         // throw (new Error("Something went wrong"));
         yield put({
             type: ADD_POST_SUCCESS,
@@ -69,12 +67,11 @@ function* removePost(action) {
 function* watchRemovePost() {
     yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
-function loadMainPostsAPI(lastId = 0, limit = 10, offset = 0) {
+function loadMainPostsAPI(lastId, limit = 10, offset = 0) {
     return axios.get(`/posts?lastId=${lastId}&limit=${limit}&offset=${offset}`);
 }
 function* loadMainPosts(action) {
     try {
-        // console.log(action.offset);
         const result = yield call(loadMainPostsAPI, action.lastId, action.limit, action.offset);
         yield put({
         type: LOAD_MAIN_POSTS_SUCCESS,
@@ -111,13 +108,11 @@ function* watchLoadSinglePost() {
     yield throttle(2000, LOAD_SINGLE_POST_REQUEST, loadSinglePost);
 }
 function loadSearchPostsAPI(keyword, lastId) {
-    return axios.get(`/search/${encodeURIComponent(keyword)}?lastId=${lastId}`);
+    return axios.get(`/search/${encodeURIComponent(keyword)}?lastId=${lastId}&limit=10`);
 }
 function* loadSearchPosts(action) {
     try {
-        // console.log(action);
         const result = yield call(loadSearchPostsAPI, action.data, action.lastId);
-        console.log(result);
         yield put({
         type: LOAD_SEARCH_POSTS_SUCCESS,
         data: result.data,

@@ -14,7 +14,7 @@ export const useInput = (initValue = null) => {
     return [value, handler];
 };
 
-const Signup = () => {
+const signup = () => {
     const [passwordCheck, setPasswordCheck] = useState("");
     const [term, setTerm] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -121,5 +121,12 @@ const Signup = () => {
     </div>
     </>
 };
+// getInitialProps
+signup.getInitialProps = async ( context ) => {
+    const { pathname } = context;
+    return { pathname }
+};
 
-export default Signup;
+signup.propTypes = {
+};
+export default signup;

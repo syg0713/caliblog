@@ -52,7 +52,7 @@ const Pagination = ({ val }) => {
       }
       updateCurrentPage( prevPageValue );
       return;
-  },[ start, end]);
+  },[ start, end ]);
 
   // 다음 버튼
   const nextButton = useCallback(() => {

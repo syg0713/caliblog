@@ -1,12 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Title from '../components/Title';
 import { LOAD_SEARCH_POSTS_REQUEST } from '../reducers/post';
+import './Search.scss';
 
 const Search = ({ keyword }) => {
-  const { mainPosts } = useSelector( state => state.post );
-
-
+  const dispatch = useDispatch();
+  const { mainPosts, hasMorePost } = useSelector( state => state.post );
+  const onScroll = useCallback(() => {
+      if ( hasMorePost ) {
+        dispatch({
+          type: LOAD_SEARCH_POSTS_REQUEST,
+          lastId: mainPosts[mainPosts.length - 1] && mainPosts[mainPosts.length -1].id,
+          data: keyword,
+        })
+      }
+  })
 
   return (
     <div>
@@ -15,6 +24,11 @@ const Search = ({ keyword }) => {
                 <Title key={item.id} post={item} keyword={keyword}/> 
             );
         }) }
+      { hasMorePost ?
+        <button onClick={onScroll} className="morePost">더 보기 +</button>
+        :
+        ''
+      }
     </div>
   );
 };
@@ -22,12 +36,13 @@ const Search = ({ keyword }) => {
 // getInitialProps
 Search.getInitialProps = async ( context ) => {
   // console.log(context);
+  const { pathname } = context;
   const { keyword } = context.query;
   context.store.dispatch({
     type: LOAD_SEARCH_POSTS_REQUEST,
     data: keyword,
   });
-  return { keyword }
+  return { keyword, pathname }
 };
 
 Search.propTypes = {

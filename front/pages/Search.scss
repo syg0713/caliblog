@@ -1,0 +1,16 @@
+.morePost{
+  border: 1px solid #585858;
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  background: none;
+  font: 400 14px/14px 'Noto Sans KR';
+  color: #000;
+  cursor: pointer;
+  outline: none;
+  &:hover{
+    color: #585858;
+    transition: all 0.1s;
+  }
+}

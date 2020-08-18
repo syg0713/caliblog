@@ -1,12 +1,11 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { REMOVE_POST_REQUEST, POST_DELETE_DONE } from '../reducers/post';
 import Rating from '../components/Rating';
-// import './PostCard.scss';
 
-const PostCard = ({ postId }) => {
+const PostCard = memo(({ postId }) => {
     const { singlePost, postDeleted } = useSelector(state => state.post);
     const { me } = useSelector( state => state.user);
     const dispatch = useDispatch();
@@ -95,7 +94,7 @@ const PostCard = ({ postId }) => {
             </div>
 
     );
-};
+});
 
 PostCard.propTypes = {
     postId: PropTypes.number.isRequired,

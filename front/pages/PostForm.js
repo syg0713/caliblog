@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-// import './PostForm.scss';
+import './PostForm.scss';
 import { 
     ADD_POST_REQUEST,
     UPLOAD_IMAGES_REQUEST,
@@ -104,7 +104,11 @@ const PostForm = () => {
         </>
     );
 };
-
+// getInitialProps
+PostForm.getInitialProps = async ( context ) => {
+    const { pathname } = context;
+    return { pathname }
+};
 PostForm.propTypes = {
     
 }

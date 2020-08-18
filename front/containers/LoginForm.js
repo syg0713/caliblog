@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from 'next/link';
 import { LOG_IN_REQUEST } from '../reducers/user';
 import { useInput } from "../pages/signup";
-// import './LoginForm.scss';
 
 
 const LoginForm = () => {

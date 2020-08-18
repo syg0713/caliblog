@@ -3,7 +3,7 @@ import AppLayout from "../components/AppLayout";
 import PropTypes from "prop-types";
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
-import { Provider } from "react-redux";
+import { Provider, useSelector, useDispatch } from "react-redux";
 import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from "redux-saga";
 import reducer from "../reducers";
@@ -16,11 +16,75 @@ import '../containers/PostCard.scss';
 import '../containers/LoginForm.scss';
 import '../containers/UserProfile.scss';
 import './PostForm.scss';
+import Pagination from '../components/Pagination';
+import PostButton from '../components/PostButton';
 
 
 const CaliBlog = ({ Component, store, pageProps }) => {
-    // console.log(Component +'1');
-    return (
+    const pagePropsValue = ( pageProps && pageProps.pathname );
+    return pagePropsValue ==='/contentRender' ||
+    pagePropsValue ==='/profile'||
+    pagePropsValue ==='/search' ||
+    pagePropsValue ==='/signup' ||
+    pagePropsValue ==='/PostForm'
+    ?
+    (
+        <Provider store={store}>
+        <Helmet
+            title="CaliBlog"
+            htmlAttributes={{ lang: "ko" }}
+            meta={[
+                {
+                charset: "UTF-8",
+                },
+                {
+                name: "viewport",
+                content:
+                    "width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,viewport-fit=cover",
+                },
+                {
+                "http-equiv": "X-UA-Compatible",
+                content: "IE=edge",
+                },
+                {
+                name: "description",
+                content: "CaliBlog",
+                },
+                {
+                name: "og:title",
+                content: "CaliBlog",
+                },
+                {
+                name: "og:description",
+                content: "CaliBlog",
+                },
+                {
+                property: "og:type",
+                content: "website",
+                },
+                {
+                property: "og:image",
+                content: "http://caliblog.com/favicon.ico",
+                },
+            ]}
+            link={[
+                {
+                    rel: "shortcut icon",
+                    href: "/favicon.ico",
+                },
+                {
+                    rel: "stylesheet",
+                    href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+                },
+            ]}
+        />
+            <AppLayout>
+                <Component {...pageProps} />
+            </AppLayout>
+        </Provider>
+    )
+    :
+    (
         <Provider store={store}>
             <Helmet
                 title="CaliBlog"
@@ -71,7 +135,9 @@ const CaliBlog = ({ Component, store, pageProps }) => {
                 ]}
             />
             <AppLayout>
+                <PostButton />
                 <Component {...pageProps} />
+                <Pagination  />
             </AppLayout>
         </Provider>
     );
@@ -86,7 +152,6 @@ CaliBlog.propTypes = {
 
 // getInitialProps
 CaliBlog.getInitialProps = async ( context ) => {
-    // console.log(context);
     const { ctx, Component } = context;
     let pageProps = {};
     const state = ctx.store.getState();
@@ -100,8 +165,15 @@ CaliBlog.getInitialProps = async ( context ) => {
         })
     }
     if ( Component.getInitialProps ) {
-        pageProps = await Component.getInitialProps( ctx );
+        pageProps = await Component.getInitialProps( ctx ) || {};
     }
+    console.log(pageProps)
+    // if (Component.getInitialProps) {
+    //     // Component (pages 폴더에 있는 컴포넌트)에 getInitialProps가 있다면
+    //     pageProps = (await Component.getInitialProps(ctx)) || {};
+
+    //     return { pageProps };
+    // }
     return { pageProps };
 };
 
