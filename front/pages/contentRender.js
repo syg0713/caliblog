@@ -5,8 +5,7 @@ import PostCard from '../containers/PostCard';
 import { LOAD_SINGLE_POST_REQUEST } from '../reducers/post';
 
 const contentRender = ({ postId }) => {
-  // const dispatch = useDispatch();
-  // console.log(postId);
+
   const { singlePost } = useSelector(state => state.post);
   return (
     <div>

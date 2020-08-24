@@ -14,8 +14,7 @@ const PostCard = memo(({ postId }) => {
     const deleteRef = useRef();
     const modifyRef = useRef();
 
-    useEffect(() =>{
-        // console.log(singlePost.Images[0].src);
+    useEffect(() =>{ // 삭제 완료 => 스테이트 초기화(false)
         if( postDeleted ) {
             Router.push('/');
             dispatch({
@@ -37,7 +36,7 @@ const PostCard = memo(({ postId }) => {
         }
     },[ me.id, singlePost.User.id ])
 
-    const deleteConfirm = useCallback(() => {
+    const showDeleteConfirm = useCallback(() => {
         if (confirm("정말 삭제하시겠습니까??") == true){ // 삭제 확인
             dispatch({
                 type: REMOVE_POST_REQUEST,
@@ -66,7 +65,7 @@ const PostCard = memo(({ postId }) => {
                     <button className="head__menu custom-button" ref={ menuRef } onClick={showMenu}>
                             ...
                             <div>
-                                <div className="remove" ref={ deleteRef } onClick={deleteConfirm}>삭제</div>
+                                <div className="remove" ref={ deleteRef } onClick={showDeleteConfirm}>삭제</div>
                                 <div className="cancel" ref={ modifyRef }>수정</div>
                             </div>
                     </button>

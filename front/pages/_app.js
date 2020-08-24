@@ -22,6 +22,7 @@ import PostButton from '../components/PostButton';
 
 const CaliBlog = ({ Component, store, pageProps }) => {
     const pagePropsValue = ( pageProps && pageProps.pathname );
+    // 해당 페이지들 네비게이션 및 글쓰기 UI 삭제.
     return pagePropsValue ==='/contentRender' ||
     pagePropsValue ==='/profile'||
     pagePropsValue ==='/search' ||
@@ -72,10 +73,10 @@ const CaliBlog = ({ Component, store, pageProps }) => {
                     rel: "shortcut icon",
                     href: "/favicon.ico",
                 },
-                {
-                    rel: "stylesheet",
-                    href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-                },
+                // {
+                //     rel: "stylesheet",
+                //     href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+                // },
             ]}
         />
             <AppLayout>
@@ -128,10 +129,10 @@ const CaliBlog = ({ Component, store, pageProps }) => {
                         rel: "shortcut icon",
                         href: "/favicon.ico",
                     },
-                    {
-                        rel: "stylesheet",
-                        href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-                    },
+                    // {
+                    //     rel: "stylesheet",
+                    //     href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+                    // },
                 ]}
             />
             <AppLayout>

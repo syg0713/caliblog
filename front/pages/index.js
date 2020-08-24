@@ -29,16 +29,6 @@ const Home = () => {
 
     return (
         <>
-            {/* {me
-                ? <div>
-                    { mainPosts.map((item) => {
-                        return (
-                            <Title key={item.id} post={item}/>
-                        );
-                    }) }
-                </div>
-                : <div>로그인이 필요 합니다.</div>
-            } */}
             <div>
                 { mainPosts.map((item) => {
                     return (

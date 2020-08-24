@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const Title = memo(({ post }) => {
   const { me } = useSelector( state => state.user );
-  const preventingAccess = useCallback(() => {
+  const preventAccess = useCallback(() => {
     alert('로그인이 필요합니다.');
   },[])
 
@@ -26,7 +26,7 @@ const Title = memo(({ post }) => {
                 </a>
               </Link>
               :
-              <a className="link__item" onClick={preventingAccess}>
+              <a className="link__item" onClick={preventAccess}>
                 {post.title} 
               </a>
            }

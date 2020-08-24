@@ -1,13 +1,14 @@
 import React, { useEffect, useCallback } from 'react';
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
-import Title from '../components/Title';
 import { LOAD_SEARCH_POSTS_REQUEST } from '../reducers/post';
+import Title from '../components/Title';
 import './Search.scss';
 
 const Search = ({ keyword }) => {
   const dispatch = useDispatch();
   const { mainPosts, hasMorePost } = useSelector( state => state.post );
-  const onScroll = useCallback(() => {
+  const seeMore = useCallback(() => {
       if ( hasMorePost ) {
         dispatch({
           type: LOAD_SEARCH_POSTS_REQUEST,
@@ -21,11 +22,11 @@ const Search = ({ keyword }) => {
     <div>
       { mainPosts.map((item) => {
             return (
-                <Title key={item.id} post={item} keyword={keyword}/> 
+                <Title key={item.id} post={item}/> 
             );
         }) }
       { hasMorePost ?
-        <button onClick={onScroll} className="morePost">더 보기 +</button>
+        <button onClick={seeMore} className="morePost">더 보기 +</button>
         :
         ''
       }
@@ -46,6 +47,7 @@ Search.getInitialProps = async ( context ) => {
 };
 
 Search.propTypes = {
+  keyword: PropTypes.string.isRequired,
 };
 
 export default Search;

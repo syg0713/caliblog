@@ -103,8 +103,7 @@ const signup = () => {
                 <input type="password" value={passwordCheck} required onChange={onChangePasswordCheck} className="custom-input"/>
             </div>
             {passwordError && (
-                    <div className="invalid">비밀번호가 일치하지 않습니다.</div>
-                // <SignupError>비밀번호가 일치하지 않습니다.</SignupError>
+                <div className="invalid">비밀번호가 일치하지 않습니다.</div>
             )}
             <div className="term">
                 <label htmlFor="term__check">
@@ -113,7 +112,6 @@ const signup = () => {
                 </label>
                 {termError && 
                     <div>약관에 동의하셔야 합니다.</div>
-                    // <SignupError>약관에 동의하셔야 합니다.</SignupError>
                 }
             </div>
             <button type="submit" className="custom-button">가입하기</button>

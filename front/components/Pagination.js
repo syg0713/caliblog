@@ -9,7 +9,7 @@ import {
   UPDATE_START_END_PAGE, 
 } from '../reducers/post';
 
-const Pagination = ({ val }) => {
+const Pagination = () => {
   const dispatch = useDispatch();
   const { mainPostsAll, start, end, current } = useSelector( state => state.post );
 
@@ -44,7 +44,7 @@ const Pagination = ({ val }) => {
   const nextPageValue =  end < total ? end+1 : total;
 
   // 이전 버튼
-  const prevButton = useCallback(() => {
+  const setPrev = useCallback(() => {
       if ( start > 1 ) {
         const s = start - 10;
         const e = end - 10;
@@ -55,7 +55,7 @@ const Pagination = ({ val }) => {
   },[ start, end ]);
 
   // 다음 버튼
-  const nextButton = useCallback(() => {
+  const setNext = useCallback(() => {
       if ( end < total ) {
         const s = start + 10;
         const e = end + 10;
@@ -67,8 +67,7 @@ const Pagination = ({ val }) => {
 
 
   
-  useEffect(() => { // URL 이동 시 커렌트 삽입 및 페이지네이션 변경
-    const url = document.location.href;
+  useEffect(() => { // URL 이동 시 커렌트번호 삽입 및 페이지네이션 이동
     const pageUrl = document.location.href.split('page/')[1];
     const getCurrent = parseInt(pageUrl,10);
     const getStart = pageUrl ? parseInt(pageUrl[0]+'0',10) : 0;
@@ -79,27 +78,11 @@ const Pagination = ({ val }) => {
         type: CURRENT_PAGE_NUMBER,
         payload: getCurrent,
       })
-    }
-
-    //페이지 창일때 start, end 값 업데이트
-    if( pageUrl ) {
       getCurrent <= 10 ?
       updateStartEndPage( 0, 10 ) : 
       updateStartEndPage( getStart, getStart+10 );
     }
 
-    // 처음페이지 & 마지막 페이지 버튼 클릭 방지
-    // if ( start == 0 ) { 
-    //   prevRef.current.style.display='none'
-    // } else {
-    //   prevRef.current.style.display='inline-block';
-    // }
-    // if ( end > total ) {
-    //   nextRef.current.style.display='none'
-    // } else {
-    //   nextRef.current.style.display='inline-block';
-    // }
-    
   },[ current, start, end ])
 
 
@@ -115,7 +98,7 @@ const Pagination = ({ val }) => {
             <a className={ 
               start == 0 ? 'prev--none' : 'prev'
             }>
-              <button onClick={ prevButton }>
+              <button onClick={ setPrev }>
                 이전
               </button>
             </a>
@@ -150,7 +133,7 @@ const Pagination = ({ val }) => {
           <a className={ 
             end+1 > total ? 'next--none' : 'next'
           }>
-            <button onClick={ nextButton }>
+            <button onClick={ setNext }>
             다음
             </button>
           </a>

@@ -6,9 +6,8 @@ import { LOAD_MAIN_POSTS_REQUEST, UPDATE_START_END_PAGE } from '../reducers/post
 import styled from 'styled-components';
 
 
-const Page = ({ goto }) => {
+const Page = () => {
   const dispatch = useDispatch();
-  const { me } = useSelector( state => state.user );
   const { mainPosts } = useSelector( state => state.post );
   // const Title = styled.div`
   //   width: 5rem;
@@ -25,26 +24,18 @@ const Page = ({ goto }) => {
   // },[ goto ])
 
   return (
-    <div>
-        {
-          me
-          ? <div>
-              {mainPosts.map((item) => {
-                  return (
-                      <Title key={item.id} post={item} />
-                  );
-              })}
-            </div>
-          : <div>로그인이 필요 합니다.</div>
-        }
-
-    </div>
+    <>
+      {mainPosts.map((item) => {
+          return (
+              <Title key={item.id} post={item} />
+          );
+      })}
+    </>
   );
 };
 
 // getInitialProps
 Page.getInitialProps = async ( context ) => {
-  // console.log(context);
   const { goto } = context.query;
   context.store.dispatch({
     type: LOAD_MAIN_POSTS_REQUEST,
