@@ -22,7 +22,7 @@
     "express-session": "^1.17.1",
     "immer": "^3.1.2",
     "morgan": "^1.10.0",
-    "next": "^8.1.0",
+    "next": "^9.3.2",
     "next-redux-saga": "^4.1.2",
     "next-redux-wrapper": "^3.0.0-alpha.2",
     "node-sass": "^4.14.1",
