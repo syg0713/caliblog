@@ -2,8 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import './Title.scss';
-import './Pagination.scss';
 import { 
   CURRENT_PAGE_NUMBER,
   UPDATE_START_END_PAGE, 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
-import './signup.scss';
 import { object } from 'prop-types';
 import { SIGN_UP_REQUEST, SIGN_UP_DONE } from '../reducers/user';
 

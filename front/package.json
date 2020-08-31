@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon",
-    "build": "cross-env BUNDLE_ANALYZE=both next build",
-    "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production next start"
+    "dev": "next -p 3060",
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "start": "cross-env NODE_ENV=production next start -p 3060"
   },
   "author": "SeoYeongGyu",
   "license": "MIT",

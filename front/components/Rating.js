@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import './Rating.scss';
 // import styled from 'styled-components';
+
 
 const Rating = ({ star }) => {
 

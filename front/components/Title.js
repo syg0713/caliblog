@@ -1,7 +1,6 @@
 import React, { useCallback, memo } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
-import './Title.scss';
 import PropTypes from 'prop-types';
 
 

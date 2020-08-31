@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_SEARCH_POSTS_REQUEST } from '../reducers/post';
 import Title from '../components/Title';
-import './Search.scss';
 
 const Search = ({ keyword }) => {
   const dispatch = useDispatch();

@@ -1,8 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import './AppLayout.scss';
-import UserProfile from '../containers/UserProfile';
-import LoginForm from '../containers/LoginForm';
+import UserProfile from '../components/UserProfile';
+import LoginForm from './LoginForm';
 import SearchInput from './SearchInput';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';

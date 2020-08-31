@@ -2,13 +2,11 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import './PostForm.scss';
 import { 
     ADD_POST_REQUEST,
     UPLOAD_IMAGES_REQUEST,
     REMOVE_IMAGE,
 } from '../reducers/post';
-// import img from '../assets/imgUpload.png';
 
 const PostForm = () => {
     const dispatch = useDispatch();
