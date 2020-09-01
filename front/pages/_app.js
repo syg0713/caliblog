@@ -166,7 +166,7 @@ CaliBlog.getInitialProps = async ( context ) => {
     if ( Component.getInitialProps ) {
         pageProps = await Component.getInitialProps( ctx ) || {};
     }
-    console.log(pageProps)
+    // console.log(pageProps)
     // if (Component.getInitialProps) {
     //     // Component (pages 폴더에 있는 컴포넌트)에 getInitialProps가 있다면
     //     pageProps = (await Component.getInitialProps(ctx)) || {};

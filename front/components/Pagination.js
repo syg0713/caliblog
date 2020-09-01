@@ -83,12 +83,11 @@ const Pagination = () => {
 
   },[ current, start, end ])
 
-
-
   return (
     <>
         <Link
           href={{pathname: '/page', query: { goto : prevPageValue } }}
+          // href={'/page/[prevPageValue]'}
           as={`/page/${ prevPageValue }`}
           key={ prevPageValue }
           prefetch
@@ -105,6 +104,7 @@ const Pagination = () => {
         { target.map( val => (
           <Link
             href={{ pathname: '/page', query: { goto: val } }}
+            // href={'/page/[val]'}
             as={`/page/${val}`}
             key={ val }
             prefetch
@@ -124,6 +124,7 @@ const Pagination = () => {
 
         <Link
           href={{ pathname: '/page', query: { goto: nextPageValue } }}
+          // href={'/page/[nextPageValue]'}
           as={`/page/${ nextPageValue }`}
           key={ nextPageValue }
           prefetch

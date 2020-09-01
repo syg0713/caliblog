@@ -9,15 +9,15 @@ const Title = memo(({ post }) => {
   const preventAccess = useCallback(() => {
     alert('로그인이 필요합니다.');
   },[])
-
+  const postId = post.id;
   return (
     <>
         <div className="title__container">
             { me ?
                 <Link
-                href={{ pathname: '/contentRender', query: { postId: post.id }}}
-                as={`/contentRender/${post.id}`}
-                key={post.id}
+                href={'/post/[postId]'}
+                as={`/post/${postId}`}
+                key={postId}
                 prefetch
               >
                 <a className="link__item">
