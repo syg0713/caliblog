@@ -10,6 +10,7 @@ const router = express.Router();
 // ('/', = REST API
 // , async ( req, res, next ) => {.. = 컨트롤러
 router.get('/', isLoggedIn, (req, res) => { // /api/user/
+  console.log(req.headers,'22222222222222222');
   const user = Object.assign({}, req.user.toJSON());
   delete user.password;
   return res.json(user);
@@ -29,7 +30,7 @@ router.post('/', async ( req, res, next ) => { // POST /api/user 회원가입
       userId:req.body.userId,
       password: hashedPassword,
     });
-    console.log(newUser);
+    // console.log(newUser);
     return res.status(200).json(newUser);
   } catch (e) {
     console.error(e);
@@ -51,7 +52,7 @@ router.post('/login', (req, res, next) => { // POST /api/user/login
         if (loginErr) {
           return next(loginErr);
         }
-        console.log('login success', req.user);
+        // console.log('login success', req.user);
         // const filteredUser = Object.assign({}, user.toJSON());
         // delete filteredUser.password;
         // return res.json(filteredUser);
@@ -72,7 +73,7 @@ router.post('/login', (req, res, next) => { // POST /api/user/login
           // }],
           // attributes: ['id', 'nickname', 'userId'],
         });
-        console.log(fullUser);
+        // console.log(fullUser);
         return res.json(fullUser);
       } catch (e) {
         next(e);

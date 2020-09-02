@@ -86,11 +86,11 @@ const Pagination = () => {
   return (
     <>
         <Link
-          href={{pathname: '/page', query: { goto : prevPageValue } }}
-          // href={'/page/[prevPageValue]'}
+          // href={{pathname: '/page', query: { goto : prevPageValue } }}
+          href={'/page/[prevPageValue]'}
           as={`/page/${ prevPageValue }`}
           key={ prevPageValue }
-          prefetch
+          // prefetch
         >
             <a className={ 
               start == 0 ? 'prev--none' : 'prev'
@@ -103,11 +103,11 @@ const Pagination = () => {
 
         { target.map( val => (
           <Link
-            href={{ pathname: '/page', query: { goto: val } }}
-            // href={'/page/[val]'}
+            // href={{ pathname: '/page', query: { goto: val } }}
+            href={'/page/[val]'}
             as={`/page/${val}`}
             key={ val }
-            prefetch
+            // prefetch
           >
             <li key={ val }
               onClick={() => {
@@ -123,11 +123,11 @@ const Pagination = () => {
         ))}
 
         <Link
-          href={{ pathname: '/page', query: { goto: nextPageValue } }}
-          // href={'/page/[nextPageValue]'}
+          // href={{ pathname: '/page', query: { goto: nextPageValue } }}
+          href={'/page/[nextPageValue]'}
           as={`/page/${ nextPageValue }`}
           key={ nextPageValue }
-          prefetch
+          // prefetch
         >
           <a className={ 
             end+1 > total ? 'next--none' : 'next'

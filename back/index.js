@@ -24,7 +24,8 @@ app.use( '/', express.static('uploads')); // 프론트 서버 uploads 폴더의 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: true,
+  // origin: true,
+  origin: 'http://localhost:3060',
   credentials: true,
 }));
 app.use(cookieParser(process.env.COOKIE_SECRET));

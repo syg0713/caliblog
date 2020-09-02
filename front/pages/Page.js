@@ -41,7 +41,7 @@ Page.getInitialProps = async ( context ) => {
     type: LOAD_MAIN_POSTS_REQUEST,
     offset: (goto-1)*10,
   });
-  return { goto: parseInt( goto, 10)};
+  // return { goto: parseInt( goto, 10)};
 };
 
 Page.propTypes = {

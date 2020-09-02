@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { END } from 'redux-saga';
+import wrapper from '../store/configureStore';
 import Title from '../components/Title';
 import { 
     LOAD_MAIN_POSTS_REQUEST,
@@ -7,6 +9,8 @@ import {
     UPDATE_START_END_PAGE,
     POST_RESET_DONE 
 } from '../reducers/post';
+import { LOAD_USER_REQUEST } from '../reducers/user';
+import axios from 'axios';
 
 const Home = () => {
     const { me } = useSelector( state => state.user );
@@ -40,15 +44,34 @@ const Home = () => {
     );
 };
 
-// getInitialProps
-Home.getInitialProps = async ( context ) => {
-    // console.log(context);
+export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
+    if ( context.req && cookie ) {
+        axios.defaults.headers.Cookie = cookie;
+    }
     context.store.dispatch({
       type: LOAD_MAIN_POSTS_REQUEST,
-    });
+    })
+    context.store.dispatch({
+        type: LOAD_USER_REQUEST,
+    })
     context.store.dispatch({
         type: CURRENT_PAGE_NUMBER,
         payload: 1
     });
-};
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
+});
+// getInitialProps
+// Home.getInitialProps = async ( context ) => {
+//     // console.log(context);
+//     context.store.dispatch({
+//       type: LOAD_MAIN_POSTS_REQUEST,
+//     });
+//     context.store.dispatch({
+//         type: CURRENT_PAGE_NUMBER,
+//         payload: 1
+//     });
+// };
+
 export default Home;
