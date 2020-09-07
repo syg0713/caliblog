@@ -4,6 +4,12 @@ import Router from "next/router";
 import { object } from 'prop-types';
 import { SIGN_UP_REQUEST, SIGN_UP_DONE } from '../reducers/user';
 
+import { useRouter } from 'next/router'
+import { LOAD_USER_REQUEST } from '../reducers/user';
+import { END } from 'redux-saga';
+import axios from 'axios';
+import wrapper from '../store/configureStore';
+
 // 커스텀 훅
 export const useInput = (initValue = null) => {
     const [value, setter] = useState(initValue);
@@ -118,11 +124,29 @@ const signup = () => {
     </div>
     </>
 };
+
+
+export const getServerSideProps = wrapper.getServerSideProps( async ( context ) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
+
+    if ( context.req && cookie ) {
+        axios.defaults.headers.Cookie = cookie;
+    }
+    context.store.dispatch({
+        type: LOAD_USER_REQUEST,
+    })
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
+    return { props: {
+        pathname: '/signup',
+    } };
+})
+
 // getInitialProps
-signup.getInitialProps = async ( context ) => {
-    const { pathname } = context;
-    return { pathname }
-};
+// signup.getInitialProps = async ( context ) => {
+//     const { pathname } = context;
+//     return { pathname }
+// };
 
 signup.propTypes = {
 };

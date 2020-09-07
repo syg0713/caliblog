@@ -59,7 +59,7 @@ router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
     //     model: db.Image,
     //   }],
     // });
-    res.json(fullPost);
+    res.status(201).json(fullPost);
   } catch (e) {
     console.error(e);
     next(e);
@@ -77,6 +77,9 @@ router.get('/:id', async ( req, res, next ) => {
         model: db.Image,
       }],
     });
+    if ( !post ) {
+      return res.status(404).send('존재하지 않는 게시글 입니다.');
+    }
     res.json(post);
   } catch (e) {
     console.error(e);

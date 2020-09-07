@@ -17,13 +17,14 @@ import Pagination from '../components/Pagination';
 import PostButton from '../components/PostButton';
 
 
-const CaliBlog = ({ Component, store, pageProps }) => {
+const CaliBlog = ({ Component, pageProps }) => {
     const pagePropsValue = ( pageProps && pageProps.pathname );
     // 해당 페이지들 네비게이션 및 글쓰기 UI 삭제.
     return pagePropsValue ==='/contentRender' ||
     pagePropsValue ==='/profile'||
     pagePropsValue ==='/search' ||
     pagePropsValue ==='/signup' ||
+    pagePropsValue ==='/post' ||
     pagePropsValue ==='/PostForm'
     ?
     (
@@ -144,7 +145,6 @@ const CaliBlog = ({ Component, store, pageProps }) => {
 // propTypes
 CaliBlog.propTypes = {
     Component: PropTypes.elementType.isRequired,
-    store: PropTypes.object.isRequired,
     pageProps: PropTypes.object.isRequired,
   };
 
@@ -195,24 +195,6 @@ CaliBlog.propTypes = {
 //     return store;
 // }
 
-// 미들웨어를 달아줘야 브라우저에서 리덕스 상태를 확인 가능하다
-// export default withRedux(( initialState, options ) => {
-//     const sagaMiddleware = createSagaMiddleware(); // 사가 미들웨어 아래 미들웨어에 넣어주기.
-//     const middlewares = [sagaMiddleware];
-//     const enhancer =
-//     process.env.NODE_ENV === "production"
-//       ? compose(applyMiddleware(...middlewares))
-//       : compose(
-//         applyMiddleware(...middlewares),
-//         !options.isServer &&
-//           typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== "undefined"
-//           ? window.__REDUX_DEVTOOLS_EXTENSION__()
-//           : (f) => f
-//       );
-//     const store = createStore(reducer, initialState, enhancer);
-//     store.sagaTask = sagaMiddleware.run(rootSaga); // 리덕스를 사가태스크로 연결하여 사가미들웨어로 사가를 실행.
-//     return store;
-// })(withReduxSaga(CaliBlog));
 export default wrapper.withRedux(CaliBlog);
-
+// export default withRedux(configureStore)(withReduxSaga(CaliBlog));
 

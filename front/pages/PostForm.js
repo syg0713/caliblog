@@ -8,6 +8,11 @@ import {
     REMOVE_IMAGE,
 } from '../reducers/post';
 
+import { LOAD_USER_REQUEST } from '../reducers/user';
+import { END } from 'redux-saga';
+import axios from 'axios';
+import wrapper from '../store/configureStore';
+
 const PostForm = () => {
     const dispatch = useDispatch();
     const [ title, setTitle ] = useState('');
@@ -102,11 +107,28 @@ const PostForm = () => {
         </>
     );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
+
+    if ( context.req && cookie ) {
+        axios.defaults.headers.Cookie = cookie;
+    }
+    context.store.dispatch({
+        type: LOAD_USER_REQUEST,
+    })
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
+    return { props: {
+        pathname: '/PostForm',
+    } };
+});
+
 // getInitialProps
-PostForm.getInitialProps = async ( context ) => {
-    const { pathname } = context;
-    return { pathname }
-};
+// PostForm.getInitialProps = async ( context ) => {
+//     const { pathname } = context;
+//     return { pathname }
+// };
 PostForm.propTypes = {
     
 }

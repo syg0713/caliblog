@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux';
 import Title from '../../components/Title';
 import { LOAD_MAIN_POSTS_REQUEST, UPDATE_START_END_PAGE } from '../../reducers/post';
-import { useRouter } from 'next/router'
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
@@ -17,7 +17,6 @@ const Page = () => {
   const { mainPosts } = useSelector( state => state.post );
   const router = useRouter();
   const { page } = router.query;
-
   return (
     <>
       {mainPosts.map((item) => {
@@ -32,7 +31,7 @@ const Page = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
   const cookie = context.req ? context.req.headers.cookie : '';
-  const { page } = context.query;
+  const { page } = context.params;
 
   if ( context.req && cookie ) {
       axios.defaults.headers.Cookie = cookie;
@@ -46,7 +45,9 @@ export const getServerSideProps = wrapper.getServerSideProps( async( context ) =
   });
   context.store.dispatch(END);
   await context.store.sagaTask.toPromise();
-  // return { pathname };
+  return { props: {
+    pathname: '/page',
+  } };
 });
 
 
@@ -61,7 +62,7 @@ export const getServerSideProps = wrapper.getServerSideProps( async( context ) =
 // };
 
 Page.propTypes = {
-  goto: PropTypes.number.isRequired,
+  // goto: PropTypes.number.isRequired,
 };
 
 export default Page;

@@ -62,6 +62,7 @@ export const getServerSideProps = wrapper.getServerSideProps( async( context ) =
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
 });
+
 // getInitialProps
 // Home.getInitialProps = async ( context ) => {
 //     // console.log(context);

@@ -35,7 +35,6 @@ const Search = ({ keyword }) => {
 
 // getInitialProps
 Search.getInitialProps = async ( context ) => {
-  // console.log(context);
   const { pathname } = context;
   const { keyword } = context.query;
   context.store.dispatch({

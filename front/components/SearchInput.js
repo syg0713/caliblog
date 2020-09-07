@@ -10,10 +10,6 @@ const SearchInput = () => {
     setKeyword(e.target.value);
   },[])
 
-  // useEffect(() => {
-  //   // console.log(search);
-  // },[keyword]);
-
   return (
       <div className="search">
         <input type="text" placeholder="검색어를 입력해주세요."
@@ -24,7 +20,7 @@ const SearchInput = () => {
           }}
         />
         <Link
-          href={{ pathname: '/search', query: { keyword } }}
+          href={'/search/[keyword]'}
           as={`/search/${keyword}`}
         >
           <a ref={enterRef}>
