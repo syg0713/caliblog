@@ -96,32 +96,32 @@ const signup = () => {
 
 
     return <>
-    <div className="signup__container">
-        <form onSubmit={onSubmit}>
-            <div>아이디
-                <input type="text" value={id} required onChange={onChangeId} className="custom-input"/>
-            </div>
-            <div>비밀번호
-                <input type="password" value={password} required onChange={onChangePassword} className="custom-input"/>
-            </div>
-            <div>비밀번호 확인
-                <input type="password" value={passwordCheck} required onChange={onChangePasswordCheck} className="custom-input"/>
-            </div>
-            {passwordError && (
-                <div className="invalid">비밀번호가 일치하지 않습니다.</div>
-            )}
-            <div className="term">
-                <label htmlFor="term__check">
-                    <input type="checkbox" name="" value={term} required onChange={onChangeTerm} id="term__check"></input>
-                    약관에 동의합니다.
-                </label>
-                {termError && 
-                    <div>약관에 동의하셔야 합니다.</div>
-                }
-            </div>
-            <button type="submit" className="custom-button">가입하기</button>
-        </form>
-    </div>
+        <div className="signup__container">
+            <form onSubmit={onSubmit}>
+                <div>아이디
+                    <input type="text" value={id} required onChange={onChangeId} className="custom-input"/>
+                </div>
+                <div>비밀번호
+                    <input type="password" value={password} required onChange={onChangePassword} className="custom-input"/>
+                </div>
+                <div>비밀번호 확인
+                    <input type="password" value={passwordCheck} required onChange={onChangePasswordCheck} className="custom-input"/>
+                </div>
+                {passwordError && (
+                    <div className="invalid">비밀번호가 일치하지 않습니다.</div>
+                )}
+                <div className="term">
+                    <label htmlFor="term__check">
+                        <input type="checkbox" name="" value={term} required onChange={onChangeTerm} id="term__check"></input>
+                        약관에 동의합니다.
+                    </label>
+                    {termError && 
+                        <div>약관에 동의하셔야 합니다.</div>
+                    }
+                </div>
+                <button type="submit" className="custom-button">가입하기</button>
+            </form>
+        </div>
     </>
 };
 

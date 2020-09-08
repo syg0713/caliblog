@@ -17,7 +17,6 @@ module.exports = withSass(withBundleAnalyzer({
     }
   },
   webpack( config ) {
-    console.log('config111111111111111111111',config);
     const prod = process.env.NODE_ENV === 'production';
     const plugins = [
       ...config.plugins,

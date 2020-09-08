@@ -9,8 +9,6 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
 
-import styled from 'styled-components';
-
 
 const Page = () => {
   // const dispatch = useDispatch();
@@ -21,13 +19,12 @@ const Page = () => {
     <>
       {mainPosts.map((item) => {
           return (
-              <Title key={item.id} post={item} />
+            <Title key={item.id} post={item} />
           );
       })}
     </>
   );
 };
-
 
 export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
   const cookie = context.req ? context.req.headers.cookie : '';

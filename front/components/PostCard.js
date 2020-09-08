@@ -47,14 +47,14 @@ const PostCard = memo(({ postId }) => {
         }
     },[ postId.id ])
 
-    const dummy = [
-        {
-        image: 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg',
-        id: 1,
-        content: 'Lorem1',
-        rating: 4
-        },
-    ]
+    // const dummy = [
+    //     {
+    //     image: 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg',
+    //     id: 1,
+    //     content: 'Lorem1',
+    //     rating: 4
+    //     },
+    // ]
     
     return (
             <div className="postCard__container">
@@ -70,17 +70,17 @@ const PostCard = memo(({ postId }) => {
                             </div>
                     </button>
                 </section>
-                <div>
+                <div className="userName">
                     { singlePost.User.userId }
                 </div>
-                <div>
-                {singlePost.Images && singlePost.Images[0] && <img src={ `http://localhost:3065/${singlePost.Images[0].src}` } style={{ maxWidth: '800px' }} alt=""/>}
+                <div className="imageRenderer">
+                {singlePost.Images && singlePost.Images[0] && <img src={ `http://localhost:3065/${singlePost.Images[0].src}` } style={{ maxWidth: '100%' }} alt=""/>}
                 </div>
-                <div>
+                <div className="contnetRenderer">
                     { singlePost.content }
                 </div>
 
-                {dummy.map((v) => {
+                {/* {dummy.map((v) => {
                     return(
                         <div>
                             <div><img src={v.image} alt=""/></div>
@@ -89,7 +89,7 @@ const PostCard = memo(({ postId }) => {
                             <Rating star={v.rating} />
                         </div>
                     )
-                })}
+                })} */}
             </div>
 
     );

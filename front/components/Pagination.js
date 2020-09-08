@@ -85,7 +85,9 @@ const Pagination = () => {
 
   return (
     <>
-        <Link
+      <div className="pagination__container">
+        
+      <Link
           // href={{pathname: '/page', query: { goto : prevPageValue } }}
           href={'/page/[prevPageValue]'}
           as={`/page/${ prevPageValue }`}
@@ -137,6 +139,8 @@ const Pagination = () => {
             </button>
           </a>
         </Link>
+
+      </div>
     </>
   );
 };

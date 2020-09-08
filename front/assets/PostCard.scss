@@ -1,4 +1,5 @@
 .postCard__container{
+    padding: 1.5rem;
     .head{
         display: flex;
         .head__headLine{
@@ -35,5 +36,14 @@
                 }
             }
         }        
+    }
+    .userName{
+        margin: 1rem 0;
+    }
+    .imageRenderer{
+
+    }
+    .contentRenderer{
+
     }
 }

@@ -85,7 +85,7 @@ function* loadMainPosts(action) {
     }
 }
 function* watchLoadMainPosts() {
-    yield takeLatest(LOAD_MAIN_POSTS_REQUEST, loadMainPosts);
+    yield throttle(2000, LOAD_MAIN_POSTS_REQUEST, loadMainPosts);
 }
 function loadSinglePostAPI(postId) {
     return axios.get(`/post/${postId}`);
@@ -105,7 +105,7 @@ function* loadSinglePost(action) {
     }
 }
 function* watchLoadSinglePost() {
-    yield takeLatest(LOAD_SINGLE_POST_REQUEST, loadSinglePost);
+    yield throttle(2000, LOAD_SINGLE_POST_REQUEST, loadSinglePost);
 }
 function loadSearchPostsAPI(keyword, lastId) {
     return axios.get(`/search/${encodeURIComponent(keyword)}?lastId=${lastId}&limit=10`);
@@ -125,7 +125,7 @@ function* loadSearchPosts(action) {
     }
 }
 function* watchLoadSearchPost() {
-    yield takeLatest(LOAD_SEARCH_POSTS_REQUEST, loadSearchPosts);
+    yield throttle(2000, LOAD_SEARCH_POSTS_REQUEST, loadSearchPosts);
 }
 
 function uploadImagesAPI(formData) {

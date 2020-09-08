@@ -1,16 +1,16 @@
 import React from 'react';
 import AppLayout from "../components/AppLayout";
 import PropTypes from "prop-types";
-import withRedux from 'next-redux-wrapper';
-import { Provider, useSelector, useDispatch } from "react-redux";
-import { createStore, compose, applyMiddleware } from 'redux';
-import createSagaMiddleware from "redux-saga";
-import reducer from "../reducers";
-import rootSaga from "../sagas";
 import Helmet from "react-helmet";
-import { LOAD_USER_REQUEST } from '../reducers/user';
-import axios from 'axios';
 import wrapper from '../store/configureStore';
+// import withRedux from 'next-redux-wrapper';
+// import { Provider, useSelector, useDispatch } from "react-redux";
+// import { createStore, compose, applyMiddleware } from 'redux';
+// import createSagaMiddleware from "redux-saga";
+// import reducer from "../reducers";
+// import rootSaga from "../sagas";
+// import { LOAD_USER_REQUEST } from '../reducers/user';
+// import axios from 'axios';
 
 import '../assets/index.scss';
 import Pagination from '../components/Pagination';
@@ -31,6 +31,7 @@ const CaliBlog = ({ Component, pageProps }) => {
         <>
             <Helmet
                 title="CaliBlog"
+                description="블로그"
                 htmlAttributes={{ lang: "ko" }}
                 meta={[
                     {

@@ -23,7 +23,6 @@ const Profile = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps( async ( context ) => {
-    const { pathname } = context;
     const cookie = context.req ? context.req.headers.cookie : '';
     console.log(context.query);
     console.log('pathname');

@@ -43,10 +43,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // routes 폴더로 분리: 라우터
-app.use('/api/user', userAPIRouter);
-app.use('/api/post', postAPIRouter);
-app.use('/api/posts', postsAPIRouter);
-app.use('/api/search', searchAPIRouter);
+app.use('/user', userAPIRouter);
+app.use('/post', postAPIRouter);
+app.use('/posts', postsAPIRouter);
+app.use('/search', searchAPIRouter);
 
 // 서버 실행
 app.listen(3065, () => {

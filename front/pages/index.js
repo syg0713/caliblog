@@ -11,6 +11,7 @@ import {
 } from '../reducers/post';
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import axios from 'axios';
+import styled from 'styled-components';
 
 const Home = () => {
     const { me } = useSelector( state => state.user );
@@ -39,10 +40,14 @@ const Home = () => {
                         <Title key={item.id} post={item}/>
                     );
                 }) }
+                <div>test</div>
             </div>
         </>
     );
 };
+const Title2 = styled.div`
+  color: red;
+`;
 
 export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
