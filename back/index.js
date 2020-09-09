@@ -15,7 +15,12 @@ const searchAPIRouter = require('./routes/search');
 
 dotenv.config();
 const app = express();
-db.sequelize.sync();
+db.sequelize.sync()
+  .then(() => {
+    console.log('db 연결 성공 db 연결 성공 db 연결 성공 db 연결 성공 db 연결 성공 db 연결 성공 db 연결 성공 ');
+  })
+  .catch(console.error);
+  
 passportConfig();
 
 // 미들웨어

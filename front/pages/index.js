@@ -40,7 +40,7 @@ const Home = () => {
                         <Title key={item.id} post={item}/>
                     );
                 }) }
-                <div>test</div>
+                <Title2>test</Title2>
             </div>
         </>
     );
