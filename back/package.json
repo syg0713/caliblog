@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon app"
   },
-  "author": "SeoYeongGyu",
+  "author": "calininja",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
